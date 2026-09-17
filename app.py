@@ -165,8 +165,9 @@ if app_mode == "📝 Give Mock Test (Custom Mix)":
 
             st.info(f"⏱️ **Dynamic Time:** {minutes} Min {seconds} Sec ({num_questions} Questions × 35s)")
 
-       if st.button("🚀 Start Test"):
-       if filtered_available:
+        if st.button("🚀 Start Test"):
+       
+            if filtered_available:
             st.session_state.test_started = True
             st.session_state.test_submitted = False
             st.session_state.test_questions = random.sample(
@@ -176,7 +177,7 @@ if app_mode == "📝 Give Mock Test (Custom Mix)":
             st.session_state.duration_seconds = allocated_time_seconds
             st.session_state.user_answers = {}
             st.rerun()
-       else:
+            else:
         
             st.error("Selected subjects me questions available nahi hain.")
 

@@ -328,13 +328,13 @@ elif app_mode == "Community Q&A Box":
             else:
                 st.error("Question text cannot be empty!")
 
-# 3. SUBSCRIPTION & ₹10 UPI GATEWAY (STANDARDIZED)
+# 3. SUBSCRIPTION & ₹10 UPI GATEWAY
 elif app_mode == "Subscription (Rs 10/Month)":
     st.header("💳 Omega CBT 1-Month Pass")
     u_info = st.session_state.users.get(user_email, {})
     st.info(f"User ID: `{user_email}` | Status: `{'Active' if u_info.get('is_subscribed') else 'Inactive'}` | Valid Till: `{u_info.get('sub_end', 'N/A')}`")
 
-    # Clean, glitch-free UPI URI
+    # Native direct URI: completely avoids payee-name encoding conflicts
     upi_uri = f"upi://pay?pa={MERCHANT_UPI_ID}&am=10&cu=INR"
     qr_api = f"https://api.qrserver.com/v1/create-qr-code/?size=220x220&data={urllib.parse.quote(upi_uri)}"
 
@@ -361,4 +361,4 @@ elif app_mode == "Subscription (Rs 10/Month)":
                     st.rerun()
                 else:
                     st.error("Please enter a valid Transaction / UTR number.")
-                    
+        

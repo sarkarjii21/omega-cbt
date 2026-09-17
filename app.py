@@ -13,11 +13,11 @@ st.set_page_config(
     layout="wide",
 )
 
-DATA_FILE = "omega_question_bank.json"
+DATA_FILE = "questions.json"
 USERS_FILE = "omega_users.json"
 SHEETDB_API_URL = "https://sheetdb.io/api/v1/ptx6z420d876c"
 
-# Built-in Default Questions (Always available publicly)
+# Fallback questions in case file isn't found
 DEFAULT_QUESTIONS = [
     {
         "subject": "Electrical Engineering",
@@ -32,70 +32,7 @@ DEFAULT_QUESTIONS = [
         "options": ["Transformers against internal faults", "Transmission lines against lightning", "Generators against overspeed", "Induction motors against overloading"],
         "correct_option": "Transformers against internal faults",
         "image_path": None,
-    },
-    {
-        "subject": "Electrical Engineering",
-        "question": "What is the form factor of a pure sinusoidal alternating wave?",
-        "options": ["1.11", "1.414", "0.707", "0.637"],
-        "correct_option": "1.11",
-        "image_path": None,
-    },
-    {
-        "subject": "Electrical Engineering",
-        "question": "In a 3-phase induction motor, if rotor speed is equal to synchronous speed, the slip is:",
-        "options": ["0", "1", "Infinity", "0.5"],
-        "correct_option": "0",
-        "image_path": None,
-    },
-    {
-        "subject": "Electrical Engineering",
-        "question": "The primary function of a choke in a fluorescent lamp circuit is to:",
-        "options": ["Provide high surge voltage to initiate arc and limit operating current", "Convert AC to DC", "Improve system power factor", "Eliminate stroboscopic effect"],
-        "correct_option": "Provide high surge voltage to initiate arc and limit operating current",
-        "image_path": None,
-    },
-    {
-        "subject": "Electrical Engineering",
-        "question": "Which bridge is most suitably used for the measurement of high-voltage dielectric loss and capacitance?",
-        "options": ["Schering Bridge", "Wheatstone Bridge", "Maxwell Bridge", "Anderson Bridge"],
-        "correct_option": "Schering Bridge",
-        "image_path": None,
-    },
-    {
-        "subject": "Electrical Engineering",
-        "question": "Skin effect in a transmission conductor depends on:",
-        "options": ["Supply frequency, conductor diameter, and permeability", "Only conductor length", "Supply voltage level only", "Insulation dielectric strength"],
-        "correct_option": "Supply frequency, conductor diameter, and permeability",
-        "image_path": None,
-    },
-    {
-        "subject": "Electrical Engineering",
-        "question": "A synchronous motor can operate at:",
-        "options": ["Lagging, leading, and unity power factors", "Lagging power factor only", "Leading power factor only", "Unity power factor only"],
-        "correct_option": "Lagging, leading, and unity power factors",
-        "image_path": None,
-    },
-    {
-        "subject": "GK / GS",
-        "question": "Who is known as the architect of the Indian Constitution?",
-        "options": ["Dr. B. R. Ambedkar", "Dr. Rajendra Prasad", "Jawaharlal Nehru", "Sardar Vallabhbhai Patel"],
-        "correct_option": "Dr. B. R. Ambedkar",
-        "image_path": None,
-    },
-    {
-        "subject": "Reasoning",
-        "question": "Find the next number in the series: 2, 6, 12, 20, 30, ?",
-        "options": ["42", "40", "36", "48"],
-        "correct_option": "42",
-        "image_path": None,
-    },
-    {
-        "subject": "Mathematics",
-        "question": "If the radius of a circle is doubled, its area increases by what factor?",
-        "options": ["4 times", "2 times", "8 times", "16 times"],
-        "correct_option": "4 times",
-        "image_path": None,
-    },
+    }
 ]
 
 
@@ -117,15 +54,9 @@ def load_data(filename, default_val):
         with open(filename, "r", encoding="utf-8") as f:
             try:
                 data = json.load(f)
-                if isinstance(default_val, list) and isinstance(data, list):
-                    # Combine default questions with locally saved additions
-                    existing_qs = {q.get("question") for q in data}
-                    combined = list(data)
-                    for item in default_val:
-                        if item.get("question") not in existing_qs:
-                            combined.append(item)
-                    return combined
-                return data
+                if isinstance(data, list) and len(data) > 0:
+                    return data
+                return default_val
             except json.JSONDecodeError:
                 return default_val
     return default_val
@@ -459,10 +390,10 @@ elif app_mode == "➕ Manage & Add Questions":
                 st.error("⚠️ Question text aur correct answer bharna zaroori hai.")
 
     st.markdown("---")
-    if st.button("🗑️ Reset Entire Question Bank"):
+    if st.button("🗑️ Reset Question Bank to Default"):
         st.session_state.questions = list(DEFAULT_QUESTIONS)
         save_data(DATA_FILE, DEFAULT_QUESTIONS)
-        st.warning("⚠️ Question bank reset to default core questions!")
+        st.warning("⚠️ Question bank reset!")
 
 # ==========================================
 # MODE 3: COMMUNITY Q&A BOX (CONNECTED TO GOOGLE SHEET)
@@ -475,4 +406,50 @@ elif app_mode == "📥 Community Q&A Box":
         c_sub = st.selectbox("Subject Category", ALL_SUBJECTS)
         c_q = st.text_area("Question Text*")
 
-        col_a, col_b = st.colum
+        col_a, col_b = st.columns(2)
+        with col_a:
+            co1 = st.text_input("Option A (Optional)")
+            co2 = st.text_input("Option B (Optional)")
+        with col_b:
+            co3 = st.text_input("Option C (Optional)")
+            co4 = st.text_input("Option D (Optional)")
+
+        c_ans = st.text_input("Correct Answer / Solution Note (Optional)")
+        c_sender = st.text_input("Your Name / Telegram Handle (Optional)")
+
+        c_submit = st.form_submit_button("🚀 Submit to Admin")
+        if c_submit:
+            if not c_q.strip():
+                st.error("⚠️ कृपया सवाल खाली न छोड़ें!")
+            else:
+                opts = [o.strip() for o in [co1, co2, co3, co4] if o.strip()]
+                sheet_data = {
+                    "Subject": c_sub,
+                    "Question": c_q.strip(),
+                    "Options": ", ".join(opts) if opts else "None",
+                    "Answer": c_ans.strip() if c_ans.strip() else "Pending Review",
+                    "Submitted_By": c_sender.strip() if c_sender.strip() else "Anonymous",
+                }
+                if send_question_to_sheet(sheet_data):
+                    st.success("✅ सवाल एडमिन को सफलता से भेज दिया गया है!")
+                else:
+                    st.warning("⚠️ अभी सबमिट नहीं हो सका, कृपया दोबारा प्रयास करें।")
+
+# ==========================================
+# MODE 4: SUBSCRIPTION (₹10 / MONTH)
+# ==========================================
+elif app_mode == "💳 Subscription (₹10/Month)":
+    st.header("💳 Omega CBT Premium Access")
+    st.markdown("Har student ko **7-Day Free Trial** milta hai. Uske baad platform access ke liye sirf **₹10 / Month**.")
+
+    st.info(
+        f"User ID: `{user_email}`\n\n"
+        f"Trial Expiry: `{st.session_state.users.get(user_email, {}).get('trial_end', 'N/A')}`"
+    )
+
+    if st.button("Pay ₹10 & Activate 1-Month Pass"):
+        st.session_state.users[user_email]["is_subscribed"] = True
+        save_data(USERS_FILE, st.session_state.users)
+        st.balloons()
+        st.success("✨ Access active for 1 Month!")
+            

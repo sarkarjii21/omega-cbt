@@ -4,6 +4,7 @@ import os
 import random
 import time
 import streamlit as st
+import requests
 
 # 1. Page Configuration
 st.set_page_config(
@@ -30,19 +31,15 @@ def save_data(filename, data):
     with open(filename, "w", encoding="utf-8") as f:
         json.dump(data, f, ensure_ascii=False, indent=4)
 
-PENDING_FILE = "pending_submissions.json"
+SHEETDB_URL = "https://sheetdb.io/api/v1/ptx6z420d876c"
 
-def save_pending_question(submission_data):
-    items = []
-    if os.path.exists(PENDING_FILE):
-        try:
-            with open(PENDING_FILE, "r", encoding="utf-8") as f:
-                items = json.load(f)
-        except Exception:
-            items = []
-    items.append(submission_data)
-    with open(PENDING_FILE, "w", encoding="utf-8") as f:
-        json.dump(items, f, indent=4, ensure_ascii=False)
+def send_question_to_sheet(row_data):
+    try:
+        payload = {"data": [row_data]}
+        response = requests.post(SHEETDB_URL, json=payload, timeout=5)
+        return response.status_code in [200, 201]
+    except Exception:
+        return False
         
 # Initialize Session States
 if "questions" not in st.session_state:
@@ -181,10 +178,47 @@ if app_mode == "📝 Give Mock Test (Custom Mix)":
                     st.rerun()
                 else:
                     st.error("Selected subjects me questions available nahi hain.")
+            
+                          st.markdown("---")
+                          with st.expander("💡 Submit / Suggest a Question for Omega CBT"):
+                          st.caption("आपका सवाल एडमिन रिव्यू के बाद वेरिफाई होकर टेस्ट बैंक में शामिल होगा।")
+                          with st.form("community_question_form", clear_on_submit=True):
+                user_subject = st.selectbox("Subject", ALL_SUBJECTS)
+                user_q_text = st.text_area("Question Text*", placeholder="सवाल यहाँ लिखें...")
+                
+                col_o1, col_o2 = st.columns(2)
+                with col_o1:
+                    u_opt_a = st.text_input("Option A (Optional)")
+                    u_opt_b = st.text_input("Option B (Optional)")
+                with col_o2:
+                    u_opt_c = st.text_input("Option C (Optional)")
+                    u_opt_d = st.text_input("Option D (Optional)")
+                    
+                u_correct = st.text_input("Correct Answer / Solution Note (Optional)")
+                user_sender = st.text_input("Your Name / Telegram Handle (Optional)")
 
+                btn_submit_q = st.form_submit_button("🚀 Submit Question to Admin")
+
+                if btn_submit_q:
+                    if not user_q_text.strip():
+                        st.error("कृपया सवाल खाली न छोड़ें।")
+                    else:
+                        options_list = [o.strip() for o in [u_opt_a, u_opt_b, u_opt_c, u_opt_d] if o.strip()]
+                        sheet_row = {
+                            "Subject": user_subject,
+                            "Question": user_q_text.strip(),
+                            "Options": ", ".join(options_list) if options_list else "None",
+                            "Answer": u_correct.strip() or "Pending Review",
+                            "Submitted_By": user_sender.strip() or "Anonymous"
+                        }
+                        if send_question_to_sheet(sheet_row):
+                            st.success("✅ सवाल एडमिन को सफलता से भेज दिया गया है!")
+                        else:
+                            st.warning("⚠️ अभी सबमिट नहीं हो सका, कृपया दोबारा प्रयास करें।")
+                            
         # Active Test Screen with Timer
-        elif st.session_state.test_started and not st.session_state.test_submitted:
-            elapsed = time.time() - st.session_state.start_time
+
+    elif st.session_state.test_started and not st.session_state.test_submitted:
             remaining_sec = max(0, int(st.session_state.duration_seconds - elapsed))
 
             rem_min = remaining_sec // 60

@@ -30,7 +30,20 @@ def save_data(filename, data):
     with open(filename, "w", encoding="utf-8") as f:
         json.dump(data, f, ensure_ascii=False, indent=4)
 
+PENDING_FILE = "pending_submissions.json"
 
+def save_pending_question(submission_data):
+    items = []
+    if os.path.exists(PENDING_FILE):
+        try:
+            with open(PENDING_FILE, "r", encoding="utf-8") as f:
+                items = json.load(f)
+        except Exception:
+            items = []
+    items.append(submission_data)
+    with open(PENDING_FILE, "w", encoding="utf-8") as f:
+        json.dump(items, f, indent=4, ensure_ascii=False)
+        
 # Initialize Session States
 if "questions" not in st.session_state:
     st.session_state.questions = load_data(DATA_FILE, [])
@@ -149,11 +162,11 @@ if app_mode == "📝 Give Mock Test (Custom Mix)":
                     value=min(10, max_limit),
                 )
 
-            allocated_time_seconds = num_questions * 40
+            allocated_time_seconds = num_questions * 35
             minutes = allocated_time_seconds // 60
             seconds = allocated_time_seconds % 60
 
-            st.info(f"⏱️ **Dynamic Time:** {minutes} Min {seconds} Sec ({num_questions} Questions × 40s)")
+            st.info(f"⏱️ **Dynamic Time:** {minutes} Min {seconds} Sec ({num_questions} Questions × 35s)")
 
             if st.button("🚀 Start Test"):
                 if filtered_available:

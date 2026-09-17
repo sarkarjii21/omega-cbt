@@ -1,7 +1,6 @@
 [
   {
-    "id": 1,
-    "subject": "Non-Technical",
+    "subject": "GK / GS",
     "question": "Which planet is known as Earth's 'Twin Planet' due to its similar size, mass, and proximity?",
     "options": [
       "Mars",
@@ -10,21 +9,642 @@
       "Neptune"
     ],
     "correct_option": "Venus",
-    "image_path": null,
-    "bengali_meaning": "অনুরূপ আকার, ভর এবং দূরত্বের কারণে কোন গ্রহটিকে পৃথিবীর 'যমজ গ্রহ' বলা হয়?"
+    "image_path": null
   },
   {
-    "id": 2,
-    "subject": "Technical",
-    "question": "What is the primary function of a commutator in a DC generator?",
+    "subject": "GK / GS",
+    "question": "Which layer of the Earth's atmosphere contains the Ozone layer that absorbs harmful UV rays?",
     "options": [
-      "To convert AC armature current to DC in the external circuit",
-      "To increase the generated EMF",
-      "To provide mechanical support to armature conductors",
-      "To reduce eddy current losses"
+      "Troposphere",
+      "Stratosphere",
+      "Mesosphere",
+      "Thermosphere"
     ],
-    "correct_option": "To convert AC armature current to DC in the external circuit",
-    "image_path": null,
-    "bengali_meaning": "একটি ডিসি জেনারেটরে কমিউটেটরের প্রাথমিক কাজ কী?"
+    "correct_option": "Stratosphere",
+    "image_path": null
+  },
+  {
+    "subject": "GK / GS",
+    "question": "Which Fundamental Right in the Indian Constitution is referred to as the 'Heart and Soul' of the Constitution by Dr. B.R. Ambedkar?",
+    "options": [
+      "Right to Equality (Article 14)",
+      "Right to Freedom (Article 19)",
+      "Right to Constitutional Remedies (Article 32)",
+      "Right against Exploitation (Article 23)"
+    ],
+    "correct_option": "Right to Constitutional Remedies (Article 32)",
+    "image_path": null
+  },
+  {
+    "subject": "GK / GS",
+    "question": "What is the primary chemical compound found in vinegar?",
+    "options": [
+      "Acetic acid",
+      "Citric acid",
+      "Formic acid",
+      "Lactic acid"
+    ],
+    "correct_option": "Acetic acid",
+    "image_path": null
+  },
+  {
+    "subject": "Electrical Engineering",
+    "question": "Kirchhoff's Current Law (KCL) at a junction is based on the law of conservation of:",
+    "options": [
+      "Energy",
+      "Momentum",
+      "Charge",
+      "Mass"
+    ],
+    "correct_option": "Charge",
+    "image_path": null
+  },
+  {
+    "subject": "Electrical Engineering",
+    "question": "Which of the following elements is a non-linear element?",
+    "options": [
+      "Resistor",
+      "Diode",
+      "Inductor",
+      "Capacitor"
+    ],
+    "correct_option": "Diode",
+    "image_path": null
+  },
+  {
+    "subject": "Electrical Engineering",
+    "question": "An ideal voltage source has:",
+    "options": [
+      "Zero internal resistance",
+      "Infinite internal resistance",
+      "Large internal conductance",
+      "Finite non-zero resistance"
+    ],
+    "correct_option": "Zero internal resistance",
+    "image_path": null
+  },
+  {
+    "subject": "Electrical Engineering",
+    "question": "The internal resistance of an ideal current source is:",
+    "options": [
+      "Zero",
+      "Small",
+      "Infinite",
+      "Negative"
+    ],
+    "correct_option": "Infinite",
+    "image_path": null
+  },
+  {
+    "subject": "Electrical Engineering",
+    "question": "Superposition theorem is valid only for circuits that are:",
+    "options": [
+      "Non-linear and bilateral",
+      "Linear and bilateral",
+      "Linear and unilateral",
+      "Non-linear and unilateral"
+    ],
+    "correct_option": "Linear and bilateral",
+    "image_path": null
+  },
+  {
+    "subject": "Electrical Engineering",
+    "question": "The unit of magnetic reluctance is:",
+    "options": [
+      "Henry",
+      "Weber / Ampere-turn",
+      "Ampere-turn / Weber (A-t/Wb)",
+      "Ampere / meter"
+    ],
+    "correct_option": "Ampere-turn / Weber (A-t/Wb)",
+    "image_path": null
+  },
+  {
+    "subject": "Electrical Engineering",
+    "question": "In a purely capacitive AC circuit, the current:",
+    "options": [
+      "Lags voltage by 90°",
+      "Leads voltage by 90°",
+      "Is in phase with voltage",
+      "Leads voltage by 180°"
+    ],
+    "correct_option": "Leads voltage by 90°",
+    "image_path": null
+  },
+  {
+    "subject": "Electrical Engineering",
+    "question": "Under the condition of resonance in a series RLC circuit, the power factor is:",
+    "options": [
+      "Zero lagging",
+      "Zero leading",
+      "Unity",
+      "0.8 lagging"
+    ],
+    "correct_option": "Unity",
+    "image_path": null
+  },
+  {
+    "subject": "Electrical Engineering",
+    "question": "The form factor of a pure sinusoidal alternating wave is:",
+    "options": [
+      "1.0",
+      "1.11",
+      "1.414",
+      "0.707"
+    ],
+    "correct_option": "1.11",
+    "image_path": null
+  },
+  {
+    "subject": "Electrical Engineering",
+    "question": "The core of a transformer is laminated in order to reduce:",
+    "options": [
+      "Hysteresis loss",
+      "Eddy current loss",
+      "Copper loss",
+      "Stray load loss"
+    ],
+    "correct_option": "Eddy current loss",
+    "image_path": null
+  },
+  {
+    "subject": "Electrical Engineering",
+    "question": "An open-circuit test on a single-phase transformer is primarily conducted to determine:",
+    "options": [
+      "Copper loss",
+      "Equivalent winding resistance",
+      "Core loss (Iron loss)",
+      "Total leakage reactance"
+    ],
+    "correct_option": "Core loss (Iron loss)",
+    "image_path": null
+  },
+  {
+    "subject": "Electrical Engineering",
+    "question": "In a DC generator, the actual function of the commutator is to:",
+    "options": [
+      "Collect current from brushes",
+      "Convert internal AC to external DC",
+      "Reduce armature reaction",
+      "Increase generated EMF"
+    ],
+    "correct_option": "Convert internal AC to external DC",
+    "image_path": null
+  },
+  {
+    "subject": "Electrical Engineering",
+    "question": "Which DC motor should NEVER be started on no-load?",
+    "options": [
+      "DC Shunt Motor",
+      "DC Series Motor",
+      "Cumulative Compound Motor",
+      "Differentially Compound Motor"
+    ],
+    "correct_option": "DC Series Motor",
+    "image_path": null
+  },
+  {
+    "subject": "Electrical Engineering",
+    "question": "In a 3-phase induction motor, when the rotor is at standstill (blocked rotor), the slip (s) is equal to:",
+    "options": [
+      "0",
+      "0.5",
+      "1",
+      "∞"
+    ],
+    "correct_option": "1",
+    "image_path": null
+  },
+  {
+    "subject": "Electrical Engineering",
+    "question": "A PMMC (Permanent Magnet Moving Coil) instrument can measure:",
+    "options": [
+      "Only AC quantities",
+      "Only DC quantities",
+      "Both AC and DC quantities",
+      "Pulsating AC only"
+    ],
+    "correct_option": "Only DC quantities",
+    "image_path": null
+  },
+  {
+    "subject": "Electrical Engineering",
+    "question": "To convert a moving coil galvanometer into an ammeter, we connect:",
+    "options": [
+      "A high resistance in series",
+      "A low resistance in series",
+      "A low resistance in parallel (shunt)",
+      "A high resistance in parallel"
+    ],
+    "correct_option": "A low resistance in parallel (shunt)",
+    "image_path": null
+  },
+  {
+    "subject": "Electrical Engineering",
+    "question": "In a two-wattmeter method of 3-phase power measurement, if one wattmeter reads zero, the power factor of the load is:",
+    "options": [
+      "1.0",
+      "0.866",
+      "0.5",
+      "0"
+    ],
+    "correct_option": "0.5",
+    "image_path": null
+  },
+  {
+    "subject": "Electrical Engineering",
+    "question": "The primary reason for bundle conductors in high-voltage transmission lines is to:",
+    "options": [
+      "Increase line resistance",
+      "Reduce corona loss and radio interference",
+      "Reduce line capacitance",
+      "Make mechanical stringing easier"
+    ],
+    "correct_option": "Reduce corona loss and radio interference",
+    "image_path": null
+  },
+  {
+    "subject": "Electrical Engineering",
+    "question": "Skin effect in a conductor increases with an increase in:",
+    "options": [
+      "Supply frequency",
+      "Conductor diameter",
+      "Permeability of conductor material",
+      "All of the above"
+    ],
+    "correct_option": "All of the above",
+    "image_path": null
+  },
+  {
+    "subject": "Electrical Engineering",
+    "question": "The Buchholz relay is used for the protection of:",
+    "options": [
+      "Transmission lines",
+      "Alternators against overcurrent",
+      "Oil-immersed transformers against internal faults",
+      "Synchronous motors against hunting"
+    ],
+    "correct_option": "Oil-immersed transformers against internal faults",
+    "image_path": null
+  },
+  {
+    "subject": "Electrical Engineering",
+    "question": "Kirchhoff's Voltage Law (KVL) is based on the principle of conservation of:",
+    "options": [
+      "Charge",
+      "Energy",
+      "Momentum",
+      "Magnetic flux"
+    ],
+    "correct_option": "Energy",
+    "image_path": null
+  },
+  {
+    "subject": "Electrical Engineering",
+    "question": "A bilateral circuit is defined as a circuit whose characteristics:",
+    "options": [
+      "Depend on the direction of current",
+      "Are independent of the direction of current flow",
+      "Change with changes in temperature only",
+      "Remain non-linear under all conditions"
+    ],
+    "correct_option": "Are independent of the direction of current flow",
+    "image_path": null
+  },
+  {
+    "subject": "Electrical Engineering",
+    "question": "The maximum power transfer theorem states that power transferred to the load is maximum when load resistance (R_L) equals:",
+    "options": [
+      "(R_th / 2)",
+      "2 R_th",
+      "R_th",
+      "Zero"
+    ],
+    "correct_option": "R_th",
+    "image_path": null
+  },
+  {
+    "subject": "Electrical Engineering",
+    "question": "The reciprocal of magnetic reluctance is known as:",
+    "options": [
+      "Susceptance",
+      "Permeance",
+      "Conductance",
+      "Retentivity"
+    ],
+    "correct_option": "Permeance",
+    "image_path": null
+  },
+  {
+    "subject": "Electrical Engineering",
+    "question": "In an AC circuit containing only a pure inductor, the phase angle between voltage and current is:",
+    "options": [
+      "Current leads voltage by 90°",
+      "Current lags voltage by 90°",
+      "Current and voltage are in phase",
+      "Current lags voltage by 180°"
+    ],
+    "correct_option": "Current lags voltage by 90°",
+    "image_path": null
+  },
+  {
+    "subject": "Electrical Engineering",
+    "question": "In a parallel resonant circuit (tank circuit), the impedance at resonant frequency is:",
+    "options": [
+      "Minimum",
+      "Maximum",
+      "Zero",
+      "Inductive only"
+    ],
+    "correct_option": "Maximum",
+    "image_path": null
+  },
+  {
+    "subject": "Electrical Engineering",
+    "question": "The peak factor (crest factor) of a standard sinusoidal waveform is:",
+    "options": [
+      "1.11",
+      "0.707",
+      "1.414",
+      "2.0"
+    ],
+    "correct_option": "1.414",
+    "image_path": null
+  },
+  {
+    "subject": "Electrical Engineering",
+    "question": "The primary and secondary windings of an ordinary two-winding transformer are linked:",
+    "options": [
+      "Conductively only",
+      "Magnetically only",
+      "Electrostatically only",
+      "Mechanically only"
+    ],
+    "correct_option": "Magnetically only",
+    "image_path": null
+  },
+  {
+    "subject": "Electrical Engineering",
+    "question": "In an auto-transformer, power is transferred from primary to secondary:",
+    "options": [
+      "Only conductively",
+      "Only inductively",
+      "Both conductively and inductively",
+      "Neither conductively nor inductively"
+    ],
+    "correct_option": "Both conductively and inductively",
+    "image_path": null
+  },
+  {
+    "subject": "Electrical Engineering",
+    "question": "The short-circuit (SC) test on a transformer gives information primarily regarding:",
+    "options": [
+      "Core loss and magnetizing current",
+      "Equivalent copper loss at rated current",
+      "Hysteresis loss only",
+      "Insulation resistance"
+    ],
+    "correct_option": "Equivalent copper loss at rated current",
+    "image_path": null
+  },
+  {
+    "subject": "Electrical Engineering",
+    "question": "In a DC machine, dummy coils are used in the armature winding to:",
+    "options": [
+      "Increase the generated EMF",
+      "Provide mechanical balance to the rotor",
+      "Improve commutation",
+      "Reduce eddy current loss"
+    ],
+    "correct_option": "Provide mechanical balance to the rotor",
+    "image_path": null
+  },
+  {
+    "subject": "Electrical Engineering",
+    "question": "Interpoles in a DC machine are connected in:",
+    "options": [
+      "Series with the armature winding",
+      "Parallel with the armature winding",
+      "Series with the shunt field winding",
+      "Parallel with the field poles"
+    ],
+    "correct_option": "Series with the armature winding",
+    "image_path": null
+  },
+  {
+    "subject": "Electrical Engineering",
+    "question": "A 3-phase induction motor operates on the principle of:",
+    "options": [
+      "Self-induction only",
+      "Mutual induction through a rotating magnetic field",
+      "Electrostatic attraction",
+      "Variable reluctance"
+    ],
+    "correct_option": "Mutual induction through a rotating magnetic field",
+    "image_path": null
+  },
+  {
+    "subject": "Electrical Engineering",
+    "question": "If two phases of the supply to a 3-phase induction motor are interchanged, the motor will:",
+    "options": [
+      "Continue running in the same direction",
+      "Run in the reverse direction",
+      "Burn immediately",
+      "Stop and refuse to start"
+    ],
+    "correct_option": "Run in the reverse direction",
+    "image_path": null
+  },
+  {
+    "subject": "Electrical Engineering",
+    "question": "A synchronous motor can operate at:",
+    "options": [
+      "Lagging power factor only",
+      "Leading power factor only",
+      "Unity power factor only",
+      "Lagging, leading, and unity power factors"
+    ],
+    "correct_option": "Lagging, leading, and unity power factors",
+    "image_path": null
+  },
+  {
+    "subject": "Electrical Engineering",
+    "question": "Which type of instrument exhibits a non-linear (cramped at lower end) scale?",
+    "options": [
+      "PMMC instrument",
+      "Moving Iron (MI) instrument",
+      "DC Potentiometer",
+      "D'Arsonval galvanometer"
+    ],
+    "correct_option": "Moving Iron (MI) instrument",
+    "image_path": null
+  },
+  {
+    "subject": "Electrical Engineering",
+    "question": "To convert a moving coil galvanometer into a voltmeter, one must connect:",
+    "options": [
+      "A high resistance in series",
+      "A low resistance in parallel",
+      "A low resistance in series",
+      "A high resistance in parallel"
+    ],
+    "correct_option": "A high resistance in series",
+    "image_path": null
+  },
+  {
+    "subject": "Electrical Engineering",
+    "question": "The creeping phenomenon occurs most commonly in:",
+    "options": [
+      "PMMC ammeters",
+      "Induction-type energy meters",
+      "Dynanometer wattmeters",
+      "Meggers"
+    ],
+    "correct_option": "Induction-type energy meters",
+    "image_path": null
+  },
+  {
+    "subject": "Electrical Engineering",
+    "question": "The Ferranti effect in long transmission lines under no-load or light-load condition causes:",
+    "options": [
+      "Receiving-end voltage to be greater than sending-end voltage",
+      "Sending-end voltage to be greater than receiving-end voltage",
+      "Receiving-end voltage to become zero",
+      "Line current to become zero"
+    ],
+    "correct_option": "Receiving-end voltage to be greater than sending-end voltage",
+    "image_path": null
+  },
+  {
+    "subject": "Electrical Engineering",
+    "question": "The color of silica gel in a transformer breather under dry (active) condition is:",
+    "options": [
+      "Pink",
+      "Blue",
+      "White",
+      "Brown"
+    ],
+    "correct_option": "Blue",
+    "image_path": null
+  },
+  {
+    "subject": "Electrical Engineering",
+    "question": "The superposition theorem is based on the concept of:",
+    "options": [
+      "Duality",
+      "Linearity",
+      "Reciprocity",
+      "Non-linearity"
+    ],
+    "correct_option": "Linearity",
+    "image_path": null
+  },
+  {
+    "subject": "Electrical Engineering",
+    "question": "The property of a material that opposes the creation of magnetic flux in it is known as:",
+    "options": [
+      "Permeance",
+      "Reluctance",
+      "Conductance",
+      "Inductance"
+    ],
+    "correct_option": "Reluctance",
+    "image_path": null
+  },
+  {
+    "subject": "Electrical Engineering",
+    "question": "The time constant of a series R-L circuit is given by:",
+    "options": [
+      "R/L",
+      "L/R",
+      "R * L",
+      "1/(R * L)"
+    ],
+    "correct_option": "L/R",
+    "image_path": null
+  },
+  {
+    "subject": "Electrical Engineering",
+    "question": "The time constant of a series R-C circuit is given by:",
+    "options": [
+      "R/C",
+      "C/R",
+      "R * C",
+      "1/(R * C)"
+    ],
+    "correct_option": "R * C",
+    "image_path": null
+  },
+  {
+    "subject": "Electrical Engineering",
+    "question": "In a pure inductive circuit, the active power (P) consumed is:",
+    "options": [
+      "Maximum",
+      "Zero",
+      "V * I",
+      "Negative"
+    ],
+    "correct_option": "Zero",
+    "image_path": null
+  },
+  {
+    "subject": "Electrical Engineering",
+    "question": "Under the condition of electrical resonance in a series R-L-C circuit, the circuit impedance is:",
+    "options": [
+      "Purely inductive",
+      "Purely capacitive",
+      "Purely resistive and minimum",
+      "Maximum"
+    ],
+    "correct_option": "Purely resistive and minimum",
+    "image_path": null
+  },
+  {
+    "subject": "Electrical Engineering",
+    "question": "In an ideal transformer, the efficiency is considered to be:",
+    "options": [
+      "80%",
+      "90%",
+      "98%",
+      "100%"
+    ],
+    "correct_option": "100%",
+    "image_path": null
+  },
+  {
+    "subject": "Electrical Engineering",
+    "question": "Transformer core laminations are insulated from each other by a thin layer of:",
+    "options": [
+      "Cotton",
+      "Varnish",
+      "Mica",
+      "Paper tape"
+    ],
+    "correct_option": "Varnish",
+    "image_path": null
+  },
+  {
+    "subject": "Electrical Engineering",
+    "question": "In a transformer, the frequency of the secondary voltage compared to the primary voltage is:",
+    "options": [
+      "Double",
+      "Half",
+      "Exactly the same",
+      "Dependent on turns ratio"
+    ],
+    "correct_option": "Exactly the same",
+    "image_path": null
+  },
+  {
+    "subject": "Electrical Engineering",
+    "question": "The direction of rotation of a DC motor can be reversed by:",
+    "options": [
+      "Reversing supply terminals only",
+      "Reversing either field or armature terminals",
+      "Reversing both field and armature terminals simultaneously",
+      "Reducing supply voltage"
+    ],
+    "correct_option": "Reversing either field or armature terminals",
+    "image_path": null
   }
 ]

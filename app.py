@@ -15,9 +15,11 @@ st.set_page_config(
 
 DATA_FILE = "questions.json"
 USERS_FILE = "omega_users.json"
+NOTICE_FILE = "omega_notice.json"
 SHEETDB_API_URL = "https://sheetdb.io/api/v1/ptx6z420d876c"
+ADMIN_SECRET_PIN = "omega999"
 
-# Fallback questions in case file isn't found
+# Built-in Default Fallback Questions
 DEFAULT_QUESTIONS = [
     {
         "subject": "Electrical Engineering",
@@ -32,7 +34,28 @@ DEFAULT_QUESTIONS = [
         "options": ["Transformers against internal faults", "Transmission lines against lightning", "Generators against overspeed", "Induction motors against overloading"],
         "correct_option": "Transformers against internal faults",
         "image_path": None,
-    }
+    },
+    {
+        "subject": "GK / GS",
+        "question": "Who is known as the architect of the Indian Constitution?",
+        "options": ["Dr. B. R. Ambedkar", "Dr. Rajendra Prasad", "Jawaharlal Nehru", "Sardar Vallabhbhai Patel"],
+        "correct_option": "Dr. B. R. Ambedkar",
+        "image_path": None,
+    },
+    {
+        "subject": "Reasoning",
+        "question": "Find the next number in the series: 2, 6, 12, 20, 30, ?",
+        "options": ["42", "40", "36", "48"],
+        "correct_option": "42",
+        "image_path": None,
+    },
+    {
+        "subject": "Mathematics",
+        "question": "If the radius of a circle is doubled, its area increases by what factor?",
+        "options": ["4 times", "2 times", "8 times", "16 times"],
+        "correct_option": "4 times",
+        "image_path": None,
+    },
 ]
 
 
@@ -56,6 +79,8 @@ def load_data(filename, default_val):
                 data = json.load(f)
                 if isinstance(data, list) and len(data) > 0:
                     return data
+                elif isinstance(data, dict):
+                    return data
                 return default_val
             except json.JSONDecodeError:
                 return default_val
@@ -74,6 +99,19 @@ if "questions" not in st.session_state:
 if "users" not in st.session_state:
     st.session_state.users = load_data(USERS_FILE, {})
 
+if "notice_data" not in st.session_state:
+    st.session_state.notice_data = load_data(
+        NOTICE_FILE,
+        {
+            "id": 1,
+            "text": "Welcome to Omega CBT! Check out mock tests and submit questions anytime.",
+            "date": str(datetime.date.today()),
+        },
+    )
+
+if "last_read_notice_id" not in st.session_state:
+    st.session_state.last_read_notice_id = 0
+
 if "test_started" not in st.session_state:
     st.session_state.test_started = False
 
@@ -86,6 +124,35 @@ if "user_answers" not in st.session_state:
 # --- HEADER BRANDING ---
 st.title("🎯 Omega CBT")
 st.markdown("**Dedicated Competitive Exam Portal (SSC JE / RRB JE | Technical & Non-Tech)**")
+
+# ==========================================
+# NOTICE BOARD SYSTEM (RED ALERT ON NEW NOTICE, GREEN ON READ)
+# ==========================================
+current_notice = st.session_state.notice_data
+is_new_notice = st.session_state.last_read_notice_id < current_notice.get("id", 1)
+
+if is_new_notice:
+    notice_banner_html = f"""
+    <div style="background: linear-gradient(90deg, #dc2626, #b91c1c); padding: 12px 18px; border-radius: 8px; margin-bottom: 12px; display: flex; justify-content: space-between; align-items: center; border: 1px solid #f87171; box-shadow: 0px 0px 12px rgba(239, 68, 68, 0.4);">
+        <span style="font-weight: bold; color: #ffffff; font-size: 16px;">🔴 NEW IMPORTANT NOTICE ({current_notice.get('date')}): Click below to read!</span>
+    </div>
+    """
+else:
+    notice_banner_html = f"""
+    <div style="background: #14532d; padding: 10px 18px; border-radius: 8px; margin-bottom: 12px; display: flex; justify-content: space-between; align-items: center; border: 1px solid #22c55e;">
+        <span style="font-weight: 500; color: #86efac; font-size: 15px;">🟢 Notice Board (Up to Date)</span>
+    </div>
+    """
+
+st.markdown(notice_banner_html, unsafe_allow_html=True)
+
+with st.expander("📢 Open Notice Board / View Announcements"):
+    st.info(f"**Notice (Posted on {current_notice.get('date')}):**\n\n{current_notice.get('text')}")
+    if is_new_notice:
+        if st.button("✅ Mark as Read (Acknowledge Notice)"):
+            st.session_state.last_read_notice_id = current_notice.get("id", 1)
+            st.rerun()
+
 st.markdown("---")
 
 # --- USER IDENTIFICATION & 7-DAY TRIAL SYSTEM ---
@@ -128,13 +195,43 @@ app_mode = st.sidebar.radio(
     ],
 )
 
-TECHNICAL_BRANCHES = [
+# Admin Secret Control Panel in Sidebar
+with st.sidebar.expander("🔒 Admin Control (Publish Notice)"):
+    entered_pin = st.text_input("Admin Secret Pin:", type="password")
+    if entered_pin == ADMIN_SECRET_PIN:
+        st.success("Admin Verified!")
+        new_notice_text = st.text_area("Write Notice / Update / YouTube Link:")
+        if st.button("📢 Publish Notice to All"):
+            if new_notice_text.strip():
+                new_id = current_notice.get("id", 0) + 1
+                updated_notice = {
+                    "id": new_id,
+                    "text": new_notice_text.strip(),
+                    "date": str(datetime.date.today()),
+                }
+                st.session_state.notice_data = updated_notice
+                save_data(NOTICE_FILE, updated_notice)
+                st.session_state.last_read_notice_id = new_id
+                st.success("Notice Published Live!")
+                st.rerun()
+            else:
+                st.error("Notice text cannot be empty.")
+    elif entered_pin:
+        st.error("Incorrect Pin!")
+
+# Dynamic Subject Categories
+CORE_SUBJECTS = [
     "Electrical Engineering",
+    "GK / GS",
+    "Reasoning",
+    "Mathematics",
     "Mechanical Engineering",
     "Civil Engineering",
+    "Technical",
+    "Non-Technical",
 ]
-NON_TECH_SUBJECTS = ["GK / GS", "Reasoning", "Mathematics"]
-ALL_SUBJECTS = TECHNICAL_BRANCHES + NON_TECH_SUBJECTS
+existing_subjs = list({q.get("subject") for q in st.session_state.questions if q.get("subject")})
+ALL_SUBJECTS = sorted(list(set(CORE_SUBJECTS + existing_subjs)))
 
 # ==========================================
 # MODE 1: GIVE MOCK TEST (LIVE TIMER + NEGATIVE MARKING)
@@ -154,14 +251,41 @@ if app_mode == "📝 Give Mock Test (Custom Mix)":
         st.warning("⚠️ Question Bank is empty! Please add questions using the 'Manage & Add Questions' tab.")
     else:
         if not st.session_state.test_started and not st.session_state.test_submitted:
+            
+            # Question Bank Live Status / Badges
+            total_loaded_q = len(st.session_state.questions)
+            st.markdown(
+                f"""
+                <div style="background:#0f172a; border:1px solid #334155; border-radius:10px; padding:12px 18px; margin-bottom:15px;">
+                    <span style="font-size:16px; font-weight:bold; color:#38bdf8;">📊 Live Question Bank Status:</span>
+                    <span style="font-size:16px; font-weight:bold; color:#4ade80; margin-left:8px;">{total_loaded_q} Questions Available</span>
+                </div>
+                """,
+                unsafe_allow_html=True,
+            )
+
+            subject_counts = {}
+            for q in st.session_state.questions:
+                s = q.get("subject", "General")
+                subject_counts[s] = subject_counts.get(s, 0) + 1
+
+            cat_cols = st.columns(min(4, max(1, len(subject_counts))))
+            for idx, (sub_name, count) in enumerate(subject_counts.items()):
+                cat_cols[idx % len(cat_cols)].metric(label=sub_name, value=f"{count} Qs")
+
+            st.markdown("---")
             st.subheader("⚙️ Test Configuration")
             col1, col2 = st.columns(2)
 
             with col1:
+                default_picks = [s for s in ["Electrical Engineering", "GK / GS", "Technical"] if s in subject_counts]
+                if not default_picks and ALL_SUBJECTS:
+                    default_picks = [ALL_SUBJECTS[0]]
+
                 selected_subjects = st.multiselect(
                     "Select Subjects for Your Test:",
                     ALL_SUBJECTS,
-                    default=["Electrical Engineering"],
+                    default=default_picks,
                 )
 
             with col2:
@@ -172,7 +296,7 @@ if app_mode == "📝 Give Mock Test (Custom Mix)":
                 total_q_available = len(filtered_available)
                 max_limit = min(100, max(1, total_q_available))
                 num_questions = st.slider(
-                    "Select Number of Questions (Max 100):",
+                    f"Select Number of Questions (Available: {total_q_available}):",
                     min_value=1,
                     max_value=max_limit,
                     value=min(10, max_limit),
@@ -354,102 +478,4 @@ elif app_mode == "➕ Manage & Add Questions":
         with col_img1:
             opt1 = st.text_input("Option A")
             opt2 = st.text_input("Option B")
-        with col_img2:
-            opt3 = st.text_input("Option C")
-            opt4 = st.text_input("Option D")
-
-        correct_ans = st.selectbox("Correct Answer", [opt1, opt2, opt3, opt4])
-
-        uploaded_image = st.file_uploader(
-            "Upload Diagram / Circuit / Figure (Optional)",
-            type=["png", "jpg", "jpeg"],
-        )
-
-        submitted = st.form_submit_button("💾 Save Question")
-
-        if submitted:
-            if q_text and correct_ans:
-                image_path = None
-                if uploaded_image is not None:
-                    os.makedirs("question_images", exist_ok=True)
-                    image_path = os.path.join("question_images", uploaded_image.name)
-                    with open(image_path, "wb") as f:
-                        f.write(uploaded_image.getbuffer())
-
-                new_q = {
-                    "subject": sub,
-                    "question": q_text,
-                    "options": [opt1, opt2, opt3, opt4],
-                    "correct_option": correct_ans,
-                    "image_path": image_path,
-                }
-                st.session_state.questions.append(new_q)
-                save_data(DATA_FILE, st.session_state.questions)
-                st.success("✅ Question added successfully!")
-            else:
-                st.error("⚠️ Question text aur correct answer bharna zaroori hai.")
-
-    st.markdown("---")
-    if st.button("🗑️ Reset Question Bank to Default"):
-        st.session_state.questions = list(DEFAULT_QUESTIONS)
-        save_data(DATA_FILE, DEFAULT_QUESTIONS)
-        st.warning("⚠️ Question bank reset!")
-
-# ==========================================
-# MODE 3: COMMUNITY Q&A BOX (CONNECTED TO GOOGLE SHEET)
-# ==========================================
-elif app_mode == "📥 Community Q&A Box":
-    st.header("📥 Community Question Submission Box")
-    st.markdown("छात्र यहाँ सवाल सबमिट कर सकते हैं। यह सीधे रिव्यू के लिए आपकी गूगल शीट में सुरक्षित होगा।")
-
-    with st.form("community_form", clear_on_submit=True):
-        c_sub = st.selectbox("Subject Category", ALL_SUBJECTS)
-        c_q = st.text_area("Question Text*")
-
-        col_a, col_b = st.columns(2)
-        with col_a:
-            co1 = st.text_input("Option A (Optional)")
-            co2 = st.text_input("Option B (Optional)")
-        with col_b:
-            co3 = st.text_input("Option C (Optional)")
-            co4 = st.text_input("Option D (Optional)")
-
-        c_ans = st.text_input("Correct Answer / Solution Note (Optional)")
-        c_sender = st.text_input("Your Name / Telegram Handle (Optional)")
-
-        c_submit = st.form_submit_button("🚀 Submit to Admin")
-        if c_submit:
-            if not c_q.strip():
-                st.error("⚠️ कृपया सवाल खाली न छोड़ें!")
-            else:
-                opts = [o.strip() for o in [co1, co2, co3, co4] if o.strip()]
-                sheet_data = {
-                    "Subject": c_sub,
-                    "Question": c_q.strip(),
-                    "Options": ", ".join(opts) if opts else "None",
-                    "Answer": c_ans.strip() if c_ans.strip() else "Pending Review",
-                    "Submitted_By": c_sender.strip() if c_sender.strip() else "Anonymous",
-                }
-                if send_question_to_sheet(sheet_data):
-                    st.success("✅ सवाल एडमिन को सफलता से भेज दिया गया है!")
-                else:
-                    st.warning("⚠️ अभी सबमिट नहीं हो सका, कृपया दोबारा प्रयास करें।")
-
-# ==========================================
-# MODE 4: SUBSCRIPTION (₹10 / MONTH)
-# ==========================================
-elif app_mode == "💳 Subscription (₹10/Month)":
-    st.header("💳 Omega CBT Premium Access")
-    st.markdown("Har student ko **7-Day Free Trial** milta hai. Uske baad platform access ke liye sirf **₹10 / Month**.")
-
-    st.info(
-        f"User ID: `{user_email}`\n\n"
-        f"Trial Expiry: `{st.session_state.users.get(user_email, {}).get('trial_end', 'N/A')}`"
-    )
-
-    if st.button("Pay ₹10 & Activate 1-Month Pass"):
-        st.session_state.users[user_email]["is_subscribed"] = True
-        save_data(USERS_FILE, st.session_state.users)
-        st.balloons()
-        st.success("✨ Access active for 1 Month!")
-            
+        with col_img

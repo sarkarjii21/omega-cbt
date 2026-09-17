@@ -328,20 +328,20 @@ elif app_mode == "Community Q&A Box":
             else:
                 st.error("Question text cannot be empty!")
 
-# 3. SUBSCRIPTION & ₹10 UPI GATEWAY
+# 3. SUBSCRIPTION & ₹10 UPI GATEWAY (STANDARDIZED)
 elif app_mode == "Subscription (Rs 10/Month)":
     st.header("💳 Omega CBT 1-Month Pass")
     u_info = st.session_state.users.get(user_email, {})
     st.info(f"User ID: `{user_email}` | Status: `{'Active' if u_info.get('is_subscribed') else 'Inactive'}` | Valid Till: `{u_info.get('sub_end', 'N/A')}`")
 
-    # Clean UPI URI without %20 artifact in payee name
-    upi_uri = f"upi://pay?pa={MERCHANT_UPI_ID}&pn=OmegaCBT&am=10.00&cu=INR&tn=OmegaCBT_Pass"
-    qr_api = f"https://api.qrserver.com/v1/create-qr-code/?size=200x200&data={urllib.parse.quote(upi_uri)}"
+    # Clean, glitch-free UPI URI
+    upi_uri = f"upi://pay?pa={MERCHANT_UPI_ID}&am=10&cu=INR"
+    qr_api = f"https://api.qrserver.com/v1/create-qr-code/?size=220x220&data={urllib.parse.quote(upi_uri)}"
 
     col1, col2 = st.columns(2)
     with col1:
         st.subheader("Step 1: Scan & Pay Rs 10")
-        st.image(qr_api, width=200, caption="Scan with GPay, PhonePe, Paytm")
+        st.image(qr_api, width=220, caption="Scan with GPay, PhonePe, Paytm")
         st.markdown(f"UPI ID: `{MERCHANT_UPI_ID}`")
         st.markdown(f'<a href="{upi_uri}" style="background:#2563eb;color:#fff;padding:8px 16px;border-radius:6px;text-decoration:none;font-weight:bold;">Pay via UPI App</a>', unsafe_allow_html=True)
 
@@ -361,4 +361,4 @@ elif app_mode == "Subscription (Rs 10/Month)":
                     st.rerun()
                 else:
                     st.error("Please enter a valid Transaction / UTR number.")
-                
+                    

@@ -6,7 +6,7 @@ import time
 import requests
 import streamlit as st
 
-# 1. Page Configuration
+# Page Configuration
 st.set_page_config(
     page_title="Omega CBT - Competitive Exam Portal",
     page_icon="🎯",
@@ -19,7 +19,6 @@ NOTICE_FILE = "omega_notice.json"
 SHEETDB_API_URL = "https://sheetdb.io/api/v1/ptx6z420d876c"
 ADMIN_SECRET_PIN = "omega999"
 
-# Built-in Default Fallback Questions
 DEFAULT_QUESTIONS = [
     {
         "subject": "Electrical Engineering",
@@ -41,36 +40,20 @@ DEFAULT_QUESTIONS = [
         "options": ["Dr. B. R. Ambedkar", "Dr. Rajendra Prasad", "Jawaharlal Nehru", "Sardar Vallabhbhai Patel"],
         "correct_option": "Dr. B. R. Ambedkar",
         "image_path": None,
-    },
-    {
-        "subject": "Reasoning",
-        "question": "Find the next number in the series: 2, 6, 12, 20, 30, ?",
-        "options": ["42", "40", "36", "48"],
-        "correct_option": "42",
-        "image_path": None,
-    },
-    {
-        "subject": "Mathematics",
-        "question": "If the radius of a circle is doubled, its area increases by what factor?",
-        "options": ["4 times", "2 times", "8 times", "16 times"],
-        "correct_option": "4 times",
-        "image_path": None,
-    },
+    }
 ]
-
 
 def send_question_to_sheet(data_dict):
     try:
-        response = requests.post(
+        res = requests.post(
             SHEETDB_API_URL,
             json={"data": [data_dict]},
             headers={"Content-Type": "application/json"},
             timeout=8,
         )
-        return response.status_code in [200, 201]
+        return res.status_code in [200, 201]
     except Exception:
         return False
-
 
 def load_data(filename, default_val):
     if os.path.exists(filename):
@@ -86,11 +69,9 @@ def load_data(filename, default_val):
                 return default_val
     return default_val
 
-
 def save_data(filename, data):
     with open(filename, "w", encoding="utf-8") as f:
         json.dump(data, f, ensure_ascii=False, indent=4)
-
 
 # Initialize Session States
 if "questions" not in st.session_state:
@@ -104,7 +85,7 @@ if "notice_data" not in st.session_state:
         NOTICE_FILE,
         {
             "id": 1,
-            "text": "Welcome to Omega CBT! Check out mock tests and submit questions anytime.",
+            "text": "Welcome to Omega CBT! Give mock tests and prepare effectively.",
             "date": str(datetime.date.today()),
         },
     )
@@ -121,30 +102,32 @@ if "test_submitted" not in st.session_state:
 if "user_answers" not in st.session_state:
     st.session_state.user_answers = {}
 
-# --- HEADER BRANDING ---
+# Header
 st.title("🎯 Omega CBT")
 st.markdown("**Dedicated Competitive Exam Portal (SSC JE / RRB JE | Technical & Non-Tech)**")
 
-# ==========================================
-# NOTICE BOARD SYSTEM (RED ALERT ON NEW NOTICE, GREEN ON READ)
-# ==========================================
+# Notice Banner System
 current_notice = st.session_state.notice_data
 is_new_notice = st.session_state.last_read_notice_id < current_notice.get("id", 1)
 
 if is_new_notice:
-    notice_banner_html = f"""
-    <div style="background: linear-gradient(90deg, #dc2626, #b91c1c); padding: 12px 18px; border-radius: 8px; margin-bottom: 12px; display: flex; justify-content: space-between; align-items: center; border: 1px solid #f87171; box-shadow: 0px 0px 12px rgba(239, 68, 68, 0.4);">
-        <span style="font-weight: bold; color: #ffffff; font-size: 16px;">🔴 NEW IMPORTANT NOTICE ({current_notice.get('date')}): Click below to read!</span>
-    </div>
-    """
+    st.markdown(
+        f"""
+        <div style="background: linear-gradient(90deg, #dc2626, #b91c1c); padding: 12px 18px; border-radius: 8px; margin-bottom: 12px; border: 1px solid #f87171;">
+            <span style="font-weight: bold; color: #ffffff; font-size: 16px;">🔴 NEW IMPORTANT NOTICE ({current_notice.get('date')}): Click below to read!</span>
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
 else:
-    notice_banner_html = f"""
-    <div style="background: #14532d; padding: 10px 18px; border-radius: 8px; margin-bottom: 12px; display: flex; justify-content: space-between; align-items: center; border: 1px solid #22c55e;">
-        <span style="font-weight: 500; color: #86efac; font-size: 15px;">🟢 Notice Board (Up to Date)</span>
-    </div>
-    """
-
-st.markdown(notice_banner_html, unsafe_allow_html=True)
+    st.markdown(
+        """
+        <div style="background: #14532d; padding: 10px 18px; border-radius: 8px; margin-bottom: 12px; border: 1px solid #22c55e;">
+            <span style="font-weight: 500; color: #86efac; font-size: 15px;">🟢 Notice Board (All Caught Up)</span>
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
 
 with st.expander("📢 Open Notice Board / View Announcements"):
     st.info(f"**Notice (Posted on {current_notice.get('date')}):**\n\n{current_notice.get('text')}")
@@ -155,10 +138,9 @@ with st.expander("📢 Open Notice Board / View Announcements"):
 
 st.markdown("---")
 
-# --- USER IDENTIFICATION & 7-DAY TRIAL SYSTEM ---
+# Student Access Control
 st.sidebar.header("👤 Student Profile & Access")
 user_email = st.sidebar.text_input("Enter Your Email / Student ID:", "student@omegacbt.com")
-
 today_date = datetime.date.today().isoformat()
 
 if user_email:
@@ -183,7 +165,6 @@ if user_email:
         st.sidebar.error("🔴 Status: Free Trial Expired!")
         st.sidebar.warning("Please pay ₹10 to activate 1-Month Unlimited Access.")
 
-# --- SIDEBAR NAVIGATION ---
 st.sidebar.header("🧭 Navigation Menu")
 app_mode = st.sidebar.radio(
     "Choose Mode:",
@@ -195,12 +176,11 @@ app_mode = st.sidebar.radio(
     ],
 )
 
-# Admin Secret Control Panel in Sidebar
 with st.sidebar.expander("🔒 Admin Control (Publish Notice)"):
     entered_pin = st.text_input("Admin Secret Pin:", type="password")
     if entered_pin == ADMIN_SECRET_PIN:
         st.success("Admin Verified!")
-        new_notice_text = st.text_area("Write Notice / Update / YouTube Link:")
+        new_notice_text = st.text_area("Write Notice / Announcement:")
         if st.button("📢 Publish Notice to All"):
             if new_notice_text.strip():
                 new_id = current_notice.get("id", 0) + 1
@@ -219,7 +199,6 @@ with st.sidebar.expander("🔒 Admin Control (Publish Notice)"):
     elif entered_pin:
         st.error("Incorrect Pin!")
 
-# Dynamic Subject Categories
 CORE_SUBJECTS = [
     "Electrical Engineering",
     "GK / GS",
@@ -233,9 +212,7 @@ CORE_SUBJECTS = [
 existing_subjs = list({q.get("subject") for q in st.session_state.questions if q.get("subject")})
 ALL_SUBJECTS = sorted(list(set(CORE_SUBJECTS + existing_subjs)))
 
-# ==========================================
-# MODE 1: GIVE MOCK TEST (LIVE TIMER + NEGATIVE MARKING)
-# ==========================================
+# MODE 1: GIVE MOCK TEST
 if app_mode == "📝 Give Mock Test (Custom Mix)":
     st.header("📝 Custom Mixed Mock Test")
 
@@ -251,8 +228,6 @@ if app_mode == "📝 Give Mock Test (Custom Mix)":
         st.warning("⚠️ Question Bank is empty! Please add questions using the 'Manage & Add Questions' tab.")
     else:
         if not st.session_state.test_started and not st.session_state.test_submitted:
-            
-            # Question Bank Live Status / Badges
             total_loaded_q = len(st.session_state.questions)
             st.markdown(
                 f"""
@@ -358,7 +333,6 @@ if app_mode == "📝 Give Mock Test (Custom Mix)":
                             else:
                                 st.warning("⚠️ अभी सबमिट नहीं हो सका, कृपया दोबारा प्रयास करें।")
 
-        # Active Test Screen with Timer
         elif st.session_state.test_started and not st.session_state.test_submitted:
             elapsed = time.time() - st.session_state.start_time
             remaining_sec = max(0, int(st.session_state.duration_seconds - elapsed))
@@ -422,7 +396,6 @@ if app_mode == "📝 Give Mock Test (Custom Mix)":
                     st.session_state.user_answers = {}
                     st.rerun()
 
-        # Scorecard & Mistake Review
         elif st.session_state.test_submitted:
             st.subheader("📊 Your Scorecard & Performance")
 
@@ -464,9 +437,7 @@ if app_mode == "📝 Give Mock Test (Custom Mix)":
                 st.session_state.user_answers = {}
                 st.rerun()
 
-# ==========================================
 # MODE 2: MANAGE & ADD QUESTIONS
-# ==========================================
 elif app_mode == "➕ Manage & Add Questions":
     st.header("➕ Add New Questions to Omega CBT Bank")
 
@@ -474,8 +445,41 @@ elif app_mode == "➕ Manage & Add Questions":
         sub = st.selectbox("Select Branch / Subject", ALL_SUBJECTS)
         q_text = st.text_area("Enter Question Text:")
 
-        col_img1, col_img2 = st.columns(2)
-        with col_img1:
-            opt1 = st.text_input("Option A")
-            opt2 = st.text_input("Option B")
-        with col_img
+        opt1 = st.text_input("Option A")
+        opt2 = st.text_input("Option B")
+        opt3 = st.text_input("Option C")
+        opt4 = st.text_input("Option D")
+
+        correct_ans = st.selectbox("Correct Answer", [opt1, opt2, opt3, opt4])
+
+        uploaded_image = st.file_uploader(
+            "Upload Diagram / Circuit / Figure (Optional)",
+            type=["png", "jpg", "jpeg"],
+        )
+
+        submitted = st.form_submit_button("💾 Save Question")
+
+        if submitted:
+            if q_text and correct_ans:
+                image_path = None
+                if uploaded_image is not None:
+                    os.makedirs("question_images", exist_ok=True)
+                    image_path = os.path.join("question_images", uploaded_image.name)
+                    with open(image_path, "wb") as f:
+                        f.write(uploaded_image.getbuffer())
+
+                new_q = {
+                    "subject": sub,
+                    "question": q_text,
+                    "options": [opt1, opt2, opt3, opt4],
+                    "correct_option": correct_ans,
+                    "image_path": image_path,
+                }
+                st.session_state.questions.append(new_q)
+                save_data(DATA_FILE, st.session_state.questions)
+                st.success("✅ Question added successfully!")
+            else:
+                st.error("⚠️ Question text aur correct answer bharna zaroori hai.")
+
+    st.markdown("---")
+    if st.button("🗑️ Reset Question Bank to Default

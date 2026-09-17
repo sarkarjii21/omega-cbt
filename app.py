@@ -334,16 +334,17 @@ elif app_mode == "Subscription (Rs 10/Month)":
     u_info = st.session_state.users.get(user_email, {})
     st.info(f"User ID: `{user_email}` | Status: `{'Active' if u_info.get('is_subscribed') else 'Inactive'}` | Valid Till: `{u_info.get('sub_end', 'N/A')}`")
 
-    # Native direct URI: completely avoids payee-name encoding conflicts
-    upi_uri = f"upi://pay?pa={MERCHANT_UPI_ID}&am=10&cu=INR"
-    qr_api = f"https://api.qrserver.com/v1/create-qr-code/?size=220x220&data={urllib.parse.quote(upi_uri)}"
+    # Precise URI for QR scanning
+    upi_uri_clean = f"upi://pay?pa={MERCHANT_UPI_ID}&am=10&cu=INR"
+    qr_api = f"https://api.qrserver.com/v1/create-qr-code/?size=240x240&data={urllib.parse.quote(upi_uri_clean)}"
 
     col1, col2 = st.columns(2)
     with col1:
-        st.subheader("Step 1: Scan & Pay Rs 10")
-        st.image(qr_api, width=220, caption="Scan with GPay, PhonePe, Paytm")
-        st.markdown(f"UPI ID: `{MERCHANT_UPI_ID}`")
-        st.markdown(f'<a href="{upi_uri}" style="background:#2563eb;color:#fff;padding:8px 16px;border-radius:6px;text-decoration:none;font-weight:bold;">Pay via UPI App</a>', unsafe_allow_html=True)
+        st.subheader("Step 1: Scan & Pay ₹10")
+        st.image(qr_api, width=220, caption="Scan using GPay / PhonePe / Paytm / BHIM")
+        st.markdown("**Official UPI ID:**")
+        st.code(MERCHANT_UPI_ID, language="text")
+        st.caption("QR कोड को किसी भी UPI ऐप से स्कैन करें या UPI ID कॉपी करके ₹10 ट्रांसफर करें।")
 
     with col2:
         st.subheader("Step 2: Instant Activation")
@@ -361,4 +362,3 @@ elif app_mode == "Subscription (Rs 10/Month)":
                     st.rerun()
                 else:
                     st.error("Please enter a valid Transaction / UTR number.")
-        

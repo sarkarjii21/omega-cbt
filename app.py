@@ -92,7 +92,7 @@ if "test_submitted" not in st.session_state:
 if "user_answers" not in st.session_state:
     st.session_state.user_answers = {}
 
-# Header Branding with your Repository Logo
+# Header Branding
 if has_logo:
     col_l, col_t = st.columns([1, 7])
     with col_l:
@@ -136,7 +136,7 @@ with st.expander("📢 View Notice Board"):
 
 st.markdown("---")
 
-# User & Access Control
+# Student Access Control
 st.sidebar.header("👤 Profile & Access")
 user_email = st.sidebar.text_input("Enter Email / Student ID:", "student@omegacbt.com")
 today = datetime.date.today()
@@ -178,7 +178,7 @@ if user_email:
 st.sidebar.header("🧭 Menu")
 app_mode = st.sidebar.radio(
     "Choose Mode:",
-    ["Give Mock Test", "Manage & Add Questions", "Community Q&A Box", "Subscription (Rs 10/Month)"],
+    ["Give Mock Test", "Community Q&A Box", "Subscription (Rs 10/Month)"],
 )
 
 with st.sidebar.expander("🔒 Admin Control"):
@@ -254,7 +254,6 @@ if app_mode == "Give Mock Test":
         for idx, q in enumerate(st.session_state.test_questions):
             st.markdown(f"**Q{idx+1}: [{q.get('subject')}]** {q['question']}")
             
-            # Show Circuit Diagram / Diagram Image if available
             show_question_image(q.get("image_path"))
 
             opts = q.get("options") or [q.get("opt1"), q.get("opt2"), q.get("opt3"), q.get("opt4")]
@@ -310,51 +309,10 @@ if app_mode == "Give Mock Test":
             st.session_state.test_submitted = False
             st.rerun()
 
-# 2. MANAGE QUESTIONS MODE (WITH IMAGE UPLOAD / PATH)
-elif app_mode == "Manage & Add Questions":
-    st.header("➕ Add New Questions")
-    with st.form("add_q_form"):
-        sub = st.selectbox("Subject:", ALL_SUBJECTS)
-        qtxt = st.text_area("Question Text:")
-        
-        uploaded_img = st.file_uploader("Upload Circuit / Diagram (Optional)", type=["png", "jpg", "jpeg"])
-        
-        o1 = st.text_input("Option A")
-        o2 = st.text_input("Option B")
-        o3 = st.text_input("Option C")
-        o4 = st.text_input("Option D")
-        ans = st.selectbox("Correct Option:", [o1, o2, o3, o4])
-        
-        if st.form_submit_button("Save Question"):
-            if qtxt and ans:
-                saved_img_path = None
-                if uploaded_img is not None:
-                    os.makedirs("images", exist_ok=True)
-                    saved_img_path = os.path.join("images", uploaded_img.name)
-                    with open(saved_img_path, "wb") as f:
-                        f.write(uploaded_img.getbuffer())
-
-                new_q = {
-                    "subject": sub,
-                    "question": qtxt,
-                    "options": [o1, o2, o3, o4],
-                    "correct_option": ans,
-                    "image_path": saved_img_path,
-                }
-                st.session_state.questions.append(new_q)
-                save_data(DATA_FILE, st.session_state.questions)
-                st.success("Question saved!")
-            else:
-                st.error("Question and correct answer are required.")
-
-    if st.button("Reset to Default Questions"):
-        st.session_state.questions = list(DEFAULT_QUESTIONS)
-        save_data(DATA_FILE, DEFAULT_QUESTIONS)
-        st.warning("Reset completed!")
-
-# 3. COMMUNITY Q&A MODE
+# 2. COMMUNITY Q&A MODE (DIRECT TO GOOGLE SHEET)
 elif app_mode == "Community Q&A Box":
-    st.header("📥 Submit Question to Sheet")
+    st.header("📥 Submit Question to Admin")
+    st.markdown("Community questions are sent to admin for review before adding to test bank.")
     with st.form("comm_form", clear_on_submit=True):
         csub = st.selectbox("Subject:", ALL_SUBJECTS)
         cq = st.text_area("Question Text*")
@@ -364,13 +322,13 @@ elif app_mode == "Community Q&A Box":
             if cq.strip():
                 data = {"Subject": csub, "Question": cq.strip(), "Answer": ca.strip() or "Pending", "Submitted_By": cname.strip() or "Student"}
                 if send_question_to_sheet(data):
-                    st.success("Question submitted successfully!")
+                    st.success("Question submitted successfully for review!")
                 else:
                     st.warning("Submission failed, please try again.")
             else:
                 st.error("Question text cannot be empty!")
 
-# 4. SUBSCRIPTION & ₹10 UPI GATEWAY
+# 3. SUBSCRIPTION & ₹10 UPI GATEWAY
 elif app_mode == "Subscription (Rs 10/Month)":
     st.header("💳 Omega CBT 1-Month Pass")
     u_info = st.session_state.users.get(user_email, {})
@@ -402,3 +360,4 @@ elif app_mode == "Subscription (Rs 10/Month)":
                     st.rerun()
                 else:
                     st.error("Please enter a valid Transaction / UTR number.")
+                    

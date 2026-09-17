@@ -66,6 +66,14 @@ def save_data(filename, data):
     with open(filename, "w", encoding="utf-8") as f:
         json.dump(data, f, ensure_ascii=False, indent=4)
 
+def show_question_image(img_ref):
+    if not img_ref:
+        return
+    if img_ref.startswith("http://") or img_ref.startswith("https://"):
+        st.image(img_ref, width=380)
+    elif os.path.exists(img_ref):
+        st.image(img_ref, width=380)
+
 if "questions" not in st.session_state:
     st.session_state.questions = load_data(DATA_FILE, DEFAULT_QUESTIONS)
 if "users" not in st.session_state:
@@ -245,6 +253,10 @@ if app_mode == "Give Mock Test":
 
         for idx, q in enumerate(st.session_state.test_questions):
             st.markdown(f"**Q{idx+1}: [{q.get('subject')}]** {q['question']}")
+            
+            # Show Circuit Diagram / Diagram Image if available
+            show_question_image(q.get("image_path"))
+
             opts = q.get("options") or [q.get("opt1"), q.get("opt2"), q.get("opt3"), q.get("opt4")]
             cur_ch = st.session_state.user_answers.get(idx)
             sel = st.radio(
@@ -289,6 +301,7 @@ if app_mode == "Give Mock Test":
             st.subheader("🔍 Review Mistakes")
             for mq, mua, mca in mistakes:
                 st.error(f"**Q:** {mq['question']}")
+                show_question_image(mq.get("image_path"))
                 st.write(f"❌ Your Answer: `{mua}` | ✅ Correct Answer: `{mca}`")
                 st.markdown("---")
 
@@ -297,20 +310,37 @@ if app_mode == "Give Mock Test":
             st.session_state.test_submitted = False
             st.rerun()
 
-# 2. MANAGE QUESTIONS MODE
+# 2. MANAGE QUESTIONS MODE (WITH IMAGE UPLOAD / PATH)
 elif app_mode == "Manage & Add Questions":
     st.header("➕ Add New Questions")
     with st.form("add_q_form"):
         sub = st.selectbox("Subject:", ALL_SUBJECTS)
         qtxt = st.text_area("Question Text:")
+        
+        uploaded_img = st.file_uploader("Upload Circuit / Diagram (Optional)", type=["png", "jpg", "jpeg"])
+        
         o1 = st.text_input("Option A")
         o2 = st.text_input("Option B")
         o3 = st.text_input("Option C")
         o4 = st.text_input("Option D")
         ans = st.selectbox("Correct Option:", [o1, o2, o3, o4])
+        
         if st.form_submit_button("Save Question"):
             if qtxt and ans:
-                new_q = {"subject": sub, "question": qtxt, "options": [o1, o2, o3, o4], "correct_option": ans, "image_path": None}
+                saved_img_path = None
+                if uploaded_img is not None:
+                    os.makedirs("images", exist_ok=True)
+                    saved_img_path = os.path.join("images", uploaded_img.name)
+                    with open(saved_img_path, "wb") as f:
+                        f.write(uploaded_img.getbuffer())
+
+                new_q = {
+                    "subject": sub,
+                    "question": qtxt,
+                    "options": [o1, o2, o3, o4],
+                    "correct_option": ans,
+                    "image_path": saved_img_path,
+                }
                 st.session_state.questions.append(new_q)
                 save_data(DATA_FILE, st.session_state.questions)
                 st.success("Question saved!")
@@ -372,4 +402,3 @@ elif app_mode == "Subscription (Rs 10/Month)":
                     st.rerun()
                 else:
                     st.error("Please enter a valid Transaction / UTR number.")
-    

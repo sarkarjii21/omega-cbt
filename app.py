@@ -7,7 +7,14 @@ import urllib.parse
 import requests
 import streamlit as st
 
-st.set_page_config(page_title="Omega CBT", page_icon="🎯", layout="wide")
+LOGO_PATH = "logo.png"
+has_logo = os.path.exists(LOGO_PATH)
+
+st.set_page_config(
+    page_title="Omega CBT - Competitive Exam Portal",
+    page_icon=LOGO_PATH if has_logo else "🎯",
+    layout="wide",
+)
 
 DATA_FILE = "questions.json"
 USERS_FILE = "omega_users.json"
@@ -35,7 +42,12 @@ DEFAULT_QUESTIONS = [
 
 def send_question_to_sheet(data_dict):
     try:
-        r = requests.post(SHEETDB_API_URL, json={"data": [data_dict]}, headers={"Content-Type": "application/json"}, timeout=8)
+        r = requests.post(
+            SHEETDB_API_URL,
+            json={"data": [data_dict]},
+            headers={"Content-Type": "application/json"},
+            timeout=8,
+        )
         return r.status_code in [200, 201]
     except Exception:
         return False
@@ -59,7 +71,10 @@ if "questions" not in st.session_state:
 if "users" not in st.session_state:
     st.session_state.users = load_data(USERS_FILE, {})
 if "notice_data" not in st.session_state:
-    st.session_state.notice_data = load_data(NOTICE_FILE, {"id": 1, "text": "Welcome to Omega CBT! Practice daily.", "date": str(datetime.date.today())})
+    st.session_state.notice_data = load_data(
+        NOTICE_FILE,
+        {"id": 1, "text": "Welcome to Omega CBT! Practice daily.", "date": str(datetime.date.today())},
+    )
 if "last_read_notice_id" not in st.session_state:
     st.session_state.last_read_notice_id = 0
 if "test_started" not in st.session_state:
@@ -69,23 +84,47 @@ if "test_submitted" not in st.session_state:
 if "user_answers" not in st.session_state:
     st.session_state.user_answers = {}
 
-st.title("🎯 Omega CBT")
-st.markdown("**Dedicated Competitive Exam Portal (SSC JE / RRB JE | Technical & Non-Tech)**")
+# Header Branding with your Repository Logo
+if has_logo:
+    col_l, col_t = st.columns([1, 7])
+    with col_l:
+        st.image(LOGO_PATH, width=80)
+    with col_t:
+        st.title("Omega CBT")
+        st.markdown("**Dedicated Competitive Exam Portal (SSC JE / RRB JE | Technical & Non-Tech)**")
+else:
+    st.title("🎯 Omega CBT")
+    st.markdown("**Dedicated Competitive Exam Portal (SSC JE / RRB JE | Technical & Non-Tech)**")
 
-# Notice Banner
+# Dynamic Notice Banner
 cur_notice = st.session_state.notice_data
 is_new_notice = st.session_state.last_read_notice_id < cur_notice.get("id", 1)
 
 if is_new_notice:
-    st.markdown(f'<div style="background:#b91c1c;padding:10px;border-radius:6px;color:#fff;font-weight:bold;">🔴 NEW NOTICE ({cur_notice.get("date")}): Check notice board below!</div>', unsafe_allow_html=True)
+    st.markdown(
+        f"""
+        <div style="background:#b91c1c;padding:12px 18px;border-radius:8px;border:1px solid #f87171;color:#ffffff;font-weight:bold;margin-bottom:12px;">
+            🔴 NEW NOTICE ({cur_notice.get('date')}): Check notice board below!
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
 else:
-    st.markdown('<div style="background:#14532d;padding:8px;border-radius:6px;color:#86efac;">🟢 Notice Board (All Caught Up)</div>', unsafe_allow_html=True)
+    st.markdown(
+        """
+        <div style="background:#14532d;padding:10px 18px;border-radius:8px;border:1px solid #22c55e;color:#86efac;font-weight:500;margin-bottom:12px;">
+            🟢 Notice Board (All Caught Up)
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
 
 with st.expander("📢 View Notice Board"):
-    st.info(f"Date: {cur_notice.get('date')}\n\n{cur_notice.get('text')}")
-    if is_new_notice and st.button("Mark as Read"):
-        st.session_state.last_read_notice_id = cur_notice.get("id", 1)
-        st.rerun()
+    st.info(f"**Date:** {cur_notice.get('date')}\n\n{cur_notice.get('text')}")
+    if is_new_notice:
+        if st.button("Mark as Read"):
+            st.session_state.last_read_notice_id = cur_notice.get("id", 1)
+            st.rerun()
 
 st.markdown("---")
 
@@ -129,7 +168,10 @@ if user_email:
             st.sidebar.error("Trial Ended! Get Rs 10 Pass.")
 
 st.sidebar.header("🧭 Menu")
-app_mode = st.sidebar.radio("Choose Mode:", ["Give Mock Test", "Manage & Add Questions", "Community Q&A Box", "Subscription (Rs 10/Month)"])
+app_mode = st.sidebar.radio(
+    "Choose Mode:",
+    ["Give Mock Test", "Manage & Add Questions", "Community Q&A Box", "Subscription (Rs 10/Month)"],
+)
 
 with st.sidebar.expander("🔒 Admin Control"):
     if st.text_input("Pin:", type="password") == ADMIN_SECRET_PIN:
@@ -141,10 +183,20 @@ with st.sidebar.expander("🔒 Admin Control"):
                 un = {"id": nid, "text": nt.strip(), "date": today_str}
                 st.session_state.notice_data = un
                 save_data(NOTICE_FILE, un)
-                st.session_state.last_read_notice_id = nid
+                st.session_state.last_read_notice_id = 0
+                st.success("Notice Published Live!")
                 st.rerun()
 
-CORE_SUBS = ["Electrical Engineering", "GK / GS", "Reasoning", "Mathematics", "Mechanical Engineering", "Civil Engineering", "Technical", "Non-Technical"]
+CORE_SUBS = [
+    "Electrical Engineering",
+    "GK / GS",
+    "Reasoning",
+    "Mathematics",
+    "Mechanical Engineering",
+    "Civil Engineering",
+    "Technical",
+    "Non-Technical",
+]
 ALL_SUBJECTS = sorted(list(set(CORE_SUBS + [q.get("subject") for q in st.session_state.questions if q.get("subject")])))
 
 # 1. MOCK TEST MODE
@@ -158,7 +210,11 @@ if app_mode == "Give Mock Test":
         st.info(f"📊 Available Questions in Bank: {len(st.session_state.questions)}")
         c1, c2 = st.columns(2)
         with c1:
-            sel_subs = st.multiselect("Select Subjects:", ALL_SUBJECTS, default=["Electrical Engineering"] if "Electrical Engineering" in ALL_SUBJECTS else [ALL_SUBJECTS[0]])
+            sel_subs = st.multiselect(
+                "Select Subjects:",
+                ALL_SUBJECTS,
+                default=["Electrical Engineering"] if "Electrical Engineering" in ALL_SUBJECTS else [ALL_SUBJECTS[0]],
+            )
         with c2:
             avail_q = [q for q in st.session_state.questions if q.get("subject") in sel_subs]
             tot = len(avail_q)
@@ -191,7 +247,13 @@ if app_mode == "Give Mock Test":
             st.markdown(f"**Q{idx+1}: [{q.get('subject')}]** {q['question']}")
             opts = q.get("options") or [q.get("opt1"), q.get("opt2"), q.get("opt3"), q.get("opt4")]
             cur_ch = st.session_state.user_answers.get(idx)
-            sel = st.radio(f"Opt_{idx}:", opts, index=opts.index(cur_ch) if cur_ch in opts else None, key=f"ans_{idx}", label_visibility="collapsed")
+            sel = st.radio(
+                f"Opt_{idx}:",
+                opts,
+                index=opts.index(cur_ch) if cur_ch in opts else None,
+                key=f"ans_{idx}",
+                label_visibility="collapsed",
+            )
             st.session_state.user_answers[idx] = sel
             st.markdown("---")
 
@@ -310,3 +372,4 @@ elif app_mode == "Subscription (Rs 10/Month)":
                     st.rerun()
                 else:
                     st.error("Please enter a valid Transaction / UTR number.")
+    

@@ -165,66 +165,63 @@ if app_mode == "📝 Give Mock Test (Custom Mix)":
 
             st.info(f"⏱️ **Dynamic Time:** {minutes} Min {seconds} Sec ({num_questions} Questions × 35s)")
 
-            if st.button("🚀 Start Test"):
-                if filtered_available:
-                    st.session_state.test_started = True
-                    st.session_state.test_submitted = False
-                    st.session_state.test_questions = random.sample(
-                        filtered_available, min(len(filtered_available), num_questions)
-                    )
-                    st.session_state.start_time = time.time()
-                    st.session_state.duration_seconds = allocated_time_seconds
-                    st.session_state.user_answers = {}
-                    st.rerun()
-                else:
-                    st.error("Selected subjects me questions available nahi hain.")
+                if st.button("🚀 Start Test"):
+        if filtered_available:
+            st.session_state.test_started = True
+            st.session_state.test_submitted = False
+            st.session_state.test_questions = random.sample(
+                filtered_available, min(len(filtered_available), num_questions)
+            )
+            st.session_state.start_time = time.time()
+            st.session_state.duration_seconds = allocated_time_seconds
+            st.session_state.user_answers = {}
+            st.rerun()
+        else:
+        
+            st.error("Selected subjects me questions available nahi hain.")
+
+    st.markdown("---")
+        with st.expander("💡 Submit / Suggest a Question for Omega CBT"):
+    st.caption("आपका सवाल एडमिन रिव्यू के बाद वेरिफाई होकर टेस्ट बैंक में शामिल होगा।")
+        with st.form("community_question_form", clear_on_submit=True):
+        user_subject = st.selectbox("Subject", ALL_SUBJECTS)
+        user_q_text = st.text_area("Question Text*", placeholder="सवाल यहाँ लिखें...")
+        
+        col_o1, col_o2 = st.columns(2)
+        with col_o1:
+            u_opt_a = st.text_input("Option A (Optional)")
+            u_opt_b = st.text_input("Option B (Optional)")
+        with col_o2:
+            u_opt_c = st.text_input("Option C (Optional)")
+            u_opt_d = st.text_input("Option D (Optional)")
             
-                          st.markdown("---")
-                          with st.expander("💡 Submit / Suggest a Question for Omega CBT"):
-                          st.caption("आपका सवाल एडमिन रिव्यू के बाद वेरिफाई होकर टेस्ट बैंक में शामिल होगा।")
-                          with st.form("community_question_form", clear_on_submit=True):
-                user_subject = st.selectbox("Subject", ALL_SUBJECTS)
-                user_q_text = st.text_area("Question Text*", placeholder="सवाल यहाँ लिखें...")
-                
-                col_o1, col_o2 = st.columns(2)
-                with col_o1:
-                    u_opt_a = st.text_input("Option A (Optional)")
-                    u_opt_b = st.text_input("Option B (Optional)")
-                with col_o2:
-                    u_opt_c = st.text_input("Option C (Optional)")
-                    u_opt_d = st.text_input("Option D (Optional)")
-                    
-                u_correct = st.text_input("Correct Answer / Solution Note (Optional)")
-                user_sender = st.text_input("Your Name / Telegram Handle (Optional)")
+        u_correct = st.text_input("Correct Answer / Solution Note (Optional)")
+        user_sender = st.text_input("Your Name / Telegram Handle (Optional)")
 
-                btn_submit_q = st.form_submit_button("🚀 Submit Question to Admin")
+        btn_submit_q = st.form_submit_button("🚀 Submit Question to Admin")
 
-                if btn_submit_q:
-                    if not user_q_text.strip():
-                        st.error("कृपया सवाल खाली न छोड़ें।")
-                    else:
-                        options_list = [o.strip() for o in [u_opt_a, u_opt_b, u_opt_c, u_opt_d] if o.strip()]
-                        sheet_row = {
-                            "Subject": user_subject,
-                            "Question": user_q_text.strip(),
-                            "Options": ", ".join(options_list) if options_list else "None",
-                            "Answer": u_correct.strip() or "Pending Review",
-                            "Submitted_By": user_sender.strip() or "Anonymous"
-                        }
-                        if send_question_to_sheet(sheet_row):
-                            st.success("✅ सवाल एडमिन को सफलता से भेज दिया गया है!")
-                        else:
-                            st.warning("⚠️ अभी सबमिट नहीं हो सका, कृपया दोबारा प्रयास करें।")
-                            
-        # Active Test Screen with Timer
+        if btn_submit_q:
+            if not user_q_text.strip():
+                st.error("कृपया सवाल खाली न छोड़ें।")
+            else:
+                options_list = [o.strip() for o in [u_opt_a, u_opt_b, u_opt_c, u_opt_d] if o.strip()]
+                sheet_row = {
+                    "Subject": user_subject,
+                    "Question": user_q_text.strip(),
+                    "Options": ", ".join(options_list) if options_list else "None",
+                    "Answer": u_correct.strip() or "Pending Review",
+                    "Submitted_By": user_sender.strip() or "Anonymous"
+                }
+                if send_question_to_sheet(sheet_row):
+                    st.success("✅ सवाल एडमिन को सफलता से भेज दिया गया है!")
+                else:
+                    st.warning("⚠️ अभी सबमिट नहीं हो सका, कृपया दोबारा प्रयास करें।")
 
-    elif st.session_state.test_started and not st.session_state.test_submitted:
-            remaining_sec = max(0, int(st.session_state.duration_seconds - elapsed))
+# Active Test Screen with Timer
+if st.session_state.test_started and not st.session_state.test_submitted:
+    remaining_sec = max(0, int(st.session_state.duration_seconds - (time.time() - st.session_state.start_time)))
 
-            rem_min = remaining_sec // 60
-            rem_s = remaining_sec % 60
-
-            st.markdown(
+        
                 f"""
                 <div style="background-color:#1e293b; padding:10px 16px; border-radius:8px; display:flex; justify-content:space-between; align-items:center;">
                     <span style="color:#38bdf8; font-size:18px; font-weight:bold;">Total Questions: {len(st.session_state.test_questions)}</span>

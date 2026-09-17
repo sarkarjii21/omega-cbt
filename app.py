@@ -12,7 +12,7 @@ st.set_page_config(
     layout="wide",
 )
 
-DATA_FILE = "omega_question_bank.json"
+DATA_FILE = "questions.json"
 USERS_FILE = "omega_users.json"
 
 
@@ -48,8 +48,15 @@ if "user_answers" not in st.session_state:
     st.session_state.user_answers = {}
 
 # --- HEADER BRANDING ---
-st.title("🎯 Omega CBT")
-st.markdown("**Dedicated Competitive Exam Portal (SSC JE / RRB JE | Technical & Non-Tech)**")
+col_logo, col_title = st.columns([1, 6])
+with col_logo:
+    if os.path.exists("logo.png"):
+        st.image("logo.png", width=90)
+
+with col_title:
+    st.title("Omega CBT")
+    st.markdown("**Dedicated Competitive Exam Portal (SSC JE / RRB JE | Technical & Non-Tech)**")
+
 st.markdown("---")
 
 # --- USER IDENTIFICATION & 7-DAY TRIAL SYSTEM ---

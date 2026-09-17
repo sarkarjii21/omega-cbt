@@ -1,0 +1,30 @@
+[
+  {
+    "id": 1,
+    "subject": "Non-Technical",
+    "question": "Which planet is known as Earth's 'Twin Planet' due to its similar size, mass, and proximity?",
+    "options": [
+      "Mars",
+      "Venus",
+      "Mercury",
+      "Neptune"
+    ],
+    "correct_option": "Venus",
+    "image_path": null,
+    "bengali_meaning": "অনুরূপ আকার, ভর এবং দূরত্বের কারণে কোন গ্রহটিকে পৃথিবীর 'যমজ গ্রহ' বলা হয়?"
+  },
+  {
+    "id": 2,
+    "subject": "Technical",
+    "question": "What is the primary function of a commutator in a DC generator?",
+    "options": [
+      "To convert AC armature current to DC in the external circuit",
+      "To increase the generated EMF",
+      "To provide mechanical support to armature conductors",
+      "To reduce eddy current losses"
+    ],
+    "correct_option": "To convert AC armature current to DC in the external circuit",
+    "image_path": null,
+    "bengali_meaning": "একটি ডিসি জেনারেটরে কমিউটেটরের প্রাথমিক কাজ কী?"
+  }
+]

@@ -334,7 +334,8 @@ elif app_mode == "Subscription (Rs 10/Month)":
     u_info = st.session_state.users.get(user_email, {})
     st.info(f"User ID: `{user_email}` | Status: `{'Active' if u_info.get('is_subscribed') else 'Inactive'}` | Valid Till: `{u_info.get('sub_end', 'N/A')}`")
 
-    upi_uri = f"upi://pay?pa={MERCHANT_UPI_ID}&pn=Omega%20CBT&am=10.00&cu=INR&tn=Omega%20CBT%201Month%20Pass"
+    # Clean UPI URI without %20 artifact in payee name
+    upi_uri = f"upi://pay?pa={MERCHANT_UPI_ID}&pn=OmegaCBT&am=10.00&cu=INR&tn=OmegaCBT_Pass"
     qr_api = f"https://api.qrserver.com/v1/create-qr-code/?size=200x200&data={urllib.parse.quote(upi_uri)}"
 
     col1, col2 = st.columns(2)
@@ -360,4 +361,4 @@ elif app_mode == "Subscription (Rs 10/Month)":
                     st.rerun()
                 else:
                     st.error("Please enter a valid Transaction / UTR number.")
-                    
+                

@@ -234,47 +234,61 @@ if app_mode == "📝 Give Mock Test (Custom Mix)":
                     st.session_state.user_answers = {}
                     st.rerun()
 
-        # Scorecard & Mistake Review (Without Explanation)
+                # Scorecard & Mistakes Review (Old App Style)
         elif st.session_state.test_submitted:
-            st.subheader("📊 Your Scorecard & Performance")
+            st.subheader("📊 Your Report Card")
 
             score = 0.0
             correct_count = 0
             wrong_count = 0
-            unattempted = 0
+            unattempted_count = 0
             mistakes = []
+            unattempted_list = []
 
             for idx, q in enumerate(st.session_state.test_questions):
                 user_ans = st.session_state.user_answers.get(idx)
                 correct_ans = q.get("correct_option") or q.get("answer")
 
                 if not user_ans:
-                    unattempted += 1
+                    unattempted_count += 1
+                    unattempted_list.append((idx + 1, q, correct_ans))
                 elif user_ans == correct_ans:
                     correct_count += 1
                     score += 1.0
                 else:
                     wrong_count += 1
                     score -= 0.25
-                    mistakes.append((q, user_ans, correct_ans))
+                    mistakes.append((idx + 1, q, user_ans, correct_ans))
 
-            st.metric(label="Net Score (with -0.25 Negative Marking)", value=f"{score:.2f} Marks")
-            st.write(f"✅ **Correct:** {correct_count} | ❌ **Wrong:** {wrong_count} | ⚪ **Unattempted:** {unattempted}")
+            # स्कोरकार्ड समरी
+            st.metric(label="Net Score", value=f"{score:.2f} Marks")
+            st.write(f"✅ **Correct:** {correct_count} | ❌ **Wrong:** {wrong_count} | ⚪ **Unattempted:** {unattempted_count}")
+            st.markdown("---")
 
+            # 1. गलत किए गए सवाल (Your Answer vs Correct Answer)
             if mistakes:
-                st.markdown("---")
-                st.subheader("🔍 Wrong Questions Review")
-                for m_q, m_ans, c_ans in mistakes:
-                    st.error(f"**Question:** {m_q['question']}")
+                st.subheader("❌ Wrong Questions Review")
+                for q_num, m_q, m_ans, c_ans in mistakes:
+                    st.write(f"**Q{q_num}.** {m_q['question']}")
                     st.write(f"❌ **Your Answer:** `{m_ans}`")
-                    st.write(f"✅ **Correct Answer:** `{c_ans}`")
+                    st.write(f"✅ **Right Answer:** `{c_ans}`")
                     st.markdown("---")
 
-            if st.button("🔄 Start New Test"):
+            # 2. जो सवाल छोड़ दिए थे
+            if unattempted_list:
+                st.subheader("⚪ Unattempted Questions")
+                for q_num, u_q, c_ans in unattempted_list:
+                    st.write(f"**Q{q_num}.** {u_q['question']}")
+                    st.write(f"👉 **Right Answer:** `{c_ans}`")
+                    st.markdown("---")
+
+            # वापस होम स्क्रीन पर जाने का बटन
+            if st.button("🔄 Back to Home"):
                 st.session_state.test_started = False
                 st.session_state.test_submitted = False
                 st.session_state.user_answers = {}
                 st.rerun()
+
 
 # ==========================================
 # MODE 2: MANAGE & ADD QUESTIONS

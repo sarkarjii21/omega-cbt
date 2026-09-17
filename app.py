@@ -3,8 +3,8 @@ import json
 import os
 import random
 import time
-import streamlit as st
 import requests
+import streamlit as st
 
 # 1. Page Configuration
 st.set_page_config(
@@ -13,8 +13,22 @@ st.set_page_config(
     layout="wide",
 )
 
-DATA_FILE = "questions.json"
+DATA_FILE = "omega_question_bank.json"
 USERS_FILE = "omega_users.json"
+SHEETDB_API_URL = "https://sheetdb.io/api/v1/ptx6z420d876c"
+
+
+def send_question_to_sheet(data_dict):
+    try:
+        response = requests.post(
+            SHEETDB_API_URL,
+            json={"data": [data_dict]},
+            headers={"Content-Type": "application/json"},
+            timeout=8,
+        )
+        return response.status_code in [200, 201]
+    except Exception:
+        return False
 
 
 def load_data(filename, default_val):
@@ -31,16 +45,7 @@ def save_data(filename, data):
     with open(filename, "w", encoding="utf-8") as f:
         json.dump(data, f, ensure_ascii=False, indent=4)
 
-SHEETDB_URL = "https://sheetdb.io/api/v1/ptx6z420d876c"
 
-def send_question_to_sheet(row_data):
-    try:
-        payload = {"data": [row_data]}
-        response = requests.post(SHEETDB_URL, json=payload, timeout=5)
-        return response.status_code in [200, 201]
-    except Exception:
-        return False
-        
 # Initialize Session States
 if "questions" not in st.session_state:
     st.session_state.questions = load_data(DATA_FILE, [])
@@ -58,15 +63,8 @@ if "user_answers" not in st.session_state:
     st.session_state.user_answers = {}
 
 # --- HEADER BRANDING ---
-col_logo, col_title = st.columns([1, 6])
-with col_logo:
-    if os.path.exists("logo.png"):
-        st.image("logo.png", width=90)
-
-with col_title:
-    st.title("Omega CBT")
-    st.markdown("**Dedicated Competitive Exam Portal (SSC JE / RRB JE | Technical & Non-Tech)**")
-
+st.title("🎯 Omega CBT")
+st.markdown("**Dedicated Competitive Exam Portal (SSC JE / RRB JE | Technical & Non-Tech)**")
 st.markdown("---")
 
 # --- USER IDENTIFICATION & 7-DAY TRIAL SYSTEM ---
@@ -165,64 +163,65 @@ if app_mode == "📝 Give Mock Test (Custom Mix)":
 
             st.info(f"⏱️ **Dynamic Time:** {minutes} Min {seconds} Sec ({num_questions} Questions × 35s)")
 
-        if st.button("🚀 Start Test"):
-       
-            if filtered_available:
-            st.session_state.test_started = True
-            st.session_state.test_submitted = False
-            st.session_state.test_questions = random.sample(
-                filtered_available, min(len(filtered_available), num_questions)
-            )
-            st.session_state.start_time = time.time()
-            st.session_state.duration_seconds = allocated_time_seconds
-            st.session_state.user_answers = {}
-            st.rerun()
-            else:
-        
-            st.error("Selected subjects me questions available nahi hain.")
-
-    st.markdown("---")
-        with st.expander("💡 Submit / Suggest a Question for Omega CBT"):
-    st.caption("आपका सवाल एडमिन रिव्यू के बाद वेरिफाई होकर टेस्ट बैंक में शामिल होगा।")
-        with st.form("community_question_form", clear_on_submit=True):
-        user_subject = st.selectbox("Subject", ALL_SUBJECTS)
-        user_q_text = st.text_area("Question Text*", placeholder="सवाल यहाँ लिखें...")
-        
-        col_o1, col_o2 = st.columns(2)
-        with col_o1:
-            u_opt_a = st.text_input("Option A (Optional)")
-            u_opt_b = st.text_input("Option B (Optional)")
-        with col_o2:
-            u_opt_c = st.text_input("Option C (Optional)")
-            u_opt_d = st.text_input("Option D (Optional)")
-            
-        u_correct = st.text_input("Correct Answer / Solution Note (Optional)")
-        user_sender = st.text_input("Your Name / Telegram Handle (Optional)")
-
-        btn_submit_q = st.form_submit_button("🚀 Submit Question to Admin")
-
-        if btn_submit_q:
-            if not user_q_text.strip():
-                st.error("कृपया सवाल खाली न छोड़ें।")
-            else:
-                options_list = [o.strip() for o in [u_opt_a, u_opt_b, u_opt_c, u_opt_d] if o.strip()]
-                sheet_row = {
-                    "Subject": user_subject,
-                    "Question": user_q_text.strip(),
-                    "Options": ", ".join(options_list) if options_list else "None",
-                    "Answer": u_correct.strip() or "Pending Review",
-                    "Submitted_By": user_sender.strip() or "Anonymous"
-                }
-                if send_question_to_sheet(sheet_row):
-                    st.success("✅ सवाल एडमिन को सफलता से भेज दिया गया है!")
+            if st.button("🚀 Start Test"):
+                if filtered_available:
+                    st.session_state.test_started = True
+                    st.session_state.test_submitted = False
+                    st.session_state.test_questions = random.sample(
+                        filtered_available, min(len(filtered_available), num_questions)
+                    )
+                    st.session_state.start_time = time.time()
+                    st.session_state.duration_seconds = allocated_time_seconds
+                    st.session_state.user_answers = {}
+                    st.rerun()
                 else:
-                    st.warning("⚠️ अभी सबमिट नहीं हो सका, कृपया दोबारा प्रयास करें।")
+                    st.error("Selected subjects me questions available nahi hain.")
 
-# Active Test Screen with Timer
-if st.session_state.test_started and not st.session_state.test_submitted:
-    remaining_sec = max(0, int(st.session_state.duration_seconds - (time.time() - st.session_state.start_time)))
+            st.markdown("---")
+            with st.expander("💡 Submit / Suggest a Question for Omega CBT"):
+                st.caption("आपका सवाल एडमिन रिव्यू के बाद वेरिफाई होकर टेस्ट बैंक में शामिल होगा।")
+                with st.form("community_question_form_test_tab", clear_on_submit=True):
+                    sub_val = st.selectbox("Subject", ALL_SUBJECTS, key="test_tab_sub")
+                    q_val = st.text_area("Question Text*", placeholder="सवाल यहाँ लिखें...", key="test_tab_q")
 
-        
+                    col_o1, col_o2 = st.columns(2)
+                    with col_o1:
+                        oa = st.text_input("Option A (Optional)", key="test_tab_oa")
+                        ob = st.text_input("Option B (Optional)", key="test_tab_ob")
+                    with col_o2:
+                        oc = st.text_input("Option C (Optional)", key="test_tab_oc")
+                        od = st.text_input("Option D (Optional)", key="test_tab_od")
+
+                    ans_val = st.text_input("Correct Answer / Solution Note (Optional)", key="test_tab_ans")
+                    sender_val = st.text_input("Your Name / Telegram Handle (Optional)", key="test_tab_user")
+
+                    btn_sub = st.form_submit_button("🚀 Submit Question to Admin")
+                    if btn_sub:
+                        if not q_val.strip():
+                            st.error("⚠️ कृपया सवाल खाली न छोड़ें!")
+                        else:
+                            opts = [o.strip() for o in [oa, ob, oc, od] if o.strip()]
+                            sheet_data = {
+                                "Subject": sub_val,
+                                "Question": q_val.strip(),
+                                "Options": ", ".join(opts) if opts else "None",
+                                "Answer": ans_val.strip() if ans_val.strip() else "Pending Review",
+                                "Submitted_By": sender_val.strip() if sender_val.strip() else "Anonymous",
+                            }
+                            if send_question_to_sheet(sheet_data):
+                                st.success("✅ सवाल एडमिन को सफलता से भेज दिया गया है!")
+                            else:
+                                st.warning("⚠️ अभी सबमिट नहीं हो सका, कृपया दोबारा प्रयास करें।")
+
+        # Active Test Screen with Timer
+        elif st.session_state.test_started and not st.session_state.test_submitted:
+            elapsed = time.time() - st.session_state.start_time
+            remaining_sec = max(0, int(st.session_state.duration_seconds - elapsed))
+
+            rem_min = remaining_sec // 60
+            rem_s = remaining_sec % 60
+
+            st.markdown(
                 f"""
                 <div style="background-color:#1e293b; padding:10px 16px; border-radius:8px; display:flex; justify-content:space-between; align-items:center;">
                     <span style="color:#38bdf8; font-size:18px; font-weight:bold;">Total Questions: {len(st.session_state.test_questions)}</span>
@@ -279,61 +278,47 @@ if st.session_state.test_started and not st.session_state.test_submitted:
                     st.session_state.user_answers = {}
                     st.rerun()
 
-                # Scorecard & Mistakes Review (Old App Style)
+        # Scorecard & Mistake Review (Without Explanation)
         elif st.session_state.test_submitted:
-            st.subheader("📊 Your Report Card")
+            st.subheader("📊 Your Scorecard & Performance")
 
             score = 0.0
             correct_count = 0
             wrong_count = 0
-            unattempted_count = 0
+            unattempted = 0
             mistakes = []
-            unattempted_list = []
 
             for idx, q in enumerate(st.session_state.test_questions):
                 user_ans = st.session_state.user_answers.get(idx)
                 correct_ans = q.get("correct_option") or q.get("answer")
 
                 if not user_ans:
-                    unattempted_count += 1
-                    unattempted_list.append((idx + 1, q, correct_ans))
+                    unattempted += 1
                 elif user_ans == correct_ans:
                     correct_count += 1
                     score += 1.0
                 else:
                     wrong_count += 1
                     score -= 0.25
-                    mistakes.append((idx + 1, q, user_ans, correct_ans))
+                    mistakes.append((q, user_ans, correct_ans))
 
-            # स्कोरकार्ड समरी
-            st.metric(label="Net Score", value=f"{score:.2f} Marks")
-            st.write(f"✅ **Correct:** {correct_count} | ❌ **Wrong:** {wrong_count} | ⚪ **Unattempted:** {unattempted_count}")
-            st.markdown("---")
+            st.metric(label="Net Score (with -0.25 Negative Marking)", value=f"{score:.2f} Marks")
+            st.write(f"✅ **Correct:** {correct_count} | ❌ **Wrong:** {wrong_count} | ⚪ **Unattempted:** {unattempted}")
 
-            # 1. गलत किए गए सवाल (Your Answer vs Correct Answer)
             if mistakes:
-                st.subheader("❌ Wrong Questions Review")
-                for q_num, m_q, m_ans, c_ans in mistakes:
-                    st.write(f"**Q{q_num}.** {m_q['question']}")
+                st.markdown("---")
+                st.subheader("🔍 Wrong Questions Review")
+                for m_q, m_ans, c_ans in mistakes:
+                    st.error(f"**Question:** {m_q['question']}")
                     st.write(f"❌ **Your Answer:** `{m_ans}`")
-                    st.write(f"✅ **Right Answer:** `{c_ans}`")
+                    st.write(f"✅ **Correct Answer:** `{c_ans}`")
                     st.markdown("---")
 
-            # 2. जो सवाल छोड़ दिए थे
-            if unattempted_list:
-                st.subheader("⚪ Unattempted Questions")
-                for q_num, u_q, c_ans in unattempted_list:
-                    st.write(f"**Q{q_num}.** {u_q['question']}")
-                    st.write(f"👉 **Right Answer:** `{c_ans}`")
-                    st.markdown("---")
-
-            # वापस होम स्क्रीन पर जाने का बटन
-            if st.button("🔄 Back to Home"):
+            if st.button("🔄 Start New Test"):
                 st.session_state.test_started = False
                 st.session_state.test_submitted = False
                 st.session_state.user_answers = {}
                 st.rerun()
-
 
 # ==========================================
 # MODE 2: MANAGE & ADD QUESTIONS
@@ -391,19 +376,44 @@ elif app_mode == "➕ Manage & Add Questions":
         st.warning("⚠️ Question bank cleared!")
 
 # ==========================================
-# MODE 3: COMMUNITY Q&A BOX
+# MODE 3: COMMUNITY Q&A BOX (CONNECTED TO GOOGLE SHEET)
 # ==========================================
 elif app_mode == "📥 Community Q&A Box":
     st.header("📥 Community Question Submission Box")
-    st.markdown("Students can submit questions here for admin review.")
+    st.markdown("छात्र यहाँ सवाल सबमिट कर सकते हैं। यह सीधे रिव्यू के लिए गूगल शीट में सुरक्षित होगा।")
 
-    with st.form("community_form"):
+    with st.form("community_form", clear_on_submit=True):
         c_sub = st.selectbox("Subject Category", ALL_SUBJECTS)
-        c_q = st.text_area("Question")
-        c_ans = st.text_input("Correct Answer")
-        c_submit = st.form_submit_button("Submit to Admin")
+        c_q = st.text_area("Question Text*")
+
+        col_a, col_b = st.columns(2)
+        with col_a:
+            co1 = st.text_input("Option A (Optional)")
+            co2 = st.text_input("Option B (Optional)")
+        with col_b:
+            co3 = st.text_input("Option C (Optional)")
+            co4 = st.text_input("Option D (Optional)")
+
+        c_ans = st.text_input("Correct Answer / Solution Note (Optional)")
+        c_sender = st.text_input("Your Name / Telegram Handle (Optional)")
+
+        c_submit = st.form_submit_button("🚀 Submit to Admin")
         if c_submit:
-            st.success("✅ Question submitted for admin review.")
+            if not c_q.strip():
+                st.error("⚠️ कृपया सवाल खाली न छोड़ें!")
+            else:
+                opts = [o.strip() for o in [co1, co2, co3, co4] if o.strip()]
+                sheet_data = {
+                    "Subject": c_sub,
+                    "Question": c_q.strip(),
+                    "Options": ", ".join(opts) if opts else "None",
+                    "Answer": c_ans.strip() if c_ans.strip() else "Pending Review",
+                    "Submitted_By": c_sender.strip() if c_sender.strip() else "Anonymous",
+                }
+                if send_question_to_sheet(sheet_data):
+                    st.success("✅ सवाल एडमिन को सफलता से भेज दिया गया है!")
+                else:
+                    st.warning("⚠️ अभी सबमिट नहीं हो सका, कृपया दोबारा प्रयास करें।")
 
 # ==========================================
 # MODE 4: SUBSCRIPTION (₹10 / MONTH)
@@ -422,4 +432,3 @@ elif app_mode == "💳 Subscription (₹10/Month)":
         save_data(USERS_FILE, st.session_state.users)
         st.balloons()
         st.success("✨ Access active for 1 Month!")
-

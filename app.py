@@ -17,7 +17,7 @@ st.set_page_config(
     layout="wide",
 )
 
-# Custom CSS for Global Clean Scrollbar & Floating Touch Scroll Widget
+# Custom CSS: Hide native ugly scrollbar lines & ensure smooth touch scroll experience
 st.markdown(
     """
     <style>
@@ -27,43 +27,25 @@ st.markdown(
             -webkit-overflow-scrolling: touch;
         }
         
-        /* Clean and sleek native browser scrollbar */
+        /* Make the right-side scroll track completely invisible while keeping full touch-scroll functionality */
         ::-webkit-scrollbar {
-            width: 8px !important;
+            width: 14px !important;
+            background: transparent !important;
         }
+        ::-webkit-scrollbar-track {
+            background: transparent !important;
+        }
+        /* Custom styled draggable-like invisible-path thumb handle */
         ::-webkit-scrollbar-thumb {
-            background: #cbd5e1 !important;
-            border-radius: 4px;
+            background: rgba(37, 99, 235, 0.6) !important;
+            border-radius: 10px;
+            border: 4px solid transparent;
+            background-clip: content-box;
         }
-
-        /* Floating Touch Scroll Helper Button at Bottom Right Corner */
-        .floating-scroll-btn {
-            position: fixed;
-            right: 20px;
-            bottom: 90px;
-            z-index: 999999;
-            background: #2563eb;
-            color: white;
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-            cursor: pointer;
-            text-decoration: none;
-            font-size: 22px;
-            border: 2px solid white;
-        }
-        .floating-scroll-btn:active {
-            background: #1d4ed8;
-            transform: scale(0.95);
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(37, 99, 235, 0.9) !important;
         }
     </style>
-    
-    <!-- Floating Quick Touch Scroll Button (Goes down on tap) -->
-    <a class="floating-scroll-btn" href="#bottom" title="Scroll Down">👇</a>
     """,
     unsafe_allow_html=True,
 )
@@ -414,8 +396,6 @@ if app_mode == "Give Mock Test":
                 
             st.markdown("---")
 
-        st.markdown('<div id="bottom"></div>', unsafe_allow_html=True)
-
         c1, c2 = st.columns([2, 1])
         if c1.button("Final Submit Test", type="primary"):
             st.session_state.test_started = False
@@ -509,4 +489,4 @@ elif app_mode == "Subscription (Rs 10/Month)":
                     st.rerun()
                 else:
                     st.error("Please enter a valid Transaction / UTR number.")
-                                                      
+            

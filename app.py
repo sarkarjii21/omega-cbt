@@ -19,8 +19,8 @@ st.set_page_config(
 DATA_FILE = "questions.json"
 USERS_FILE = "omega_users.json"
 NOTICE_FILE = "omega_notice.json"
+CONFIG_FILE = "omega_config.json"
 SHEETDB_API_URL = "https://sheetdb.io/api/v1/ptx6z420d876c"
-ADMIN_SECRET_PIN = "omega999"
 MERCHANT_UPI_ID = "soumodeeps53-2@oksbi"
 
 # Hardcoded VIP Owners (Permanent Free Unlimited Access)
@@ -91,6 +91,8 @@ if "questions" not in st.session_state:
     st.session_state.questions = load_data(DATA_FILE, DEFAULT_QUESTIONS)
 if "users" not in st.session_state:
     st.session_state.users = load_data(USERS_FILE, {})
+if "config" not in st.session_state:
+    st.session_state.config = load_data(CONFIG_FILE, {"admin_pin": "omega999"})
 if "notice_data" not in st.session_state:
     st.session_state.notice_data = load_data(
         NOTICE_FILE,
@@ -205,11 +207,27 @@ app_mode = st.sidebar.radio(
     ["Give Mock Test", "Community Q&A Box", "Subscription (Rs 10/Month)"],
 )
 
-# Admin Panel with Student Bypass & Announcement Manager
+# Admin Panel with Password Update, Bypass & Notice Manager
+current_admin_pin = st.session_state.config.get("admin_pin", "omega999")
+
 with st.sidebar.expander("🔒 Admin Control"):
-    if st.text_input("Pin:", type="password") == ADMIN_SECRET_PIN:
+    if st.text_input("Pin:", type="password") == current_admin_pin:
         st.success("Admin Verified!")
         
+        # PIN Management
+        st.markdown("---")
+        st.subheader("🔑 Change Admin PIN")
+        new_pin_input = st.text_input("Enter New PIN:", type="password")
+        if st.button("Update PIN"):
+            if len(new_pin_input.strip()) >= 4:
+                st.session_state.config["admin_pin"] = new_pin_input.strip()
+                save_data(CONFIG_FILE, st.session_state.config)
+                st.success("PIN Updated Successfully!")
+                st.rerun()
+            else:
+                st.warning("PIN must be at least 4 characters long.")
+
+        # Manual Student Approval
         st.markdown("---")
         st.subheader("⚡ Manual Student Bypass")
         target_student = st.text_input("Student Email to Approve:")
@@ -230,6 +248,7 @@ with st.sidebar.expander("🔒 Admin Control"):
             else:
                 st.warning("Please enter valid student email.")
 
+        # Notice Manager
         st.markdown("---")
         st.subheader("📢 Announcement")
         nt = st.text_area("Write Notice:")
@@ -417,4 +436,4 @@ elif app_mode == "Subscription (Rs 10/Month)":
                     st.rerun()
                 else:
                     st.error("Please enter a valid Transaction / UTR number.")
-        
+                

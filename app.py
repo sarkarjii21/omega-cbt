@@ -245,7 +245,7 @@ with st.sidebar.expander("🔒 Admin Control"):
             else:
                 st.warning("PIN must be at least 4 characters long.")
 
-        # Manual Student Approval
+        # Manual Student Bypass
         st.markdown("---")
         st.subheader("⚡ Manual Student Bypass")
         target_student = st.text_input("Student Email to Approve:")
@@ -280,17 +280,17 @@ with st.sidebar.expander("🔒 Admin Control"):
                 st.success("Notice Published Live!")
                 st.rerun()
 
+# ----------------- SUBJECTS SETUP (Strict Filter) -----------------
+# Only allow actual examination subjects, excluding generic Technical / Non-Technical labels
 CORE_SUBS = [
     "Electrical Engineering",
-    "GK / GS",
+    "Civil Engineering",
+    "Mechanical Engineering",
     "Reasoning",
     "Mathematics",
-    "Mechanical Engineering",
-    "Civil Engineering",
-    "Technical",
-    "Non-Technical",
+    "GK / GS",
 ]
-ALL_SUBJECTS = sorted(list(set(CORE_SUBS + [q.get("subject") for q in st.session_state.questions if q.get("subject") and q.get("subject") != "GK GS"])))
+ALL_SUBJECTS = sorted([s for s in CORE_SUBS])
 
 # 1. MOCK TEST MODE
 if app_mode == "Give Mock Test":
@@ -454,3 +454,4 @@ elif app_mode == "Subscription (Rs 10/Month)":
                     st.rerun()
                 else:
                     st.error("Please enter a valid Transaction / UTR number.")
+            

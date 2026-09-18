@@ -1822,8 +1822,333 @@
     ],
     "correct_option": "Venus",
     "image_path": null
+  },
+  {
+    "subject": "Reasoning",
+    "question": "Select the related pair: Seismology : Earthquake :: ? : ?",
+    "options": [
+      "Taxonomy : Taxation",
+      "Herpetology : Amphibians",
+      "Physiology : Physics",
+      "Hematology : Hydrogen"
+    ],
+    "correct_option": "Herpetology : Amphibians",
+    "image_path": null
+  },
+  {
+    "subject": "Reasoning",
+    "question": "Select the related word: Persuade : Dissuade :: Profound : ?",
+    "options": [
+      "Clever",
+      "Sincere",
+      "Superficial",
+      "Intense"
+    ],
+    "correct_option": "Superficial",
+    "image_path": null
+  },
+  {
+    "subject": "Reasoning",
+    "question": "Select the related animal breed: Mustang : Horse :: Burmese : ?",
+    "options": [
+      "Dog",
+      "Cat",
+      "Elephant",
+      "Cow"
+    ],
+    "correct_option": "Cat",
+    "image_path": null
+  },
+  {
+    "subject": "Reasoning",
+    "question": "Select the related term: Lyrics : Song :: Stanza : ?",
+    "options": [
+      "Novel",
+      "Poem",
+      "Drama",
+      "Essay"
+    ],
+    "correct_option": "Poem",
+    "image_path": null
+  },
+  {
+    "subject": "Reasoning",
+    "question": "Select the related pair: Crew : Sailor :: Army : ?",
+    "options": [
+      "War",
+      "Soldiers",
+      "Battlefield",
+      "Commander"
+    ],
+    "correct_option": "Soldiers",
+    "image_path": null
+  },
+  {
+    "subject": "Reasoning",
+    "question": "Select the related study: Bird : Ornithology :: Plant : ?",
+    "options": [
+      "Entomology",
+      "Botany",
+      "Zoology",
+      "Genetics"
+    ],
+    "correct_option": "Botany",
+    "image_path": null
+  },
+  {
+    "subject": "Reasoning",
+    "question": "Select the related number: 3 : 20 :: 7 : ? :: 11 : 68",
+    "options": [
+      "40",
+      "42",
+      "44",
+      "46"
+    ],
+    "correct_option": "44",
+    "image_path": null
+  },
+  {
+    "subject": "Reasoning",
+    "question": "Select the related number: 10 : 7 :: 36 : ? :: 16 : 10",
+    "options": [
+      "18",
+      "20",
+      "22",
+      "24"
+    ],
+    "correct_option": "20",
+    "image_path": null
+  },
+  {
+    "subject": "Reasoning",
+    "question": "Select the related number: 9 : 23 :: 11 : ? :: 27 : 95",
+    "options": [
+      "29",
+      "31",
+      "33",
+      "35"
+    ],
+    "correct_option": "31",
+    "image_path": null
+  },
+  {
+    "subject": "Reasoning",
+    "question": "Select the related number: 23 : 536 :: 18 : 331 :: 21 : ?",
+    "options": [
+      "441",
+      "445",
+      "448",
+      "450"
+    ],
+    "correct_option": "448",
+    "image_path": null
+  },
+  {
+    "subject": "Reasoning",
+    "question": "Select the related number: 13 : 234 :: 17 : 374 :: 14 : ?",
+    "options": [
+      "266",
+      "252",
+      "280",
+      "270"
+    ],
+    "correct_option": "266",
+    "image_path": null
+  },
+  {
+    "subject": "Reasoning",
+    "question": "Select the related number: 3 : 54 :: 6 : 432 :: 9 : ?",
+    "options": [
+      "1458",
+      "1358",
+      "1428",
+      "1558"
+    ],
+    "correct_option": "1458",
+    "image_path": null
+  },
+  {
+    "subject": "Reasoning",
+    "question": "Select the related number: 9 : 38 :: 13 : ? :: 24 : 83",
+    "options": [
+      "48",
+      "50",
+      "52",
+      "54"
+    ],
+    "correct_option": "50",
+    "image_path": null
+  },
+  {
+    "subject": "Reasoning",
+    "question": "Select the related number: 1 : 8 :: 5 : 200 :: 2 : ?",
+    "options": [
+      "16",
+      "24",
+      "32",
+      "64"
+    ],
+    "correct_option": "32",
+    "image_path": null
+  },
+  {
+    "subject": "Reasoning",
+    "question": "Select the related number: 33 : 627 :: 47 : 893 :: 21 : ?",
+    "options": [
+      "399",
+      "420",
+      "385",
+      "410"
+    ],
+    "correct_option": "399",
+    "image_path": null
+  },
+  {
+    "subject": "Reasoning",
+    "question": "Select the related letter-group: RUX : TRB :: BFI : ?",
+    "options": [
+      "DFM",
+      "DCK",
+      "ECM",
+      "DCM"
+    ],
+    "correct_option": "DCM",
+    "image_path": null
+  },
+  {
+    "subject": "Reasoning",
+    "question": "Select the related letter-group: PNR : WUY :: JFL : ?",
+    "options": [
+      "QMS",
+      "PMS",
+      "QLS",
+      "QMT"
+    ],
+    "correct_option": "QMS",
+    "image_path": null
+  },
+  {
+    "subject": "Reasoning",
+    "question": "Select the related rank: Admiral : Indian Navy :: Air Chief Marshal : ?",
+    "options": [
+      "Indian Army",
+      "Indian Coast Guard",
+      "Indian Air Force",
+      "CRPF"
+    ],
+    "correct_option": "Indian Air Force",
+    "image_path": null
+  },
+  {
+    "subject": "Reasoning",
+    "question": "Select the related number: 48 : 344 :: 120 : ?",
+    "options": [
+      "1330",
+      "1332",
+      "1334",
+      "1328"
+    ],
+    "correct_option": "1332",
+    "image_path": null
+  },
+  {
+    "subject": "Reasoning",
+    "question": "Select the related number: 26 : 12 :: 54 : ?",
+    "options": [
+      "15",
+      "18",
+      "20",
+      "24"
+    ],
+    "correct_option": "20",
+    "image_path": null
+  },
+  {
+    "subject": "Reasoning",
+    "question": "Select the related number: 54 : 81 :: 35 : ?",
+    "options": [
+      "49",
+      "56",
+      "64",
+      "72"
+    ],
+    "correct_option": "64",
+    "image_path": null
+  },
+  {
+    "subject": "Reasoning",
+    "question": "Select the related number: 13 : 84.5 :: 20 : ?",
+    "options": [
+      "180",
+      "200",
+      "210",
+      "220"
+    ],
+    "correct_option": "200",
+    "image_path": null
+  },
+  {
+    "subject": "Reasoning",
+    "question": "Select the related pair: Chicken Pox : Virus :: Ringworm : ?",
+    "options": [
+      "Bacteria",
+      "Protozoa",
+      "Fungus",
+      "Nematode"
+    ],
+    "correct_option": "Fungus",
+    "image_path": null
+  },
+  {
+    "subject": "Reasoning",
+    "question": "Select the related pair based on alternate prime numbers: 7 : 13 :: 23 : ?",
+    "options": [
+      "29",
+      "31",
+      "37",
+      "41"
+    ],
+    "correct_option": "31",
+    "image_path": null
+  },
+  {
+    "subject": "Reasoning",
+    "question": "Select the related currency: USA : Dollar :: Turkey : ?",
+    "options": [
+      "Dinar",
+      "Lira",
+      "Baht",
+      "Euro"
+    ],
+    "correct_option": "Lira",
+    "image_path": null
+  },
+  {
+    "subject": "Reasoning",
+    "question": "Select the related sound: Leaves : Rustle :: Raindrops : ?",
+    "options": [
+      "Roar",
+      "Patter",
+      "Chirp",
+      "Hiss"
+    ],
+    "correct_option": "Patter",
+    "image_path": null
+  },
+  {
+    "subject": "Reasoning",
+    "question": "Select the drainage destination: Bay of Bengal : Krishna :: Arabian Sea : ?",
+    "options": [
+      "Ganga",
+      "Godavari",
+      "Narmada",
+      "Mahanadi"
+    ],
+    "correct_option": "Narmada",
+    "image_path": null
   }
 ]
+
 
   
 

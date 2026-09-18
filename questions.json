@@ -2338,8 +2338,105 @@
     ],
     "correct_option": "ZEN",
     "image_path": null
+  },
+  {
+    "subject": "Reasoning",
+    "question": "In a certain code language, EMBEZZLE is coded as MEEBZZEL (paired adjacent letter transposition). Following the same rule, how will MAXIMIZE be coded?",
+    "options": [
+      "AMIXIMZE",
+      "AMIXIMEZ",
+      "AMIXIMZI",
+      "AMIXMIEZ"
+    ],
+    "correct_option": "AMIXIMEZ",
+    "image_path": null
+  },
+  {
+    "subject": "Reasoning",
+    "question": "In a code language, if OPERATION is coded as B... and PARENT is coded as ... where O=B, R=A, I=P, E=D, N=J, T=X, what will be the direct code for ORIENT?",
+    "options": [
+      "BAPDJX",
+      "BAPDXJ",
+      "BAPEDX",
+      "BAPDJZ"
+    ],
+    "correct_option": "BAPDJX",
+    "image_path": null
+  },
+  {
+    "subject": "Reasoning",
+    "question": "In a certain code language: 'chips are good' is 'pur sol mat', 'chips contain metal' is 'pur st mo'. What is the definite code for the word 'contain'?",
+    "options": [
+      "pur",
+      "mat",
+      "Either st or mo",
+      "sol"
+    ],
+    "correct_option": "Either st or mo",
+    "image_path": null
+  },
+  {
+    "subject": "Reasoning",
+    "question": "In a code language, consonants are replaced with their reverse letters and vowels with their position among vowels counted from reverse (U=1, O=2, I=3, E=4, A=5). If CANDLE is coded as X 5 M W O 4, how will RELATION be coded?",
+    "options": [
+      "I 4 O 5 G 3 2 M",
+      "I 4 L 5 G 3 2 M",
+      "I 4 O 5 T 3 2 M",
+      "R 4 O 5 G 3 2 M"
+    ],
+    "correct_option": "I 4 O 5 G 3 2 M",
+    "image_path": null
+  },
+  {
+    "subject": "Reasoning",
+    "question": "In a code system, each consonant is replaced by the next consonant (+1) and each vowel is replaced by the next vowel in alphabetical order (A->E, E->I, I->O, O->U, U->A). Following this, what does TEACH become?",
+    "options": [
+      "UIBDI",
+      "UIEDI",
+      "VIEEI",
+      "UIFDI"
+    ],
+    "correct_option": "UIEDI",
+    "image_path": null
+  },
+  {
+    "subject": "Reasoning",
+    "question": "In a code language, GOURD is coded as 21, 4, 5, 10, 24 (Vowels retain their position 1-5, and consonants are assigned: 28 - position value). How will BRINJAL be coded using this rule?",
+    "options": [
+      "26, 10, 3, 18, 3, 5, 16",
+      "26, 10, 3, 14, 3, 5, 16",
+      "26, 9, 3, 14, 3, 5, 16",
+      "26, 10, 3, 14, 4, 5, 16"
+    ],
+    "correct_option": "26, 10, 3, 14, 3, 5, 16",
+    "image_path": null
+  },
+  {
+    "subject": "Reasoning",
+    "question": "If BIRTH is coded as 25, 12, 9, 5, 7 (Opposite place value for consonants, and for vowels: vowel position + 3), what is the code for DEVIL?",
+    "options": [
+      "23, 7, 5, 6, 15",
+      "23, 7, 5, 6, 12",
+      "24, 7, 5, 6, 15",
+      "23, 8, 5, 6, 15"
+    ],
+    "correct_option": "23, 7, 5, 6, 15",
+    "image_path": null
+  },
+  {
+    "subject": "Reasoning",
+    "question": "Find the odd word out based on writing direction of standard scripts: Hindi, English, Tamil, Urdu",
+    "options": [
+      "Hindi",
+      "English",
+      "Tamil",
+      "Urdu"
+    ],
+    "correct_option": "Urdu",
+    "image_path": null
   }
 ]
+
 
 
 

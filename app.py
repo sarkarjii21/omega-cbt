@@ -17,13 +17,63 @@ st.set_page_config(
     layout="wide",
 )
 
-# Force custom icon for mobile PWA & browsers + Disable pull-to-refresh on mobile
+# Advanced CSS to completely lock scroll and prevent pull-to-refresh during mock test + Floating Side Scroll Bar
 st.markdown(
     """
     <style>
-        /* Disable pull-to-refresh gesture on mobile touch screens */
-        body {
+        /* Block pull-to-refresh and overscroll globally */
+        html, body {
             overscroll-behavior-y: none;
+            position: fixed;
+            overflow: hidden;
+            width: 100%;
+            height: 100%;
+        }
+        
+        /* Allow inner container scrolling so tests remain scrollable smoothly */
+        .main .block-container {
+            height: 100vh;
+            overflow-y: auto;
+            overscroll-behavior: contain;
+            padding-bottom: 80px;
+        }
+
+        /* Floating Side Scroll Bar / Quick Navigation Panel */
+        .side-scroll-widget {
+            position: fixed;
+            right: 15px;
+            top: 40%;
+            transform: translateY(-50%);
+            z-index: 999999;
+            background: rgba(15, 23, 42, 0.85);
+            padding: 8px 6px;
+            border-radius: 30px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            align-items: center;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255,255,255,0.15);
+        }
+        .side-scroll-btn {
+            background: #2563eb;
+            color: white;
+            border: none;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            font-size: 16px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            transition: background 0.2s;
+        }
+        .side-scroll-btn:hover {
+            background: #1d4ed8;
         }
     </style>
     """,
@@ -53,7 +103,6 @@ CONFIG_FILE = "omega_config.json"
 SHEETDB_API_URL = "https://sheetdb.io/api/v1/ptx6z420d876c"
 MERCHANT_UPI_ID = "soumodeeps53-2@oksbi"
 
-# Hardcoded VIP Owners (Permanent Free Unlimited Access)
 VIP_ADMIN_EMAILS = [
     "admin@omegacbt.com",
     "soumodeep@omegacbt.com",
@@ -195,7 +244,6 @@ can_access_test = False
 if user_email:
     clean_email = user_email.strip().lower()
     
-    # 1. Admin / Owner Lifetime Bypass
     if clean_email in VIP_ADMIN_EMAILS:
         can_access_test = True
         st.sidebar.success("👑 Admin / VIP Lifetime Access")
@@ -237,14 +285,12 @@ app_mode = st.sidebar.radio(
     ["Give Mock Test", "Community Q&A Box", "Subscription (Rs 10/Month)"],
 )
 
-# Admin Panel with Password Update, Bypass & Notice Manager
 current_admin_pin = st.session_state.config.get("admin_pin", "omega999")
 
 with st.sidebar.expander("🔒 Admin Control"):
     if st.text_input("Pin:", type="password") == current_admin_pin:
         st.success("Admin Verified!")
         
-        # PIN Management
         st.markdown("---")
         st.subheader("🔑 Change Admin PIN")
         new_pin_input = st.text_input("Enter New PIN:", type="password")
@@ -257,7 +303,6 @@ with st.sidebar.expander("🔒 Admin Control"):
             else:
                 st.warning("PIN must be at least 4 characters long.")
 
-        # Manual Student Bypass
         st.markdown("---")
         st.subheader("⚡ Manual Student Bypass")
         target_student = st.text_input("Student Email to Approve:")
@@ -278,7 +323,6 @@ with st.sidebar.expander("🔒 Admin Control"):
             else:
                 st.warning("Please enter valid student email.")
 
-        # Notice Manager
         st.markdown("---")
         st.subheader("📢 Announcement")
         nt = st.text_area("Write Notice:")
@@ -292,7 +336,6 @@ with st.sidebar.expander("🔒 Admin Control"):
                 st.success("Notice Published Live!")
                 st.rerun()
 
-# ----------------- SUBJECTS SETUP (Strict Filter) -----------------
 CORE_SUBS = [
     "Electrical Engineering",
     "Civil Engineering",
@@ -348,6 +391,18 @@ if app_mode == "Give Mock Test":
                 st.error("No questions found in selected subjects.")
 
     elif st.session_state.test_started and not st.session_state.test_submitted:
+        # Floating Side Scroll Bar Widget injected via HTML for quick scroll convenience
+        st.markdown(
+            """
+            <div class="side-scroll-widget">
+                <a class="side-scroll-btn" href="#top" title="Go to Top">⬆️</a>
+                <a class="side-scroll-btn" href="#bottom" title="Go to Bottom">⬇️</a>
+            </div>
+            <div id="top"></div>
+            """,
+            unsafe_allow_html=True,
+        )
+
         rem = max(0, int(st.session_state.duration_seconds - (time.time() - st.session_state.start_time)))
         st.markdown(f"**Total Questions: {len(st.session_state.test_questions)} | ⏱️ Time Left: {rem // 60:02d}:{rem % 60:02d}**")
         if rem == 0:
@@ -362,7 +417,6 @@ if app_mode == "Give Mock Test":
 
             raw_opts = q.get("options") or [q.get("opt1"), q.get("opt2"), q.get("opt3"), q.get("opt4")]
             
-            # Add a clear/unselect option at the beginning
             clear_label = "-- Clear Selection (Unanswered) --"
             opts = [clear_label] + raw_opts
             
@@ -383,6 +437,8 @@ if app_mode == "Give Mock Test":
                 st.session_state.user_answers[idx] = sel
                 
             st.markdown("---")
+
+        st.markdown('<div id="bottom"></div>', unsafe_allow_html=True)
 
         c1, c2 = st.columns([2, 1])
         if c1.button("Final Submit Test", type="primary"):
@@ -467,14 +523,4 @@ elif app_mode == "Subscription (Rs 10/Month)":
             utr = st.text_input("Enter 12-Digit UTR / Transaction No.:")
             if st.form_submit_button("Verify & Unlock"):
                 if len(utr.strip()) >= 6:
-                    exp = (today + datetime.timedelta(days=30)).isoformat()
-                    u_info["is_subscribed"] = True
-                    u_info["sub_end"] = exp
-                    u_info["last_utr"] = utr.strip()
-                    save_data(USERS_FILE, st.session_state.users)
-                    st.balloons()
-                    st.success(f"Pass Activated! Valid till {exp}")
-                    st.rerun()
-                else:
-                    st.error("Please enter a valid Transaction / UTR number.")
-                                                              
+              

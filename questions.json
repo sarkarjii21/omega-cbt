@@ -2830,8 +2830,81 @@
     ],
     "correct_option": "0",
     "image_path": null
+  },
+  {
+    "subject": "GK / GS",
+    "question": "What is the standard value of acceleration due to gravity (g) near the surface of the Earth?",
+    "options": [
+      "8.9 m/s²",
+      "9.8 m/s²",
+      "10.5 m/s²",
+      "8.7 m/s²"
+    ],
+    "correct_option": "9.8 m/s²",
+    "image_path": null
+  },
+  {
+    "subject": "GK / GS",
+    "question": "In the equation of motion s = ut + ½ at², what does 'u' represent?",
+    "options": [
+      "Final velocity",
+      "Initial velocity",
+      "Displacement",
+      "Uniform acceleration"
+    ],
+    "correct_option": "Initial velocity",
+    "image_path": null
+  },
+  {
+    "subject": "GK / GS",
+    "question": "Which group of the modern periodic table contains Boron, which is classified as a metalloid?",
+    "options": [
+      "Group 1",
+      "Group 2",
+      "Group 13",
+      "Group 18"
+    ],
+    "correct_option": "Group 13",
+    "image_path": null
+  },
+  {
+    "subject": "GK / GS",
+    "question": "What is the general chemical formula for Saturated Hydrocarbons (Alkanes)?",
+    "options": [
+      "CₙH₂ₙ",
+      "CₙH₂ₙ₊₂",
+      "CₙH₂ₙ₋₂",
+      "CₙHₙ"
+    ],
+    "correct_option": "CₙH₂ₙ₊₂",
+    "image_path": null
+  },
+  {
+    "subject": "GK / GS",
+    "question": "What are the basophilic granules found in the cytoplasm of nerve cells (neurons) that are composed of rough endoplasmic reticulum and ribosomes?",
+    "options": [
+      "Nissl bodies",
+      "Golgi bodies",
+      "Mitochondria",
+      "Lysosomes"
+    ],
+    "correct_option": "Nissl bodies",
+    "image_path": null
+  },
+  {
+    "subject": "GK / GS",
+    "question": "Non-living components or inclusions within a cell, such as glycogen granules and starch grains, are known as:",
+    "options": [
+      "Cytoplasmic Inclusions",
+      "Plasmodesmata",
+      "Microfibrils",
+      "Tubules"
+    ],
+    "correct_option": "Cytoplasmic Inclusions",
+    "image_path": null
   }
 ]
+
   
 
 

@@ -21,7 +21,6 @@ st.set_page_config(
 st.markdown(
     """
     <style>
-        /* Block pull-to-refresh and overscroll globally */
         html, body {
             overscroll-behavior-y: none;
             position: fixed;
@@ -29,16 +28,12 @@ st.markdown(
             width: 100%;
             height: 100%;
         }
-        
-        /* Allow inner container scrolling so tests remain scrollable smoothly */
         .main .block-container {
             height: 100vh;
             overflow-y: auto;
             overscroll-behavior: contain;
             padding-bottom: 80px;
         }
-
-        /* Floating Side Scroll Bar / Quick Navigation Panel */
         .side-scroll-widget {
             position: fixed;
             right: 15px;
@@ -190,7 +185,6 @@ for q in st.session_state.questions:
     if q.get("subject") == "GK GS":
         q["subject"] = "GK / GS"
 
-# Header Branding
 if has_logo:
     col_l, col_t = st.columns([1, 7])
     with col_l:
@@ -202,7 +196,6 @@ else:
     st.title("🎯 Omega CBT")
     st.markdown("**Dedicated Competitive Exam Portal (SSC JE / RRB JE | Technical & Non-Tech)**")
 
-# Dynamic Notice Banner
 cur_notice = st.session_state.notice_data
 is_new_notice = st.session_state.last_read_notice_id < cur_notice.get("id", 1)
 
@@ -234,7 +227,6 @@ with st.expander("📢 View Notice Board"):
 
 st.markdown("---")
 
-# Student Access Control
 st.sidebar.header("👤 Profile & Access")
 user_email = st.sidebar.text_input("Enter Email / Student ID:", "student@omegacbt.com")
 today = datetime.date.today()
@@ -243,7 +235,6 @@ can_access_test = False
 
 if user_email:
     clean_email = user_email.strip().lower()
-    
     if clean_email in VIP_ADMIN_EMAILS:
         can_access_test = True
         st.sidebar.success("👑 Admin / VIP Lifetime Access")
@@ -290,7 +281,6 @@ current_admin_pin = st.session_state.config.get("admin_pin", "omega999")
 with st.sidebar.expander("🔒 Admin Control"):
     if st.text_input("Pin:", type="password") == current_admin_pin:
         st.success("Admin Verified!")
-        
         st.markdown("---")
         st.subheader("🔑 Change Admin PIN")
         new_pin_input = st.text_input("Enter New PIN:", type="password")
@@ -346,7 +336,6 @@ CORE_SUBS = [
 ]
 ALL_SUBJECTS = sorted([s for s in CORE_SUBS])
 
-# 1. MOCK TEST MODE
 if app_mode == "Give Mock Test":
     st.header("📝 Custom Mixed Mock Test")
     if not can_access_test:
@@ -391,7 +380,6 @@ if app_mode == "Give Mock Test":
                 st.error("No questions found in selected subjects.")
 
     elif st.session_state.test_started and not st.session_state.test_submitted:
-        # Floating Side Scroll Bar Widget injected via HTML for quick scroll convenience
         st.markdown(
             """
             <div class="side-scroll-widget">
@@ -412,11 +400,9 @@ if app_mode == "Give Mock Test":
 
         for idx, q in enumerate(st.session_state.test_questions):
             st.markdown(f"**Q{idx+1}: [{q.get('subject')}]** {q['question']}")
-            
             show_question_image(q.get("image_path"))
 
             raw_opts = q.get("options") or [q.get("opt1"), q.get("opt2"), q.get("opt3"), q.get("opt4")]
-            
             clear_label = "-- Clear Selection (Unanswered) --"
             opts = [clear_label] + raw_opts
             
@@ -435,7 +421,6 @@ if app_mode == "Give Mock Test":
                 st.session_state.user_answers[idx] = None
             else:
                 st.session_state.user_answers[idx] = sel
-                
             st.markdown("---")
 
         st.markdown('<div id="bottom"></div>', unsafe_allow_html=True)
@@ -481,7 +466,6 @@ if app_mode == "Give Mock Test":
             st.session_state.test_submitted = False
             st.rerun()
 
-# 2. COMMUNITY Q&A MODE (DIRECT TO GOOGLE SHEET)
 elif app_mode == "Community Q&A Box":
     st.header("📥 Submit Question to Admin")
     st.markdown("Community questions are sent to admin for review before adding to test bank.")
@@ -500,7 +484,6 @@ elif app_mode == "Community Q&A Box":
             else:
                 st.error("Question text cannot be empty!")
 
-# 3. SUBSCRIPTION & ₹10 UPI GATEWAY
 elif app_mode == "Subscription (Rs 10/Month)":
     st.header("💳 Omega CBT 1-Month Pass")
     u_info = st.session_state.users.get(user_email.strip().lower(), {})
@@ -523,4 +506,14 @@ elif app_mode == "Subscription (Rs 10/Month)":
             utr = st.text_input("Enter 12-Digit UTR / Transaction No.:")
             if st.form_submit_button("Verify & Unlock"):
                 if len(utr.strip()) >= 6:
-              
+                    exp = (today + datetime.timedelta(days=30)).isoformat()
+                    u_info["is_subscribed"] = True
+                    u_info["sub_end"] = exp
+                    u_info["last_utr"] = utr.strip()
+                    save_data(USERS_FILE, st.session_state.users)
+                    st.balloons()
+                    st.success(f"Pass Activated! Valid till {exp}")
+                    st.rerun()
+                else:
+                    st.error("Please enter a valid Transaction / UTR number.")
+                    

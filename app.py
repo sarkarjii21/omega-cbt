@@ -17,33 +17,36 @@ st.set_page_config(
     layout="wide",
 )
 
-# Custom CSS: Perfect Scrollbar positioning so it never overlaps bottom action buttons/logos
+# Ultimate Fix to Completely Block Pull-to-Refresh Reload on Mobile
 st.markdown(
     """
     <style>
-        /* Block elastic pull-to-refresh globally on mobile */
+        /* Lock body completely to prevent browser pull-to-refresh gesture */
         html, body {
-            overscroll-behavior-y: none;
-            -webkit-overflow-scrolling: touch;
+            overscroll-behavior: none;
+            overflow: hidden;
+            height: 100%;
+            width: 100%;
+            position: fixed;
         }
         
-        /* Custom scrollbar styled and positioned cleanly above bottom elements */
-        ::-webkit-scrollbar {
-            width: 14px !important;
-            background: transparent !important;
+        /* Enable smooth scrolling inside Streamlit main container only */
+        .main .block-container {
+            height: 100vh;
+            overflow-y: auto;
+            overscroll-behavior-y: contain;
+            -webkit-overflow-scrolling: touch;
+            padding-bottom: 120px;
         }
-        ::-webkit-scrollbar-track {
+        
+        /* Sleek and clean scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px !important;
             background: transparent !important;
-            margin-bottom: 120px; /* Leaves safe space at the bottom for floating icons/logos */
         }
         ::-webkit-scrollbar-thumb {
-            background: rgba(37, 99, 235, 0.75) !important;
-            border-radius: 8px;
-            border: 3px solid transparent;
-            background-clip: content-box;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: rgba(37, 99, 235, 1) !important;
+            background: rgba(37, 99, 235, 0.6) !important;
+            border-radius: 4px;
         }
     </style>
     """,
@@ -488,4 +491,5 @@ elif app_mode == "Subscription (Rs 10/Month)":
                     st.success(f"Pass Activated! Valid till {exp}")
                     st.rerun()
                 else:
-                    st.error("Placeholder error or valid UTR needed.")
+                    st.error("Please enter a valid Transaction / UTR number.")
+        

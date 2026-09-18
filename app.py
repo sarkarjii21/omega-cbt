@@ -17,7 +17,7 @@ st.set_page_config(
     layout="wide",
 )
 
-# Custom CSS: Hide native ugly scrollbar lines & ensure smooth touch scroll experience
+# Custom CSS: Perfect Scrollbar positioning so it never overlaps bottom action buttons/logos
 st.markdown(
     """
     <style>
@@ -27,23 +27,23 @@ st.markdown(
             -webkit-overflow-scrolling: touch;
         }
         
-        /* Make the right-side scroll track completely invisible while keeping full touch-scroll functionality */
+        /* Custom scrollbar styled and positioned cleanly above bottom elements */
         ::-webkit-scrollbar {
             width: 14px !important;
             background: transparent !important;
         }
         ::-webkit-scrollbar-track {
             background: transparent !important;
+            margin-bottom: 120px; /* Leaves safe space at the bottom for floating icons/logos */
         }
-        /* Custom styled draggable-like invisible-path thumb handle */
         ::-webkit-scrollbar-thumb {
-            background: rgba(37, 99, 235, 0.6) !important;
-            border-radius: 10px;
-            border: 4px solid transparent;
+            background: rgba(37, 99, 235, 0.75) !important;
+            border-radius: 8px;
+            border: 3px solid transparent;
             background-clip: content-box;
         }
         ::-webkit-scrollbar-thumb:hover {
-            background: rgba(37, 99, 235, 0.9) !important;
+            background: rgba(37, 99, 235, 1) !important;
         }
     </style>
     """,
@@ -488,5 +488,4 @@ elif app_mode == "Subscription (Rs 10/Month)":
                     st.success(f"Pass Activated! Valid till {exp}")
                     st.rerun()
                 else:
-                    st.error("Please enter a valid Transaction / UTR number.")
-            
+                    st.error("Placeholder error or valid UTR needed.")

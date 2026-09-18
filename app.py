@@ -17,32 +17,26 @@ st.set_page_config(
     layout="wide",
 )
 
-# Robust CSS to completely eliminate pull-to-refresh reload while keeping smooth scroll & clean custom scrollbar thumb
+# Enable Pinch-to-Zoom on mobile & block pull-to-refresh reload
 st.markdown(
     """
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+    </head>
     <style>
-        /* Block pull-to-refresh gesture completely */
+        /* Allow smooth scrolling and prevent unwanted page reloads */
         body {
             overscroll-behavior-y: none !important;
         }
         
-        /* Custom sleek scrollbar thumb positioned safely above bottom widgets */
+        /* Clean and smooth scrollbar */
         ::-webkit-scrollbar {
-            width: 12px !important;
+            width: 10px !important;
             background: transparent !important;
-        }
-        ::-webkit-scrollbar-track {
-            background: transparent !important;
-            margin-bottom: 100px;
         }
         ::-webkit-scrollbar-thumb {
-            background: rgba(37, 99, 235, 0.8) !important;
-            border-radius: 6px;
-            border: 2px solid transparent;
-            background-clip: content-box;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: rgba(37, 99, 235, 1) !important;
+            background: rgba(37, 99, 235, 0.7) !important;
+            border-radius: 5px;
         }
     </style>
     """,
@@ -488,4 +482,4 @@ elif app_mode == "Subscription (Rs 10/Month)":
                     st.rerun()
                 else:
                     st.error("Please enter a valid Transaction / UTR number.")
-    
+        

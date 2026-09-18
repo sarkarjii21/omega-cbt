@@ -17,23 +17,22 @@ st.set_page_config(
     layout="wide",
 )
 
-# Ultra-Smooth Momentum Scrolling CSS (Like native mobile apps & AI dashboards)
+# Permanent Solution to block browser pull-to-refresh completely on mobile
 st.markdown(
     """
     <style>
-        /* Force hardware acceleration and momentum-based smooth touch scrolling */
+        /* Lock body overscroll to completely stop top-pull page reload */
         html, body {
             overscroll-behavior-y: none !important;
-            -webkit-overflow-scrolling: touch !important;
+            touch-action: pan-y;
         }
         
-        /* Apply smooth momentum scrolling to the main application container */
-        .main, .block-container, div[data-testid="stVerticalBlock"] {
-            -webkit-overflow-scrolling: touch !important;
-            scroll-behavior: smooth !important;
+        /* Smooth momentum scrolling for internal content */
+        .main, .block-container {
+            -webkit-overflow-scrolling: touch;
         }
         
-        /* Clean and modern thin scrollbar that doesn't block UI */
+        /* Clean and minimal scrollbar */
         ::-webkit-scrollbar {
             width: 6px !important;
             background: transparent !important;
@@ -486,4 +485,4 @@ elif app_mode == "Subscription (Rs 10/Month)":
                     st.rerun()
                 else:
                     st.error("Please enter a valid Transaction / UTR number.")
-            
+                

@@ -513,4 +513,4 @@ elif app_mode == "Subscription (Rs 10/Month)":
                     st.rerun()
                 else:
                     st.error("Please enter a valid Transaction / UTR number.")
-                       
+            

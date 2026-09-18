@@ -17,45 +17,53 @@ st.set_page_config(
     layout="wide",
 )
 
-# Custom CSS for Professional Floating Navigation Bar & Pull-to-Refresh Block
+# Custom CSS for Global Floating Navigation Bar (Bigger, Wider, and Available Everywhere)
 st.markdown(
     """
     <style>
-        /* Prevent elastic bounce / pull-to-refresh on mobile */
+        /* Prevent elastic bounce / pull-to-refresh globally */
         html, body {
             overscroll-behavior-y: none;
         }
         
-        /* Floating Quick Navigation Panel for Test Screen */
+        /* Global Floating Quick Navigation Panel (Wider, Longer, and Always Visible) */
         .floating-nav {
             position: fixed;
-            right: 15px;
-            bottom: 80px;
+            right: 12px;
+            bottom: 70px;
             z-index: 999999;
-            background: rgba(15, 23, 42, 0.9);
-            padding: 10px;
-            border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+            background: rgba(15, 23, 42, 0.95);
+            padding: 14px 10px;
+            border-radius: 16px;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.5);
             display: flex;
             flex-direction: column;
-            gap: 8px;
-            border: 1px solid rgba(255,255,255,0.2);
+            gap: 12px;
+            border: 2px solid rgba(255,255,255,0.3);
         }
         .floating-nav a {
             background: #2563eb;
             color: white;
-            padding: 8px 12px;
-            border-radius: 8px;
+            padding: 12px 18px;
+            border-radius: 10px;
             text-align: center;
-            font-size: 14px;
+            font-size: 16px;
             font-weight: bold;
             text-decoration: none;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+            box-shadow: 0 3px 6px rgba(0,0,0,0.3);
+            min-width: 75px;
         }
         .floating-nav a:hover {
             background: #1d4ed8;
         }
     </style>
+    
+    <!-- Permanent Global Navigation Bar Widget Available Everywhere -->
+    <div class="floating-nav">
+        <a href="#top" title="Top">⬆️ Top</a>
+        <a href="#bottom" title="Bottom">⬇️ End</a>
+    </div>
+    <div id="top"></div>
     """,
     unsafe_allow_html=True,
 )
@@ -371,18 +379,6 @@ if app_mode == "Give Mock Test":
                 st.error("No questions found in selected subjects.")
 
     elif st.session_state.test_started and not st.session_state.test_submitted:
-        # Floating Quick Scroll Bar on the right side of the screen
-        st.markdown(
-            """
-            <div class="floating-nav">
-                <a href="#top" title="Top">⬆️ Top</a>
-                <a href="#bottom" title="Bottom">⬇️ End</a>
-            </div>
-            <div id="top"></div>
-            """,
-            unsafe_allow_html=True,
-        )
-
         rem = max(0, int(st.session_state.duration_seconds - (time.time() - st.session_state.start_time)))
         st.markdown(f"**Total Questions: {len(st.session_state.test_questions)} | ⏱️ Time Left: {rem // 60:02d}:{rem % 60:02d}**")
         if rem == 0:

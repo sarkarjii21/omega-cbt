@@ -2674,8 +2674,93 @@
     ],
     "correct_option": "Consecutive Natural numbers",
     "image_path": null
+  },
+  {
+    "subject": "Mathematics",
+    "question": "In a division process, the divisor is 12 times the quotient and 5 times the remainder. If the remainder is 48, what is the dividend?",
+    "options": [
+      "5808",
+      "5856",
+      "6000",
+      "5760"
+    ],
+    "correct_option": "5856",
+    "image_path": null
+  },
+  {
+    "subject": "Mathematics",
+    "question": "What is the remainder when a number is divided by a divisor, if the divisor is positive and the calculated negative remainder is -3 with a divisor of 7?",
+    "options": [
+      "3",
+      "4",
+      "-3",
+      "7"
+    ],
+    "correct_option": "4",
+    "image_path": null
+  },
+  {
+    "subject": "Mathematics",
+    "question": "Which of the following numbers is completely divisible by 8?",
+    "options": [
+      "4932",
+      "672",
+      "752",
+      "955"
+    ],
+    "correct_option": "752",
+    "image_path": null
+  },
+  {
+    "subject": "Mathematics",
+    "question": "If a number is divisible by both 8 and 9, by which other mandatory number will it always be divisible?",
+    "options": [
+      "72",
+      "17",
+      "24",
+      "18"
+    ],
+    "correct_option": "72",
+    "image_path": null
+  },
+  {
+    "subject": "Mathematics",
+    "question": "If a 6-digit number is formed by repeating a single-digit number 6 times (e.g., 777777), it is always completely divisible by:",
+    "options": [
+      "7, 11, and 13",
+      "Only 11",
+      "Only 7",
+      "9 and 11"
+    ],
+    "correct_option": "7, 11, and 13",
+    "image_path": null
+  },
+  {
+    "subject": "Mathematics",
+    "question": "If the number 15x1y2 is completely divisible by 44, what is the value of (x + y), where x and y are single digits?",
+    "options": [
+      "5",
+      "6",
+      "7",
+      "8"
+    ],
+    "correct_option": "7",
+    "image_path": null
+  },
+  {
+    "subject": "Mathematics",
+    "question": "What is the condition for a number to be divisible by 11 using the difference of alternating digits?",
+    "options": [
+      "Difference must be a multiple of 3",
+      "Difference must be 0 or a multiple of 11",
+      "Sum of digits must be even",
+      "Last two digits must be divisible by 11"
+    ],
+    "correct_option": "Difference must be 0 or a multiple of 11",
+    "image_path": null
   }
 ]
+
 
 
 

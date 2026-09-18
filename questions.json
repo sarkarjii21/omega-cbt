@@ -2434,8 +2434,153 @@
     ],
     "correct_option": "Urdu",
     "image_path": null
+  },
+  {
+    "subject": "Electrical Engineering",
+    "question": "What is the unit of Magnetic Flux?",
+    "options": [
+      "Tesla",
+      "Weber",
+      "Henry",
+      "Ampere-turn"
+    ],
+    "correct_option": "Weber",
+    "image_path": null
+  },
+  {
+    "subject": "Electrical Engineering",
+    "question": "Magnetic flux density is expressed in:",
+    "options": [
+      "Weber / metre",
+      "Weber / metre² (Tesla)",
+      "Weber - metre",
+      "Henry / metre"
+    ],
+    "correct_option": "Weber / metre² (Tesla)",
+    "image_path": null
+  },
+  {
+    "subject": "Electrical Engineering",
+    "question": "In a magnetic circuit, the analogy of Electrical Resistance is:",
+    "options": [
+      "Reluctance",
+      "Permeability",
+      "MMF",
+      "Flux"
+    ],
+    "correct_option": "Reluctance",
+    "image_path": null
+  },
+  {
+    "subject": "Electrical Engineering",
+    "question": "What is the formula for Reluctance (S) of a magnetic core of length l, area A, and permeability µ?",
+    "options": [
+      "S = µ * A / l",
+      "S = l / (µ * A)",
+      "S = l * A / µ",
+      "S = µ * l / A"
+    ],
+    "correct_option": "S = l / (µ * A)",
+    "image_path": null
+  },
+  {
+    "subject": "Electrical Engineering",
+    "question": "What is the unit of Magnetic Field Intensity (H)?",
+    "options": [
+      "Tesla",
+      "Weber",
+      "Ampere-turn / metre",
+      "Henry / metre"
+    ],
+    "correct_option": "Ampere-turn / metre",
+    "image_path": null
+  },
+  {
+    "subject": "Electrical Engineering",
+    "question": "What is the maximum possible value of the Coefficient of Coupling (k) between two magnetically coupled coils?",
+    "options": [
+      "0",
+      "0.5",
+      "1",
+      "Infinity"
+    ],
+    "correct_option": "1",
+    "image_path": null
+  },
+  {
+    "subject": "Electrical Engineering",
+    "question": "The relationship between Mutual Inductance (M) and Self Inductances (L1, L2) with coupling coefficient (k) is given by:",
+    "options": [
+      "M = k / sqrt(L1 * L2)",
+      "M = k * sqrt(L1 * L2)",
+      "M = sqrt(k * L1 * L2)",
+      "M = k * (L1 + L2) / 2"
+    ],
+    "correct_option": "M = k * sqrt(L1 * L2)",
+    "image_path": null
+  },
+  {
+    "subject": "Electrical Engineering",
+    "question": "Two magnetically coupled coils with self-inductances L1 and L2 are connected in series aiding. The equivalent inductance is:",
+    "options": [
+      "L1 + L2 - M",
+      "L1 + L2 + 2M",
+      "L1 + L2 - 2M",
+      "L1 * L2 / (L1 + L2)"
+    ],
+    "correct_option": "L1 + L2 + 2M",
+    "image_path": null
+  },
+  {
+    "subject": "Electrical Engineering",
+    "question": "Two magnetically coupled coils with self-inductances L1 and L2 are connected in series opposing. The equivalent inductance is:",
+    "options": [
+      "L1 + L2 + 2M",
+      "L1 + L2 - 2M",
+      "L1 - L2 + M",
+      "L1 * L2 / (L1 + L2)"
+    ],
+    "correct_option": "L1 + L2 - 2M",
+    "image_path": null
+  },
+  {
+    "subject": "Electrical Engineering",
+    "question": "What is the expression for energy stored in an inductor of inductance L carrying current I?",
+    "options": [
+      "E = L * I",
+      "E = 0.5 * L * I²",
+      "E = L² * I",
+      "E = 0.5 * L² * I"
+    ],
+    "correct_option": "E = 0.5 * L * I²",
+    "image_path": null
+  },
+  {
+    "subject": "Electrical Engineering",
+    "question": "According to Faraday's Law of Electromagnetic Induction, the induced voltage in a coil is proportional to:",
+    "options": [
+      "Rate of change of flux linkage (dψ / dt)",
+      "Resistance of the coil",
+      "Applied voltage only",
+      "Constant magnetic field"
+    ],
+    "correct_option": "Rate of change of flux linkage (dψ / dt)",
+    "image_path": null
+  },
+  {
+    "subject": "Electrical Engineering",
+    "question": "What does Magnetic Susceptibility (χ) measure for a magnetic material?",
+    "options": [
+      "How easily a material can be magnetized in response to an external magnetic field",
+      "The total resistance to magnetic flux",
+      "The electrical conductivity of the core",
+      "The total heat loss in the transformer core"
+    ],
+    "correct_option": "How easily a material can be magnetized in response to an external magnetic field",
+    "image_path": null
   }
 ]
+
 
 
 

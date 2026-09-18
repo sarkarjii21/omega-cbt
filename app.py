@@ -17,17 +17,30 @@ st.set_page_config(
     layout="wide",
 )
 
-# Force enable Pinch-to-Zoom (Zoom In / Zoom Out) on mobile browsers
+# Ultra-Smooth Momentum Scrolling CSS (Like native mobile apps & AI dashboards)
 st.markdown(
     """
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
     <style>
-        /* Allow complete user zooming and disable strict locking */
-        html {
-            touch-action: manipulation;
+        /* Force hardware acceleration and momentum-based smooth touch scrolling */
+        html, body {
+            overscroll-behavior-y: none !important;
+            -webkit-overflow-scrolling: touch !important;
         }
-        body {
-            overscroll-behavior-y: auto !important;
+        
+        /* Apply smooth momentum scrolling to the main application container */
+        .main, .block-container, div[data-testid="stVerticalBlock"] {
+            -webkit-overflow-scrolling: touch !important;
+            scroll-behavior: smooth !important;
+        }
+        
+        /* Clean and modern thin scrollbar that doesn't block UI */
+        ::-webkit-scrollbar {
+            width: 6px !important;
+            background: transparent !important;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: rgba(100, 116, 139, 0.4) !important;
+            border-radius: 3px;
         }
     </style>
     """,
@@ -473,4 +486,4 @@ elif app_mode == "Subscription (Rs 10/Month)":
                     st.rerun()
                 else:
                     st.error("Please enter a valid Transaction / UTR number.")
-        
+            

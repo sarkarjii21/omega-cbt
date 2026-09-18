@@ -2578,8 +2578,105 @@
     ],
     "correct_option": "How easily a material can be magnetized in response to an external magnetic field",
     "image_path": null
+  },
+  {
+    "subject": "Mathematics",
+    "question": "Which of the following numbers is an irrational number?",
+    "options": [
+      "22 / 7",
+      "3.1416",
+      "π (Pi)",
+      "0.3333..."
+    ],
+    "correct_option": "π (Pi)",
+    "image_path": null
+  },
+  {
+    "subject": "Mathematics",
+    "question": "Convert the recurring decimal 1.122 (with bar on 22) into a standard fraction:",
+    "options": [
+      "1111 / 990",
+      "1011 / 900",
+      "1121 / 990",
+      "111 / 99"
+    ],
+    "correct_option": "1111 / 990",
+    "image_path": null
+  },
+  {
+    "subject": "Mathematics",
+    "question": "Which of the following statements is correct regarding integers and numbers?",
+    "options": [
+      "Zero is a positive integer",
+      "Zero is neither positive nor negative",
+      "All fractions are integers",
+      "All integers are natural numbers"
+    ],
+    "correct_option": "Zero is neither positive nor negative",
+    "image_path": null
+  },
+  {
+    "subject": "Mathematics",
+    "question": "How many prime numbers are there from 1 to 100?",
+    "options": [
+      "20",
+      "24",
+      "25",
+      "26"
+    ],
+    "correct_option": "25",
+    "image_path": null
+  },
+  {
+    "subject": "Mathematics",
+    "question": "Which of the following statements regarding the number 1 is correct?",
+    "options": [
+      "1 is a prime number",
+      "1 is a composite number",
+      "1 is neither prime nor composite",
+      "1 is both prime and composite"
+    ],
+    "correct_option": "1 is neither prime nor composite",
+    "image_path": null
+  },
+  {
+    "subject": "Mathematics",
+    "question": "What is the status of the number 0 (Zero) in terms of being even or odd?",
+    "options": [
+      "Zero is an odd number",
+      "Zero is an even number",
+      "Zero is neither even nor odd",
+      "Zero is both even and odd"
+    ],
+    "correct_option": "Zero is an even number",
+    "image_path": null
+  },
+  {
+    "subject": "Mathematics",
+    "question": "How many prime numbers are there from 1 to 50?",
+    "options": [
+      "10",
+      "12",
+      "15",
+      "20"
+    ],
+    "correct_option": "15",
+    "image_path": null
+  },
+  {
+    "subject": "Mathematics",
+    "question": "Which of the following sequences always forms an Arithmetic Progression (AP)?",
+    "options": [
+      "Prime numbers",
+      "Composite numbers",
+      "Consecutive Natural numbers",
+      "Powers of 2"
+    ],
+    "correct_option": "Consecutive Natural numbers",
+    "image_path": null
   }
 ]
+
 
 
 

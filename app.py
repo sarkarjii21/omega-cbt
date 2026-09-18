@@ -17,36 +17,32 @@ st.set_page_config(
     layout="wide",
 )
 
-# Ultimate Fix to Completely Block Pull-to-Refresh Reload on Mobile
+# Robust CSS to completely eliminate pull-to-refresh reload while keeping smooth scroll & clean custom scrollbar thumb
 st.markdown(
     """
     <style>
-        /* Lock body completely to prevent browser pull-to-refresh gesture */
-        html, body {
-            overscroll-behavior: none;
-            overflow: hidden;
-            height: 100%;
-            width: 100%;
-            position: fixed;
+        /* Block pull-to-refresh gesture completely */
+        body {
+            overscroll-behavior-y: none !important;
         }
         
-        /* Enable smooth scrolling inside Streamlit main container only */
-        .main .block-container {
-            height: 100vh;
-            overflow-y: auto;
-            overscroll-behavior-y: contain;
-            -webkit-overflow-scrolling: touch;
-            padding-bottom: 120px;
-        }
-        
-        /* Sleek and clean scrollbar */
+        /* Custom sleek scrollbar thumb positioned safely above bottom widgets */
         ::-webkit-scrollbar {
-            width: 8px !important;
+            width: 12px !important;
             background: transparent !important;
         }
+        ::-webkit-scrollbar-track {
+            background: transparent !important;
+            margin-bottom: 100px;
+        }
         ::-webkit-scrollbar-thumb {
-            background: rgba(37, 99, 235, 0.6) !important;
-            border-radius: 4px;
+            background: rgba(37, 99, 235, 0.8) !important;
+            border-radius: 6px;
+            border: 2px solid transparent;
+            background-clip: content-box;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(37, 99, 235, 1) !important;
         }
     </style>
     """,
@@ -492,4 +488,4 @@ elif app_mode == "Subscription (Rs 10/Month)":
                     st.rerun()
                 else:
                     st.error("Please enter a valid Transaction / UTR number.")
-        
+    

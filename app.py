@@ -17,7 +17,19 @@ st.set_page_config(
     layout="wide",
 )
 
-# Force custom icon for mobile PWA & browsers
+# Force custom icon for mobile PWA & browsers + Disable pull-to-refresh on mobile
+st.markdown(
+    """
+    <style>
+        /* Disable pull-to-refresh gesture on mobile touch screens */
+        body {
+            overscroll-behavior-y: none;
+        }
+    </style>
+    """,
+    unsafe_allow_html=True,
+)
+
 if has_logo:
     try:
         with open(LOGO_PATH, "rb") as _img_f:
@@ -281,7 +293,6 @@ with st.sidebar.expander("🔒 Admin Control"):
                 st.rerun()
 
 # ----------------- SUBJECTS SETUP (Strict Filter) -----------------
-# Only allow actual examination subjects, excluding generic Technical / Non-Technical labels
 CORE_SUBS = [
     "Electrical Engineering",
     "Civil Engineering",
@@ -349,16 +360,28 @@ if app_mode == "Give Mock Test":
             
             show_question_image(q.get("image_path"))
 
-            opts = q.get("options") or [q.get("opt1"), q.get("opt2"), q.get("opt3"), q.get("opt4")]
+            raw_opts = q.get("options") or [q.get("opt1"), q.get("opt2"), q.get("opt3"), q.get("opt4")]
+            
+            # Add a clear/unselect option at the beginning
+            clear_label = "-- Clear Selection (Unanswered) --"
+            opts = [clear_label] + raw_opts
+            
             cur_ch = st.session_state.user_answers.get(idx)
+            default_idx = opts.index(cur_ch) if cur_ch in opts else 0
+            
             sel = st.radio(
                 f"Opt_{idx}:",
                 opts,
-                index=opts.index(cur_ch) if cur_ch in opts else None,
+                index=default_idx,
                 key=f"ans_{idx}",
                 label_visibility="collapsed",
             )
-            st.session_state.user_answers[idx] = sel
+            
+            if sel == clear_label:
+                st.session_state.user_answers[idx] = None
+            else:
+                st.session_state.user_answers[idx] = sel
+                
             st.markdown("---")
 
         c1, c2 = st.columns([2, 1])
@@ -454,4 +477,4 @@ elif app_mode == "Subscription (Rs 10/Month)":
                     st.rerun()
                 else:
                     st.error("Please enter a valid Transaction / UTR number.")
-            
+                                                              

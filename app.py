@@ -57,7 +57,15 @@ def load_data(filename, default_val):
         with open(filename, "r", encoding="utf-8") as f:
             try:
                 d = json.load(f)
-                return d if (isinstance(d, list) and len(d) > 0) or isinstance(d, dict) else default_val
+                if isinstance(d, list) and len(d) > 0:
+                    # Auto-correct 'GK GS' to authentic 'GK / GS'
+                    for item in d:
+                        if item.get("subject") == "GK GS":
+                            item["subject"] = "GK / GS"
+                    return d
+                elif isinstance(d, dict):
+                    return d
+                return default_val
             except Exception:
                 return default_val
     return default_val
@@ -91,6 +99,11 @@ if "test_submitted" not in st.session_state:
     st.session_state.test_submitted = False
 if "user_answers" not in st.session_state:
     st.session_state.user_answers = {}
+
+# Ensure in-memory consistency
+for q in st.session_state.questions:
+    if q.get("subject") == "GK GS":
+        q["subject"] = "GK / GS"
 
 # Header Branding
 if has_logo:
@@ -205,7 +218,8 @@ CORE_SUBS = [
     "Technical",
     "Non-Technical",
 ]
-ALL_SUBJECTS = sorted(list(set(CORE_SUBS + [q.get("subject") for q in st.session_state.questions if q.get("subject")])))
+# Clean Subject list (Strictly removing any unformatted GK GS)
+ALL_SUBJECTS = sorted(list(set(CORE_SUBS + [q.get("subject") for q in st.session_state.questions if q.get("subject") and q.get("subject") != "GK GS"])))
 
 # 1. MOCK TEST MODE
 if app_mode == "Give Mock Test":
@@ -226,12 +240,21 @@ if app_mode == "Give Mock Test":
         with c2:
             avail_q = [q for q in st.session_state.questions if q.get("subject") in sel_subs]
             tot = len(avail_q)
-            num_q = st.slider("Number of Questions:", min_value=1, max_value=max(1, min(100, tot)), value=min(10, max(1, tot)))
+            
+            # Robust slider preventing zero/negative bounds crash
+            if tot > 0:
+                max_val = min(100, tot)
+                init_val = min(10, max_val)
+                num_q = st.slider("Number of Questions:", min_value=1, max_value=max_val, value=init_val)
+            else:
+                st.warning("No questions available for chosen subjects.")
+                num_q = 0
 
         total_sec = num_q * 35
-        st.write(f"⏱️ **Total Time:** {total_sec // 60} Min {total_sec % 60} Sec ({num_q} Qs × 35s)")
+        if num_q > 0:
+            st.write(f"⏱️ **Total Time:** {total_sec // 60} Min {total_sec % 60} Sec ({num_q} Qs × 35s)")
 
-        if st.button("🚀 Start Test"):
+        if st.button("🚀 Start Test", disabled=(num_q == 0)):
             if avail_q:
                 st.session_state.test_started = True
                 st.session_state.test_submitted = False
@@ -334,7 +357,6 @@ elif app_mode == "Subscription (Rs 10/Month)":
     u_info = st.session_state.users.get(user_email, {})
     st.info(f"User ID: `{user_email}` | Status: `{'Active' if u_info.get('is_subscribed') else 'Inactive'}` | Valid Till: `{u_info.get('sub_end', 'N/A')}`")
 
-    # Precise URI for QR scanning
     upi_uri_clean = f"upi://pay?pa={MERCHANT_UPI_ID}&am=10&cu=INR"
     qr_api = f"https://api.qrserver.com/v1/create-qr-code/?size=240x240&data={urllib.parse.quote(upi_uri_clean)}"
 
@@ -362,3 +384,4 @@ elif app_mode == "Subscription (Rs 10/Month)":
                     st.rerun()
                 else:
                     st.error("Please enter a valid Transaction / UTR number.")
+        

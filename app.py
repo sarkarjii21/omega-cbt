@@ -17,26 +17,17 @@ st.set_page_config(
     layout="wide",
 )
 
-# Enable Pinch-to-Zoom on mobile & block pull-to-refresh reload
+# Force enable Pinch-to-Zoom (Zoom In / Zoom Out) on mobile browsers
 st.markdown(
     """
-    <head>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
-    </head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
     <style>
-        /* Allow smooth scrolling and prevent unwanted page reloads */
+        /* Allow complete user zooming and disable strict locking */
+        html {
+            touch-action: manipulation;
+        }
         body {
-            overscroll-behavior-y: none !important;
-        }
-        
-        /* Clean and smooth scrollbar */
-        ::-webkit-scrollbar {
-            width: 10px !important;
-            background: transparent !important;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: rgba(37, 99, 235, 0.7) !important;
-            border-radius: 5px;
+            overscroll-behavior-y: auto !important;
         }
     </style>
     """,

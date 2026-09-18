@@ -23,6 +23,12 @@ SHEETDB_API_URL = "https://sheetdb.io/api/v1/ptx6z420d876c"
 ADMIN_SECRET_PIN = "omega999"
 MERCHANT_UPI_ID = "soumodeeps53-2@oksbi"
 
+# Hardcoded VIP Owners (Permanent Free Unlimited Access)
+VIP_ADMIN_EMAILS = [
+    "admin@omegacbt.com",
+    "soumodeep@omegacbt.com",
+]
+
 DEFAULT_QUESTIONS = [
     {
         "subject": "Electrical Engineering",
@@ -58,7 +64,6 @@ def load_data(filename, default_val):
             try:
                 d = json.load(f)
                 if isinstance(d, list) and len(d) > 0:
-                    # Auto-correct 'GK GS' to authentic 'GK / GS'
                     for item in d:
                         if item.get("subject") == "GK GS":
                             item["subject"] = "GK / GS"
@@ -100,7 +105,6 @@ if "test_submitted" not in st.session_state:
 if "user_answers" not in st.session_state:
     st.session_state.user_answers = {}
 
-# Ensure in-memory consistency
 for q in st.session_state.questions:
     if q.get("subject") == "GK GS":
         q["subject"] = "GK / GS"
@@ -157,36 +161,43 @@ today_str = today.isoformat()
 can_access_test = False
 
 if user_email:
-    if user_email not in st.session_state.users:
-        st.session_state.users[user_email] = {
-            "trial_end": (today + datetime.timedelta(days=7)).isoformat(),
-            "sub_end": None,
-            "is_subscribed": False,
-        }
-        save_data(USERS_FILE, st.session_state.users)
-
-    u_info = st.session_state.users[user_email]
-    if u_info.get("is_subscribed") and u_info.get("sub_end"):
-        sub_end = datetime.date.fromisoformat(u_info["sub_end"])
-        days_left = (sub_end - today).days
-        if days_left >= 0:
-            can_access_test = True
-            if days_left <= 2:
-                st.sidebar.warning(f"Pass expiring in {days_left} day(s)!")
-            else:
-                st.sidebar.success(f"Pass Active till {u_info['sub_end']}")
-        else:
-            u_info["is_subscribed"] = False
-            save_data(USERS_FILE, st.session_state.users)
-            st.sidebar.error("Pass Expired! Renew for Rs 10.")
+    clean_email = user_email.strip().lower()
+    
+    # 1. Admin / Owner Lifetime Bypass
+    if clean_email in VIP_ADMIN_EMAILS:
+        can_access_test = True
+        st.sidebar.success("👑 Admin / VIP Lifetime Access")
     else:
-        trial_end = datetime.date.fromisoformat(u_info.get("trial_end", today_str))
-        days_trial = (trial_end - today).days
-        if days_trial >= 0:
-            can_access_test = True
-            st.sidebar.info(f"Free Trial: {days_trial} days left")
+        if clean_email not in st.session_state.users:
+            st.session_state.users[clean_email] = {
+                "trial_end": (today + datetime.timedelta(days=7)).isoformat(),
+                "sub_end": None,
+                "is_subscribed": False,
+            }
+            save_data(USERS_FILE, st.session_state.users)
+
+        u_info = st.session_state.users[clean_email]
+        if u_info.get("is_subscribed") and u_info.get("sub_end"):
+            sub_end = datetime.date.fromisoformat(u_info["sub_end"])
+            days_left = (sub_end - today).days
+            if days_left >= 0:
+                can_access_test = True
+                if days_left <= 2:
+                    st.sidebar.warning(f"Pass expiring in {days_left} day(s)!")
+                else:
+                    st.sidebar.success(f"Pass Active till {u_info['sub_end']}")
+            else:
+                u_info["is_subscribed"] = False
+                save_data(USERS_FILE, st.session_state.users)
+                st.sidebar.error("Pass Expired! Renew for Rs 10.")
         else:
-            st.sidebar.error("Trial Ended! Get Rs 10 Pass.")
+            trial_end = datetime.date.fromisoformat(u_info.get("trial_end", today_str))
+            days_trial = (trial_end - today).days
+            if days_trial >= 0:
+                can_access_test = True
+                st.sidebar.info(f"Free Trial: {days_trial} days left")
+            else:
+                st.sidebar.error("Trial Ended! Get Rs 10 Pass.")
 
 st.sidebar.header("🧭 Menu")
 app_mode = st.sidebar.radio(
@@ -194,10 +205,34 @@ app_mode = st.sidebar.radio(
     ["Give Mock Test", "Community Q&A Box", "Subscription (Rs 10/Month)"],
 )
 
+# Admin Panel with Student Bypass & Announcement Manager
 with st.sidebar.expander("🔒 Admin Control"):
     if st.text_input("Pin:", type="password") == ADMIN_SECRET_PIN:
-        st.success("Verified!")
-        nt = st.text_area("Write Announcement:")
+        st.success("Admin Verified!")
+        
+        st.markdown("---")
+        st.subheader("⚡ Manual Student Bypass")
+        target_student = st.text_input("Student Email to Approve:")
+        pass_duration = st.selectbox("Grant Validity:", [30, 90, 365], format_func=lambda x: f"{x} Days")
+        
+        if st.button("Unlock Student Pass"):
+            t_email = target_student.strip().lower()
+            if t_email:
+                exp_date = (today + datetime.timedelta(days=pass_duration)).isoformat()
+                if t_email not in st.session_state.users:
+                    st.session_state.users[t_email] = {}
+                st.session_state.users[t_email]["is_subscribed"] = True
+                st.session_state.users[t_email]["sub_end"] = exp_date
+                st.session_state.users[t_email]["last_utr"] = "MANUAL_ADMIN_BYPASS"
+                save_data(USERS_FILE, st.session_state.users)
+                st.success(f"Unlocked {t_email} for {pass_duration} days!")
+                st.rerun()
+            else:
+                st.warning("Please enter valid student email.")
+
+        st.markdown("---")
+        st.subheader("📢 Announcement")
+        nt = st.text_area("Write Notice:")
         if st.button("Publish Notice"):
             if nt.strip():
                 nid = cur_notice.get("id", 0) + 1
@@ -218,7 +253,6 @@ CORE_SUBS = [
     "Technical",
     "Non-Technical",
 ]
-# Clean Subject list (Strictly removing any unformatted GK GS)
 ALL_SUBJECTS = sorted(list(set(CORE_SUBS + [q.get("subject") for q in st.session_state.questions if q.get("subject") and q.get("subject") != "GK GS"])))
 
 # 1. MOCK TEST MODE
@@ -241,7 +275,6 @@ if app_mode == "Give Mock Test":
             avail_q = [q for q in st.session_state.questions if q.get("subject") in sel_subs]
             tot = len(avail_q)
             
-            # Robust slider preventing zero/negative bounds crash
             if tot > 0:
                 max_val = min(100, tot)
                 init_val = min(10, max_val)
@@ -354,7 +387,7 @@ elif app_mode == "Community Q&A Box":
 # 3. SUBSCRIPTION & ₹10 UPI GATEWAY
 elif app_mode == "Subscription (Rs 10/Month)":
     st.header("💳 Omega CBT 1-Month Pass")
-    u_info = st.session_state.users.get(user_email, {})
+    u_info = st.session_state.users.get(user_email.strip().lower(), {})
     st.info(f"User ID: `{user_email}` | Status: `{'Active' if u_info.get('is_subscribed') else 'Inactive'}` | Valid Till: `{u_info.get('sub_end', 'N/A')}`")
 
     upi_uri_clean = f"upi://pay?pa={MERCHANT_UPI_ID}&am=10&cu=INR"
@@ -366,7 +399,7 @@ elif app_mode == "Subscription (Rs 10/Month)":
         st.image(qr_api, width=220, caption="Scan using GPay / PhonePe / Paytm / BHIM")
         st.markdown("**Official UPI ID:**")
         st.code(MERCHANT_UPI_ID, language="text")
-        st.caption("QR कोड को किसी भी UPI ऐप से स्कैन करें या UPI ID कॉपी करके ₹10 ट्रांसफर करें।")
+        st.caption("QR code scan karke ya UPI ID copy karke transfer karein.")
 
     with col2:
         st.subheader("Step 2: Instant Activation")

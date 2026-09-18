@@ -2146,8 +2146,201 @@
     ],
     "correct_option": "Narmada",
     "image_path": null
+  },
+  {
+    "subject": "Reasoning",
+    "question": "If GHI is coded as 1578 and DEF is coded as 912, then how will ABC be coded?",
+    "options": [
+      "234",
+      "246",
+      "346",
+      "256"
+    ],
+    "correct_option": "246",
+    "image_path": null
+  },
+  {
+    "subject": "Reasoning",
+    "question": "If the letters of the English alphabet are written in groups of 4 in reverse order (DCBA, HGFE, LKJI...) and at the end Y and Z are interchanged, which letter will be 4th to the right of the 13th letter from the left?",
+    "options": [
+      "S",
+      "T",
+      "U",
+      "R"
+    ],
+    "correct_option": "T",
+    "image_path": null
+  },
+  {
+    "subject": "Reasoning",
+    "question": "In a certain code language, MATHEMATICS is written as LBSIDNZUHDR. How will CHEMISTRY be written in that code?",
+    "options": [
+      "BDIFJRUQZ",
+      "BIDNFJRUQ",
+      "BFIDNRUQZ",
+      "BIDNRUQZ"
+    ],
+    "correct_option": "BIDNFJRUQ",
+    "image_path": null
+  },
+  {
+    "subject": "Reasoning",
+    "question": "If the order of letters in the English alphabet is reversed (Z=1, Y=2...), and each letter represents the letter whose position it occupies, what will 'LUCKNOW' become?",
+    "options": [
+      "OFXPMLE",
+      "OFXPMDL",
+      "OFXPMLD",
+      "OFXNMLD"
+    ],
+    "correct_option": "OFXPMLD",
+    "image_path": null
+  },
+  {
+    "subject": "Reasoning",
+    "question": "How many 3-character passwords can be formed using 1 non-zero digit (1-9), 1 vowel, and 1 consonant, such that each password starts with a vowel and ends with a consonant?",
+    "options": [
+      "840",
+      "945",
+      "1050",
+      "720"
+    ],
+    "correct_option": "945",
+    "image_path": null
+  },
+  {
+    "subject": "Reasoning",
+    "question": "In a code language, SAILOR is coded as 21, 4, 14, 19, 26, 31 (adding consecutive prime numbers 2, 3, 5, 7, 11, 13). What is the code for MARVEL?",
+    "options": [
+      "15, 4, 23, 26, 23, 18",
+      "15, 4, 23, 9, 23, 18",
+      "15, 3, 23, 9, 22, 17",
+      "15, 4, 23, 9, 22, 18"
+    ],
+    "correct_option": "15, 4, 23, 9, 23, 18",
+    "image_path": null
+  },
+  {
+    "subject": "Reasoning",
+    "question": "In a certain code language, CREATION is written as TROIEBCA (letters arranged in descending alphabetical order). How will FEBRUARY be written?",
+    "options": [
+      "YURRFEBA",
+      "YURFEBBA",
+      "YURRFAEB",
+      "YURRFEAB"
+    ],
+    "correct_option": "YURRFEBA",
+    "image_path": null
+  },
+  {
+    "subject": "Reasoning",
+    "question": "In a code language, MAGIC is coded as QBKJD (Consonants +4, Vowels +1). Using the same rule, how will FIEST be coded?",
+    "options": [
+      "JJFWX",
+      "JJFXW",
+      "JJFDWX",
+      "JJFDW"
+    ],
+    "correct_option": "JJFDWX",
+    "image_path": null
+  },
+  {
+    "subject": "Reasoning",
+    "question": "If TARGET is coded as 17 and SILK is coded as 15 (sum of place values reversed), then what is the code for FROST?",
+    "options": [
+      "78",
+      "87",
+      "89",
+      "98"
+    ],
+    "correct_option": "87",
+    "image_path": null
+  },
+  {
+    "subject": "Reasoning",
+    "question": "In a code language, CONCERT is coded as CNEROCT. How will SMARTER be coded following the same letter position transposition?",
+    "options": [
+      "RATEEMS",
+      "RATEMSR",
+      "RATEMRS",
+      "RTAEMSR"
+    ],
+    "correct_option": "RATEMSR",
+    "image_path": null
+  },
+  {
+    "subject": "Reasoning",
+    "question": "If U is coded as A, A as G, B as R, N as T, D as I, and C as S, how will the word 'ABUNDANCE' be coded?",
+    "options": [
+      "GRATIGTSD",
+      "GRATIGTUD",
+      "GRATIGTUS",
+      "GRATIGTSC"
+    ],
+    "correct_option": "GRATIGTSD",
+    "image_path": null
+  },
+  {
+    "subject": "Reasoning",
+    "question": "In a certain code language, TORCH is coded as WQUFK (+3 to each letter). What will be the code for WINTER?",
+    "options": [
+      "ZLQWHU",
+      "ZLQXHU",
+      "ZLQUHV",
+      "YKPWHU"
+    ],
+    "correct_option": "ZLQWHU",
+    "image_path": null
+  },
+  {
+    "subject": "Reasoning",
+    "question": "In a code language: 'how are you' is '639', 'are you fine today' is '6453', and 'stay fine' is '58'. What is the code for 'today'?",
+    "options": [
+      "3",
+      "4",
+      "5",
+      "6"
+    ],
+    "correct_option": "4",
+    "image_path": null
+  },
+  {
+    "subject": "Reasoning",
+    "question": "If 4 + 5 = 42 and 10 + 12 = 244 using pattern: 2 × [(A × B) + (B - A)], what is the value of 6 + 8?",
+    "options": [
+      "96",
+      "100",
+      "104",
+      "110"
+    ],
+    "correct_option": "100",
+    "image_path": null
+  },
+  {
+    "subject": "Reasoning",
+    "question": "In a code language, MARKET is coded as 94 (Sum of opposite letter positions = 14+26+9+16+22+7 = 94). If FALSE is coded as 97 (Sum of opposite letters + number of letters), how will TRAP be coded?",
+    "options": [
+      "42",
+      "44",
+      "46",
+      "48"
+    ],
+    "correct_option": "46",
+    "image_path": null
+  },
+  {
+    "subject": "Reasoning",
+    "question": "In a certain code language, DHL is related to JLN (+6, +4, +2) and MAG is related to SCI (+6, +4, +2). Which of the following letter-groups gives FIP by applying the same logic?",
+    "options": [
+      "ZEN",
+      "ZEM",
+      "YEN",
+      "XDM"
+    ],
+    "correct_option": "ZEN",
+    "image_path": null
   }
 ]
+
 
 
   

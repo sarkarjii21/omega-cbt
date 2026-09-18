@@ -646,5 +646,607 @@
     ],
     "correct_option": "Reversing either field or armature terminals",
     "image_path": null
+  },
+  {
+    "subject": "Electrical Engineering",
+    "question": "The torque developed by a DC series motor is directly proportional to:",
+    "options": [
+      "Armature current (Ia)",
+      "Square of armature current (Ia^2) before saturation",
+      "Field resistance",
+      "Back EMF"
+    ],
+    "correct_option": "Square of armature current (Ia^2) before saturation",
+    "image_path": null
+  },
+  {
+    "subject": "Electrical Engineering",
+    "question": "For starting a 3-phase squirrel cage induction motor, which starter applies reduced voltage to the stator windings?",
+    "options": [
+      "Direct-On-Line (DOL) starter",
+      "Star-Delta starter",
+      "Rotor resistance starter",
+      "Knife switch starter"
+    ],
+    "correct_option": "Star-Delta starter",
+    "image_path": null
+  },
+  {
+    "subject": "Electrical Engineering",
+    "question": "A synchronous motor is:",
+    "options": [
+      "Self-starting at full load",
+      "Self-starting at no load",
+      "Not self-starting",
+      "Started only by reversing phases"
+    ],
+    "correct_option": "Not self-starting",
+    "image_path": null
+  },
+  {
+    "subject": "Electrical Engineering",
+    "question": "The damping torque in a PMMC instrument is provided by:",
+    "options": [
+      "Air friction damping",
+      "Fluid friction damping",
+      "Eddy current damping",
+      "Gravity control"
+    ],
+    "correct_option": "Eddy current damping",
+    "image_path": null
+  },
+  {
+    "subject": "Electrical Engineering",
+    "question": "Moving iron (MI) instruments can be used for:",
+    "options": [
+      "DC measurements only",
+      "AC measurements only",
+      "Both AC and DC measurements",
+      "High-frequency RF only"
+    ],
+    "correct_option": "Both AC and DC measurements",
+    "image_path": null
+  },
+  {
+    "subject": "Electrical Engineering",
+    "question": "Megger is an instrument primarily used for measuring:",
+    "options": [
+      "Low resistances (below 1 ohm)",
+      "Medium resistances (1 ohm to 100 k-ohm)",
+      "Very high insulation resistances",
+      "Inductance of coils"
+    ],
+    "correct_option": "Very high insulation resistances",
+    "image_path": null
+  },
+  {
+    "subject": "Electrical Engineering",
+    "question": "In a 3-phase balanced system, the neutral wire carries a current equal to:",
+    "options": [
+      "Full phase current",
+      "Three times phase current",
+      "Zero",
+      "Line current divided by sqrt(3)"
+    ],
+    "correct_option": "Zero",
+    "image_path": null
+  },
+  {
+    "subject": "Electrical Engineering",
+    "question": "Surge impedance of an overhead transmission line is typically in the range of:",
+    "options": [
+      "40 ohm to 60 ohm",
+      "100 ohm to 200 ohm",
+      "400 ohm to 600 ohm",
+      "1000 ohm to 2000 ohm"
+    ],
+    "correct_option": "400 ohm to 600 ohm",
+    "image_path": null
+  },
+  {
+    "subject": "Electrical Engineering",
+    "question": "The primary function of a fuse in an electrical circuit is to provide protection against:",
+    "options": [
+      "Under-voltage",
+      "Short-circuit and severe overcurrent",
+      "Reverse current",
+      "Open circuits"
+    ],
+    "correct_option": "Short-circuit and severe overcurrent",
+    "image_path": null
+  },
+  {
+    "subject": "Electrical Engineering",
+    "question": "What happens to the resistance of a pure semiconductor material (like Silicon or Germanium) when its temperature increases?",
+    "options": [
+      "Increases",
+      "Decreases (Negative Temperature Coefficient)",
+      "Remains constant",
+      "Becomes zero immediately"
+    ],
+    "correct_option": "Decreases (Negative Temperature Coefficient)",
+    "image_path": null
+  },
+  {
+    "subject": "Electrical Engineering",
+    "question": "Thevenin's theorem replaces an active linear network across two terminals with:",
+    "options": [
+      "A single current source in parallel with a resistance",
+      "A single voltage source in series with a resistance",
+      "A single voltage source in parallel with a resistance",
+      "An ideal voltage source only"
+    ],
+    "correct_option": "A single voltage source in series with a resistance",
+    "image_path": null
+  },
+  {
+    "subject": "Electrical Engineering",
+    "question": "Norton's equivalent resistance (RN) is related to Thevenin's equivalent resistance (Rth) by:",
+    "options": [
+      "RN = 1 / Rth",
+      "RN = Rth",
+      "RN = 2 * Rth",
+      "RN = Rth / 2"
+    ],
+    "correct_option": "RN = Rth",
+    "image_path": null
+  },
+  {
+    "subject": "Electrical Engineering",
+    "question": "In a magnetic circuit, the equivalent of electric current (I) is:",
+    "options": [
+      "Reluctance",
+      "Magnetic Flux (Phi)",
+      "Magnetomotive force (MMF)",
+      "Permeability"
+    ],
+    "correct_option": "Magnetic Flux (Phi)",
+    "image_path": null
+  },
+  {
+    "subject": "Electrical Engineering",
+    "question": "If the length of a wire is doubled and its cross-sectional area is halved, its new resistance will be:",
+    "options": [
+      "Same as initial",
+      "Doubled",
+      "4 times the initial value",
+      "1/4 of initial value"
+    ],
+    "correct_option": "4 times the initial value",
+    "image_path": null
+  },
+  {
+    "subject": "Electrical Engineering",
+    "question": "In a balanced Star (Y) connected 3-phase load, the relationship between Line voltage (VL) and Phase voltage (Vph) is:",
+    "options": [
+      "VL = Vph",
+      "VL = sqrt(3) * Vph",
+      "VL = Vph / sqrt(3)",
+      "VL = 3 * Vph"
+    ],
+    "correct_option": "VL = sqrt(3) * Vph",
+    "image_path": null
+  },
+  {
+    "subject": "Electrical Engineering",
+    "question": "In a balanced Delta connected 3-phase load, the relationship between Line current (IL) and Phase current (Iph) is:",
+    "options": [
+      "IL = Iph",
+      "IL = sqrt(3) * Iph",
+      "IL = Iph / sqrt(3)",
+      "IL = 3 * Iph"
+    ],
+    "correct_option": "IL = sqrt(3) * Iph",
+    "image_path": null
+  },
+  {
+    "subject": "Electrical Engineering",
+    "question": "The primary purpose of a conservator tank in an oil-cooled power transformer is to:",
+    "options": [
+      "Cool down the oil directly via forced draft",
+      "Accommodate expansion and contraction of oil due to temperature variation",
+      "Trap incoming air moisture",
+      "Prevent short circuit between windings"
+    ],
+    "correct_option": "Accommodate expansion and contraction of oil due to temperature variation",
+    "image_path": null
+  },
+  {
+    "subject": "Electrical Engineering",
+    "question": "When the secondary of a current transformer (CT) is in service, it must NEVER be:",
+    "options": [
+      "Short-circuited",
+      "Kept open-circuited",
+      "Connected to an ammeter",
+      "Earthed"
+    ],
+    "correct_option": "Kept open-circuited",
+    "image_path": null
+  },
+  {
+    "subject": "Electrical Engineering",
+    "question": "In a DC generator, the emf generated in the armature conductors is fundamentally:",
+    "options": [
+      "Alternating (AC)",
+      "Direct (DC)",
+      "Pulsating DC only",
+      "High-frequency radio wave"
+    ],
+    "correct_option": "Alternating (AC)",
+    "image_path": null
+  },
+  {
+    "subject": "Electrical Engineering",
+    "question": "Which DC motor has the highest starting torque?",
+    "options": [
+      "DC Shunt motor",
+      "DC Series motor",
+      "Differentially compounded motor",
+      "Cumulative compound motor"
+    ],
+    "correct_option": "DC Series motor",
+    "image_path": null
+  },
+  {
+    "subject": "Electrical Engineering",
+    "question": "A wire of resistance 4Ω is stretched to twice its original length. What is its new resistance?",
+    "options": [
+      "8Ω",
+      "16Ω",
+      "2Ω",
+      "1Ω"
+    ],
+    "correct_option": "16Ω",
+    "image_path": null
+  },
+  {
+    "subject": "Electrical Engineering",
+    "question": "A uniform wire of resistance 10Ω is stretched such that its length increases by 10%. The new resistance is:",
+    "options": [
+      "11Ω",
+      "12.1Ω",
+      "12Ω",
+      "20Ω"
+    ],
+    "correct_option": "12.1Ω",
+    "image_path": null
+  },
+  {
+    "subject": "Electrical Engineering",
+    "question": "A wire of resistance 100Ω is stretched to 3 times its original length. The new resistance will be:",
+    "options": [
+      "300Ω",
+      "600Ω",
+      "900Ω",
+      "100Ω"
+    ],
+    "correct_option": "900Ω",
+    "image_path": null
+  },
+  {
+    "subject": "Electrical Engineering",
+    "question": "A wire of resistance 16Ω is melted and recast into a wire of half its original length. Its new resistance will be:",
+    "options": [
+      "8Ω",
+      "4Ω",
+      "2Ω",
+      "32Ω"
+    ],
+    "correct_option": "4Ω",
+    "image_path": null
+  },
+  {
+    "subject": "Electrical Engineering",
+    "question": "The radius of a uniform wire of resistance 80Ω is halved by stretching. Its new resistance is:",
+    "options": [
+      "160Ω",
+      "320Ω",
+      "640Ω",
+      "1280Ω"
+    ],
+    "correct_option": "1280Ω",
+    "image_path": null
+  },
+  {
+    "subject": "Electrical Engineering",
+    "question": "A wire of resistance R is stretched such that its diameter becomes half (d/2). The new resistance will be:",
+    "options": [
+      "2R",
+      "4R",
+      "8R",
+      "16R"
+    ],
+    "correct_option": "16R",
+    "image_path": null
+  },
+  {
+    "subject": "Electrical Engineering",
+    "question": "A uniform wire is stretched to double its original length. The percentage increase in resistance is:",
+    "options": [
+      "100%",
+      "200%",
+      "300%",
+      "400%"
+    ],
+    "correct_option": "300%",
+    "image_path": null
+  },
+  {
+    "subject": "Electrical Engineering",
+    "question": "A wire of resistance 27Ω is stretched to 3 times its length, then cut into 3 equal pieces. The resistance of each piece is:",
+    "options": [
+      "9Ω",
+      "81Ω",
+      "27Ω",
+      "243Ω"
+    ],
+    "correct_option": "81Ω",
+    "image_path": null
+  },
+  {
+    "subject": "Electrical Engineering",
+    "question": "A wire of resistance 5Ω is drawn out so that its radius is reduced by a factor of 3. Its new resistance is:",
+    "options": [
+      "15Ω",
+      "45Ω",
+      "135Ω",
+      "405Ω"
+    ],
+    "correct_option": "405Ω",
+    "image_path": null
+  },
+  {
+    "subject": "Electrical Engineering",
+    "question": "If the length of a wire increases by 20% on stretching, its resistance increases by:",
+    "options": [
+      "20%",
+      "40%",
+      "44%",
+      "48%"
+    ],
+    "correct_option": "44%",
+    "image_path": null
+  },
+  {
+    "subject": "Electrical Engineering",
+    "question": "A wire has a resistance of 2Ω. It is stretched to 5 times its length. The new resistance is:",
+    "options": [
+      "10Ω",
+      "25Ω",
+      "50Ω",
+      "100Ω"
+    ],
+    "correct_option": "50Ω",
+    "image_path": null
+  },
+  {
+    "subject": "Electrical Engineering",
+    "question": "When a wire is compressed such that its area of cross-section is doubled, its resistance becomes:",
+    "options": [
+      "Half",
+      "One-fourth",
+      "Double",
+      "Four times"
+    ],
+    "correct_option": "One-fourth",
+    "image_path": null
+  },
+  {
+    "subject": "Electrical Engineering",
+    "question": "A wire of resistance 64Ω has its diameter reduced to half by drawing. The new resistance is:",
+    "options": [
+      "256Ω",
+      "512Ω",
+      "1024Ω",
+      "128Ω"
+    ],
+    "correct_option": "1024Ω",
+    "image_path": null
+  },
+  {
+    "subject": "Electrical Engineering",
+    "question": "If the length of a conductor is increased by 0.1% by stretching, the percentage change in resistance is:",
+    "options": [
+      "0.1%",
+      "0.2%",
+      "0.05%",
+      "0.4%"
+    ],
+    "correct_option": "0.2%",
+    "image_path": null
+  },
+  {
+    "subject": "Electrical Engineering",
+    "question": "A wire of 12Ω is stretched until its length is 4 times its original length. The new resistance is:",
+    "options": [
+      "48Ω",
+      "96Ω",
+      "192Ω",
+      "240Ω"
+    ],
+    "correct_option": "192Ω",
+    "image_path": null
+  },
+  {
+    "subject": "Electrical Engineering",
+    "question": "A copper wire is stretched to reduce its radius by 1%. The percentage increase in resistance is approximately:",
+    "options": [
+      "1%",
+      "2%",
+      "4%",
+      "8%"
+    ],
+    "correct_option": "4%",
+    "image_path": null
+  },
+  {
+    "subject": "Electrical Engineering",
+    "question": "A wire of resistance R is cut into 4 equal pieces and connected in parallel. The equivalent resistance is:",
+    "options": [
+      "R/4",
+      "R/16",
+      "4R",
+      "16R"
+    ],
+    "correct_option": "R/16",
+    "image_path": null
+  },
+  {
+    "subject": "Electrical Engineering",
+    "question": "A cylindrical conductor of resistance 18Ω is drawn so that its length becomes √2 times original. The new resistance is:",
+    "options": [
+      "18√2 Ω",
+      "36Ω",
+      "9Ω",
+      "72Ω"
+    ],
+    "correct_option": "36Ω",
+    "image_path": null
+  },
+  {
+    "subject": "Electrical Engineering",
+    "question": "A wire of resistance 50Ω is stretched such that its diameter is reduced to 1/√2 of its original value. The new resistance is:",
+    "options": [
+      "100Ω",
+      "200Ω",
+      "400Ω",
+      "25Ω"
+    ],
+    "correct_option": "200Ω",
+    "image_path": null
+  },
+  {
+    "subject": "Electrical Engineering",
+    "question": "A wire of resistance 8Ω is stretched to double its length and then bent into a circle. The resistance between two diametrically opposite points is:",
+    "options": [
+      "32Ω",
+      "16Ω",
+      "8Ω",
+      "4Ω"
+    ],
+    "correct_option": "8Ω",
+    "image_path": null
+  },
+  {
+    "subject": "Electrical Engineering",
+    "question": "For v(t) = 100 sin(200t) V applied to an inductor of L = 0.5 H, find the inductive reactance XL:",
+    "options": [
+      "50Ω",
+      "100Ω",
+      "200Ω",
+      "400Ω"
+    ],
+    "correct_option": "100Ω",
+    "image_path": null
+  },
+  {
+    "subject": "Electrical Engineering",
+    "question": "For ω = 100 rad/s and C = 20 µF, the capacitive reactance XC is:",
+    "options": [
+      "50Ω",
+      "200Ω",
+      "500Ω",
+      "1000Ω"
+    ],
+    "correct_option": "500Ω",
+    "image_path": null
+  },
+  {
+    "subject": "Electrical Engineering",
+    "question": "An inductor has XL = 150Ω when connected to an angular frequency ω = 300 rad/s. The inductance L is:",
+    "options": [
+      "0.2 H",
+      "0.5 H",
+      "1 H",
+      "2 H"
+    ],
+    "correct_option": "0.5 H",
+    "image_path": null
+  },
+  {
+    "subject": "Electrical Engineering",
+    "question": "A capacitor has XC = 250Ω at ω = 400 rad/s. The capacitance C is:",
+    "options": [
+      "5 µF",
+      "10 µF",
+      "20 µF",
+      "25 µF"
+    ],
+    "correct_option": "10 µF",
+    "image_path": null
+  },
+  {
+    "subject": "Electrical Engineering",
+    "question": "A capacitor of 10 µF has a capacitive reactance of 200Ω. The angular frequency ω is:",
+    "options": [
+      "100 rad/s",
+      "250 rad/s",
+      "500 rad/s",
+      "1000 rad/s"
+    ],
+    "correct_option": "500 rad/s",
+    "image_path": null
+  },
+  {
+    "subject": "Electrical Engineering",
+    "question": "In a series circuit, R = 6Ω and XL = 8Ω. The total impedance Z is:",
+    "options": [
+      "14Ω",
+      "10Ω",
+      "2Ω",
+      "48Ω"
+    ],
+    "correct_option": "10Ω",
+    "image_path": null
+  },
+  {
+    "subject": "Electrical Engineering",
+    "question": "In a series circuit, R = 12Ω and XC = 5Ω. The total impedance Z is:",
+    "options": [
+      "17Ω",
+      "7Ω",
+      "13Ω",
+      "60Ω"
+    ],
+    "correct_option": "13Ω",
+    "image_path": null
+  },
+  {
+    "subject": "Electrical Engineering",
+    "question": "If v(t) = 50 sin(500t) V is applied to C = 5 µF, find XC:",
+    "options": [
+      "200Ω",
+      "400Ω",
+      "500Ω",
+      "1000Ω"
+    ],
+    "correct_option": "400Ω",
+    "image_path": null
+  },
+  {
+    "subject": "Electrical Engineering",
+    "question": "A coil has L = 0.2 H and is connected across v(t) = 200 sin(100t) V. The peak current Im is:",
+    "options": [
+      "5 A",
+      "10 A",
+      "20 A",
+      "50 A"
+    ],
+    "correct_option": "10 A",
+    "image_path": null
+  },
+  {
+    "subject": "Electrical Engineering",
+    "question": "In a series R-L circuit with R = 40Ω, L = 0.3 H, and ω = 100 rad/s, the impedance Z is:",
+    "options": [
+      "70Ω",
+      "50Ω",
+      "30Ω",
+      "10Ω"
+    ],
+    "correct_option": "50Ω",
+    "image_path": null
   }
 ]
+  
+

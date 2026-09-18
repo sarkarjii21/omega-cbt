@@ -4,7 +4,6 @@ import os
 import random
 import time
 import requests
-from pypdf import PdfReader
 
 # --- पेज कॉन्फ़िगरेशन (Omega CBT) ---
 st.set_page_config(
@@ -25,7 +24,6 @@ def load_db():
                 for q in data:
                     if not q.get("subject"):
                         q["subject"] = "Technical"
-                    # Handle core subject mapping if stored as 'GK GS'
                     if q.get("subject") == "GK GS":
                         q["subject"] = "GK / GS"
                 return data
@@ -204,7 +202,7 @@ with tab_mock:
             if "correct_option" not in q:
                 q["correct_option"] = q.get("answer")
 
-            # Clear selection support option added natively
+            # Clear selection support option
             clear_label = "-- Clear Selection (Unanswered) --"
             opts = [clear_label] + q["options"]
 
@@ -341,7 +339,7 @@ with tab_manage:
                 st.rerun()
 
     st.markdown("---")
-    st.subheader("📥 Add Questions to Bank")
+    st.subheader("📥 Add Questions via Raw Text (AI Parsed)")
 
     selected_subject_to_add = st.radio(
         "🏷️ Choose Subject for New Questions:",
@@ -349,30 +347,17 @@ with tab_manage:
         horizontal=True
     )
 
-    pdf_file = st.file_uploader("Upload Question PDF (Optional):", type=["pdf"])
-    raw_input_text = st.text_area("Or Paste Raw Text of Questions directly:", height=150, placeholder="Paste questions here...")
+    raw_input_text = st.text_area("Paste Raw Text of Questions directly:", height=180, placeholder="Paste your questions here...")
 
     if st.button("⚙️ Process & Add to Bank", type="primary", use_container_width=True):
         if not st.session_state.api_key:
             st.error("कृपया पहले ऊपर अपनी Gemini API Key दर्ज करें!")
         else:
-            full_text = ""
-            if pdf_file is not None:
-                try:
-                    reader = PdfReader(pdf_file)
-                    for p in reader.pages:
-                        full_text += p.extract_text() or ""
-                except Exception as e:
-                    st.error(f"PDF पढ़ने में त्रुटि: {e}")
-
-            if raw_input_text.strip():
-                full_text += "\n" + raw_input_text.strip()
-
-            if not full_text.strip():
-                st.warning("कृपया टेक्स्ट पेस्ट करें या PDF अपलोड करें!")
+            if not raw_input_text.strip():
+                st.warning("कृपया टेक्स्ट पेस्ट करें!")
             else:
                 with st.spinner(f"AI सवालों को {selected_subject_to_add} फ़ॉर्मेट में प्रोसेस कर रहा है..."):
-                    extracted = parse_raw_text_with_gemini(full_text, st.session_state.api_key, selected_subject_to_add)
+                    extracted = parse_raw_text_with_gemini(raw_input_text.strip(), st.session_state.api_key, selected_subject_to_add)
                     if extracted and isinstance(extracted, list):
                         current_db = load_db()
                         current_db.extend(extracted)
@@ -382,13 +367,5 @@ with tab_manage:
                         st.rerun()
 
     st.markdown("---")
-    current_stored = load_db()
-    st.write(f"📚 **Total Stored Questions:** {len(current_stored)}")
-    t_cnt = sum(1 for q in current_stored if q.get("subject") == "Technical")
-    nt_cnt = sum(1 for q in current_stored if q.get("subject") in ["Non-Technical", "GK GS", "GK / GS"])
-    st.caption(f"⚡ Technical: **{t_cnt}** | 🧠 Non-Technical: **{nt_cnt}**")
-
-    if st.button("🗑️ Reset / Clear Bank", help="सारे सवाल मिटा देगा"):
-        save_db([])
-        st.warning("क्वेश्चन बैंक खाली कर दिया गया।")
-        st.rerun()
+    current_stored
+    

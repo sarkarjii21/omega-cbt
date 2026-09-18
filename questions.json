@@ -1246,7 +1246,584 @@
     ],
     "correct_option": "50Ω",
     "image_path": null
+  },
+  {
+    "subject": "GK / GS",
+    "question": "On which day of the year is the Earth farthest from the Sun, at a position called aphelion?",
+    "options": [
+      "4 July",
+      "23 October",
+      "16 August",
+      "12 May"
+    ],
+    "correct_option": "4 July",
+    "image_path": null
+  },
+  {
+    "subject": "GK / GS",
+    "question": "What is the phenomenon called when the Earth is at its maximum distance from the Sun?",
+    "options": [
+      "Perihelion",
+      "Aphelion",
+      "Apogee",
+      "Perigee"
+    ],
+    "correct_option": "Aphelion",
+    "image_path": null
+  },
+  {
+    "subject": "GK / GS",
+    "question": "On which day is the Earth closest to the Sun (Perihelion)?",
+    "options": [
+      "4 July",
+      "3 January",
+      "21 June",
+      "22 December"
+    ],
+    "correct_option": "3 January",
+    "image_path": null
+  },
+  {
+    "subject": "GK / GS",
+    "question": "What is the position of minimum distance between the Earth and the Sun known as?",
+    "options": [
+      "Aphelion",
+      "Perigee",
+      "Perihelion",
+      "Apogee"
+    ],
+    "correct_option": "Perihelion",
+    "image_path": null
+  },
+  {
+    "subject": "GK / GS",
+    "question": "In which month does the phenomenon of Aphelion occur?",
+    "options": [
+      "January",
+      "March",
+      "July",
+      "September"
+    ],
+    "correct_option": "July",
+    "image_path": null
+  },
+  {
+    "subject": "GK / GS",
+    "question": "A ________ is a cloud of dust and gas inside a galaxy.",
+    "options": [
+      "Chromosphere",
+      "Nebula",
+      "Black hole",
+      "Photosphere"
+    ],
+    "correct_option": "Nebula",
+    "image_path": null
+  },
+  {
+    "subject": "GK / GS",
+    "question": "Which astronomical object is primarily composed of interstellar clouds of dust, hydrogen, helium, and other ionized gases?",
+    "options": [
+      "Nebula",
+      "Pulsar",
+      "White Dwarf",
+      "Quasar"
+    ],
+    "correct_option": "Nebula",
+    "image_path": null
+  },
+  {
+    "subject": "GK / GS",
+    "question": "What is the visible luminous surface layer of the Sun called?",
+    "options": [
+      "Corona",
+      "Chromosphere",
+      "Photosphere",
+      "Nebula"
+    ],
+    "correct_option": "Photosphere",
+    "image_path": null
+  },
+  {
+    "subject": "GK / GS",
+    "question": "A region in spacetime where gravity is so strong that nothing, not even light, can escape is called a:",
+    "options": [
+      "Nebula",
+      "Black hole",
+      "Supernova",
+      "Neutron star"
+    ],
+    "correct_option": "Black hole",
+    "image_path": null
+  },
+  {
+    "subject": "GK / GS",
+    "question": "The reddish layer of the Sun's atmosphere located just above the photosphere is known as the:",
+    "options": [
+      "Chromosphere",
+      "Core",
+      "Corona",
+      "Nebula"
+    ],
+    "correct_option": "Chromosphere",
+    "image_path": null
+  },
+  {
+    "subject": "GK / GS",
+    "question": "Which of the following planets has the most number of moons in the Solar System?",
+    "options": [
+      "Neptune",
+      "Saturn",
+      "Jupiter",
+      "Uranus"
+    ],
+    "correct_option": "Saturn",
+    "image_path": null
+  },
+  {
+    "subject": "GK / GS",
+    "question": "Which planet in the Solar System possesses the second highest number of known natural satellites?",
+    "options": [
+      "Saturn",
+      "Mars",
+      "Jupiter",
+      "Uranus"
+    ],
+    "correct_option": "Jupiter",
+    "image_path": null
+  },
+  {
+    "subject": "GK / GS",
+    "question": "Titan is the largest moon of which planet?",
+    "options": [
+      "Jupiter",
+      "Saturn",
+      "Neptune",
+      "Uranus"
+    ],
+    "correct_option": "Saturn",
+    "image_path": null
+  },
+  {
+    "subject": "GK / GS",
+    "question": "Ganymede, the largest moon in the Solar System, belongs to which planet?",
+    "options": [
+      "Saturn",
+      "Neptune",
+      "Jupiter",
+      "Earth"
+    ],
+    "correct_option": "Jupiter",
+    "image_path": null
+  },
+  {
+    "subject": "GK / GS",
+    "question": "Which two planets in the Solar System do not have any moons?",
+    "options": [
+      "Mercury and Venus",
+      "Venus and Mars",
+      "Mercury and Mars",
+      "Mars and Uranus"
+    ],
+    "correct_option": "Mercury and Venus",
+    "image_path": null
+  },
+  {
+    "subject": "GK / GS",
+    "question": "Which of the following is the second nearest star to Earth?",
+    "options": [
+      "Proxima Centauri",
+      "Polaris",
+      "Delta Velorum",
+      "Sirius"
+    ],
+    "correct_option": "Proxima Centauri",
+    "image_path": null
+  },
+  {
+    "subject": "GK / GS",
+    "question": "Which is the closest star to the planet Earth?",
+    "options": [
+      "Proxima Centauri",
+      "Sun",
+      "Sirius",
+      "Alpha Centauri A"
+    ],
+    "correct_option": "Sun",
+    "image_path": null
+  },
+  {
+    "subject": "GK / GS",
+    "question": "Which is the brightest star visible in the night sky from Earth?",
+    "options": [
+      "Polaris",
+      "Betelgeuse",
+      "Sirius (Dog Star)",
+      "Proxima Centauri"
+    ],
+    "correct_option": "Sirius (Dog Star)",
+    "image_path": null
+  },
+  {
+    "subject": "GK / GS",
+    "question": "The North Star, used historically for celestial navigation, is also known as:",
+    "options": [
+      "Sirius",
+      "Polaris",
+      "Vega",
+      "Proxima Centauri"
+    ],
+    "correct_option": "Polaris",
+    "image_path": null
+  },
+  {
+    "subject": "GK / GS",
+    "question": "Proxima Centauri is part of which stellar system?",
+    "options": [
+      "Alpha Centauri system",
+      "Ursa Major system",
+      "Orion system",
+      "Sirius system"
+    ],
+    "correct_option": "Alpha Centauri system",
+    "image_path": null
+  },
+  {
+    "subject": "GK / GS",
+    "question": "Which celestial body is no longer considered a planet within Earth's Solar System?",
+    "options": [
+      "Neptune",
+      "Mars",
+      "Pluto",
+      "Uranus"
+    ],
+    "correct_option": "Pluto",
+    "image_path": null
+  },
+  {
+    "subject": "GK / GS",
+    "question": "In which year was Pluto reclassified from a planet to a dwarf planet by the IAU?",
+    "options": [
+      "2001",
+      "2004",
+      "2006",
+      "2010"
+    ],
+    "correct_option": "2006",
+    "image_path": null
+  },
+  {
+    "subject": "GK / GS",
+    "question": "Which organization officially defined the term 'planet' and demoted Pluto to a dwarf planet?",
+    "options": [
+      "NASA",
+      "International Astronomical Union (IAU)",
+      "ISRO",
+      "European Space Agency (ESA)"
+    ],
+    "correct_option": "International Astronomical Union (IAU)",
+    "image_path": null
+  },
+  {
+    "subject": "GK / GS",
+    "question": "What is Pluto currently classified as according to modern astronomy?",
+    "options": [
+      "Asteroid",
+      "Comet",
+      "Dwarf planet",
+      "Moon"
+    ],
+    "correct_option": "Dwarf planet",
+    "image_path": null
+  },
+  {
+    "subject": "GK / GS",
+    "question": "How many official primary planets are there in our Solar System following Pluto's reclassification?",
+    "options": [
+      "7",
+      "8",
+      "9",
+      "10"
+    ],
+    "correct_option": "8",
+    "image_path": null
+  },
+  {
+    "subject": "GK / GS",
+    "question": "Which of the following statements most accurately describes the planet Saturn?",
+    "options": [
+      "Its outer cloud regions consist entirely of solid methane.",
+      "Its surface is reddish in colour due to iron oxide.",
+      "It is a gas giant made mostly of hydrogen and helium, and its overall density is less than that of water.",
+      "It was the seventh planet discovered in the Solar System."
+    ],
+    "correct_option": "It is a gas giant made mostly of hydrogen and helium, and its overall density is less than that of water.",
+    "image_path": null
+  },
+  {
+    "subject": "GK / GS",
+    "question": "Which planet in the Solar System has a mean density less than that of water (meaning it would theoretically float)?",
+    "options": [
+      "Jupiter",
+      "Saturn",
+      "Uranus",
+      "Neptune"
+    ],
+    "correct_option": "Saturn",
+    "image_path": null
+  },
+  {
+    "subject": "GK / GS",
+    "question": "Which two gases constitute the vast majority of Saturn's atmospheric composition?",
+    "options": [
+      "Oxygen and Nitrogen",
+      "Carbon Dioxide and Methane",
+      "Hydrogen and Helium",
+      "Nitrogen and Argon"
+    ],
+    "correct_option": "Hydrogen and Helium",
+    "image_path": null
+  },
+  {
+    "subject": "GK / GS",
+    "question": "Which planet in the Solar System is famously known for having the most prominent and visible ring system?",
+    "options": [
+      "Saturn",
+      "Jupiter",
+      "Neptune",
+      "Mars"
+    ],
+    "correct_option": "Saturn",
+    "image_path": null
+  },
+  {
+    "subject": "GK / GS",
+    "question": "Which planet is commonly referred to as the 'Red Planet' due to iron oxide on its surface?",
+    "options": [
+      "Mercury",
+      "Venus",
+      "Mars",
+      "Saturn"
+    ],
+    "correct_option": "Mars",
+    "image_path": null
+  },
+  {
+    "subject": "GK / GS",
+    "question": "The distance of the Sun from the Earth is approximately ________ light minutes.",
+    "options": [
+      "6",
+      "4.3",
+      "12",
+      "8"
+    ],
+    "correct_option": "8",
+    "image_path": null
+  },
+  {
+    "subject": "GK / GS",
+    "question": "Approximately how much time does sunlight take to reach the surface of the Earth?",
+    "options": [
+      "500 seconds",
+      "300 seconds",
+      "120 seconds",
+      "800 seconds"
+    ],
+    "correct_option": "500 seconds",
+    "image_path": null
+  },
+  {
+    "subject": "GK / GS",
+    "question": "Light from the nearest star outside our solar system, Proxima Centauri, takes approximately how long to reach Earth?",
+    "options": [
+      "8.3 minutes",
+      "4.24 years",
+      "1.3 seconds",
+      "100 years"
+    ],
+    "correct_option": "4.24 years",
+    "image_path": null
+  },
+  {
+    "subject": "GK / GS",
+    "question": "How long does reflected light from the Moon take to reach the Earth?",
+    "options": [
+      "8 minutes",
+      "1.3 seconds",
+      "60 seconds",
+      "5 minutes"
+    ],
+    "correct_option": "1.3 seconds",
+    "image_path": null
+  },
+  {
+    "subject": "GK / GS",
+    "question": "What do you call the point in the orbit of the Moon or a satellite at which it is nearest to Earth?",
+    "options": [
+      "Perigee",
+      "Eclipse",
+      "Apsis",
+      "Apogee"
+    ],
+    "correct_option": "Perigee",
+    "image_path": null
+  },
+  {
+    "subject": "GK / GS",
+    "question": "What is the point in the orbit of the Moon or an artificial satellite where it is farthest from the Earth called?",
+    "options": [
+      "Perigee",
+      "Aphelion",
+      "Apogee",
+      "Perihelion"
+    ],
+    "correct_option": "Apogee",
+    "image_path": null
+  },
+  {
+    "subject": "GK / GS",
+    "question": "The collective term for either of the two extreme points (closest or farthest) in an elliptical orbit is:",
+    "options": [
+      "Solstice",
+      "Equinox",
+      "Apsis",
+      "Node"
+    ],
+    "correct_option": "Apsis",
+    "image_path": null
+  },
+  {
+    "subject": "GK / GS",
+    "question": "A 'Supermoon' occurs when a full moon coincides with which orbital position?",
+    "options": [
+      "Apogee",
+      "Perigee",
+      "Aphelion",
+      "Perihelion"
+    ],
+    "correct_option": "Perigee",
+    "image_path": null
+  },
+  {
+    "subject": "GK / GS",
+    "question": "Which is, by far, the closest dwarf planet orbiting at only 2.8 times Earth's distance from the Sun?",
+    "options": [
+      "Makemake",
+      "Pluto",
+      "Eris",
+      "Ceres"
+    ],
+    "correct_option": "Ceres",
+    "image_path": null
+  },
+  {
+    "subject": "GK / GS",
+    "question": "Where is the dwarf planet Ceres located in our Solar System?",
+    "options": [
+      "Kuiper Belt",
+      "Asteroid Belt (between Mars and Jupiter)",
+      "Oort Cloud",
+      "Beyond Neptune"
+    ],
+    "correct_option": "Asteroid Belt (between Mars and Jupiter)",
+    "image_path": null
+  },
+  {
+    "subject": "GK / GS",
+    "question": "Which is the largest object located in the main asteroid belt?",
+    "options": [
+      "Vesta",
+      "Pallas",
+      "Ceres",
+      "Hygiea"
+    ],
+    "correct_option": "Ceres",
+    "image_path": null
+  },
+  {
+    "subject": "GK / GS",
+    "question": "Which of the following dwarf planets is located in the scattered disc of the Kuiper Belt and is nearly the same size as Pluto?",
+    "options": [
+      "Ceres",
+      "Eris",
+      "Io",
+      "Europa"
+    ],
+    "correct_option": "Eris",
+    "image_path": null
+  },
+  {
+    "subject": "GK GS",
+    "question": "Which planet is surrounded by thick white and yellowish clouds of sulfuric acid?",
+    "options": [
+      "Uranus",
+      "Venus",
+      "Neptune",
+      "Mars"
+    ],
+    "correct_option": "Venus",
+    "image_path": null
+  },
+  {
+    "subject": "GK / GS",
+    "question": "Which planet is known as Earth's 'Twin' due to its similar size, mass, and proximity?",
+    "options": [
+      "Mars",
+      "Venus",
+      "Mercury",
+      "Neptune"
+    ],
+    "correct_option": "Venus",
+    "image_path": null
+  },
+  {
+    "subject": "GK / GS",
+    "question": "Which planet in the Solar System is the hottest due to an intense runaway greenhouse effect?",
+    "options": [
+      "Mercury",
+      "Venus",
+      "Mars",
+      "Jupiter"
+    ],
+    "correct_option": "Venus",
+    "image_path": null
+  },
+  {
+    "subject": "GK / GS",
+    "question": "Which gas makes up more than 95% of Venus's thick atmosphere?",
+    "options": [
+      "Nitrogen",
+      "Oxygen",
+      "Carbon dioxide",
+      "Methane"
+    ],
+    "correct_option": "Carbon dioxide",
+    "image_path": null
+  },
+  {
+    "subject": "GK / GS",
+    "question": "Which planet is also widely recognized by the titles 'Morning Star' and 'Evening Star'?",
+    "options": [
+      "Mars",
+      "Venus",
+      "Mercury",
+      "Jupiter"
+    ],
+    "correct_option": "Venus",
+    "image_path": null
+  },
+  {
+    "subject": "GK / GS",
+    "question": "Which planet rotates clockwise (retrograde rotation) from East to West, unlike most other planets?",
+    "options": [
+      "Earth",
+      "Mars",
+      "Venus",
+      "Jupiter"
+    ],
+    "correct_option": "Venus",
+    "image_path": null
   }
 ]
+
   
 

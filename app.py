@@ -1,3 +1,4 @@
+import base64
 import datetime
 import json
 import os
@@ -15,6 +16,23 @@ st.set_page_config(
     page_icon=LOGO_PATH if has_logo else "🎯",
     layout="wide",
 )
+
+# Force custom icon for mobile PWA & browsers
+if has_logo:
+    try:
+        with open(LOGO_PATH, "rb") as _img_f:
+            _b64_icon = base64.b64encode(_img_f.read()).decode("utf-8")
+        st.markdown(
+            f"""
+            <head>
+                <link rel="icon" type="image/png" href="data:image/png;base64,{_b64_icon}">
+                <link rel="apple-touch-icon" href="data:image/png;base64,{_b64_icon}">
+            </head>
+            """,
+            unsafe_allow_html=True,
+        )
+    except Exception:
+        pass
 
 DATA_FILE = "questions.json"
 USERS_FILE = "omega_users.json"
@@ -436,4 +454,3 @@ elif app_mode == "Subscription (Rs 10/Month)":
                     st.rerun()
                 else:
                     st.error("Please enter a valid Transaction / UTR number.")
-                

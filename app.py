@@ -17,53 +17,34 @@ st.set_page_config(
     layout="wide",
 )
 
-# Custom CSS for Global Floating Navigation Bar (Bigger, Wider, and Available Everywhere)
+# Custom CSS to block pull-to-refresh & make the natural right-side scrollbar extra thick and easy to grab
 st.markdown(
     """
     <style>
-        /* Prevent elastic bounce / pull-to-refresh globally */
+        /* Block elastic pull-to-refresh globally on mobile */
         html, body {
             overscroll-behavior-y: none;
+            -webkit-overflow-scrolling: touch;
         }
         
-        /* Global Floating Quick Navigation Panel (Wider, Longer, and Always Visible) */
-        .floating-nav {
-            position: fixed;
-            right: 12px;
-            bottom: 70px;
-            z-index: 999999;
-            background: rgba(15, 23, 42, 0.95);
-            padding: 14px 10px;
-            border-radius: 16px;
-            box-shadow: 0 6px 20px rgba(0,0,0,0.5);
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-            border: 2px solid rgba(255,255,255,0.3);
+        /* Make the native browser scrollbar on the right edge extra wide, thick, and prominent */
+        ::-webkit-scrollbar {
+            width: 16px !important;
+            height: 16px !important;
         }
-        .floating-nav a {
-            background: #2563eb;
-            color: white;
-            padding: 12px 18px;
-            border-radius: 10px;
-            text-align: center;
-            font-size: 16px;
-            font-weight: bold;
-            text-decoration: none;
-            box-shadow: 0 3px 6px rgba(0,0,0,0.3);
-            min-width: 75px;
+        ::-webkit-scrollbar-track {
+            background: rgba(15, 23, 42, 0.05);
         }
-        .floating-nav a:hover {
-            background: #1d4ed8;
+        ::-webkit-scrollbar-thumb {
+            background: #2563eb !important;
+            border-radius: 8px;
+            border: 3px solid transparent;
+            background-clip: content-box;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #1d4ed8 !important;
         }
     </style>
-    
-    <!-- Permanent Global Navigation Bar Widget Available Everywhere -->
-    <div class="floating-nav">
-        <a href="#top" title="Top">⬆️ Top</a>
-        <a href="#bottom" title="Bottom">⬇️ End</a>
-    </div>
-    <div id="top"></div>
     """,
     unsafe_allow_html=True,
 )
@@ -414,8 +395,6 @@ if app_mode == "Give Mock Test":
                 
             st.markdown("---")
 
-        st.markdown('<div id="bottom"></div>', unsafe_allow_html=True)
-
         c1, c2 = st.columns([2, 1])
         if c1.button("Final Submit Test", type="primary"):
             st.session_state.test_started = False
@@ -509,4 +488,4 @@ elif app_mode == "Subscription (Rs 10/Month)":
                     st.rerun()
                 else:
                     st.error("Please enter a valid Transaction / UTR number.")
-            
+                    

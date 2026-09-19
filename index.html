@@ -57,27 +57,27 @@
                         <label class="block text-sm text-gray-400 mb-2 font-medium">Select Subjects:</label>
                         <div class="grid grid-cols-2 md:grid-cols-3 gap-3">
                             <label class="flex items-center space-x-3 bg-gray-900/60 p-3 rounded-xl border border-gray-800 cursor-pointer hover:border-blue-500 transition">
-                                <input type="checkbox" value="Electrical Engg" checked class="w-4 h-4 text-blue-600 rounded bg-gray-800 border-gray-700">
+                                <input type="checkbox" name="subject_chk" value="Electrical Engg" checked class="w-4 h-4 text-blue-600 rounded bg-gray-800 border-gray-700">
                                 <span class="text-sm font-medium">Electrical Engg</span>
                             </label>
                             <label class="flex items-center space-x-3 bg-gray-900/60 p-3 rounded-xl border border-gray-800 cursor-pointer hover:border-blue-500 transition">
-                                <input type="checkbox" value="Civil Engg" checked class="w-4 h-4 text-blue-600 rounded bg-gray-800 border-gray-700">
+                                <input type="checkbox" name="subject_chk" value="Civil Engg" checked class="w-4 h-4 text-blue-600 rounded bg-gray-800 border-gray-700">
                                 <span class="text-sm font-medium">Civil Engg</span>
                             </label>
                             <label class="flex items-center space-x-3 bg-gray-900/60 p-3 rounded-xl border border-gray-800 cursor-pointer hover:border-blue-500 transition">
-                                <input type="checkbox" value="Mechanical Engg" checked class="w-4 h-4 text-blue-600 rounded bg-gray-800 border-gray-700">
+                                <input type="checkbox" name="subject_chk" value="Mechanical Engg" checked class="w-4 h-4 text-blue-600 rounded bg-gray-800 border-gray-700">
                                 <span class="text-sm font-medium">Mechanical Engg</span>
                             </label>
                             <label class="flex items-center space-x-3 bg-gray-900/60 p-3 rounded-xl border border-gray-800 cursor-pointer hover:border-blue-500 transition">
-                                <input type="checkbox" value="Reasoning" checked class="w-4 h-4 text-blue-600 rounded bg-gray-800 border-gray-700">
+                                <input type="checkbox" name="subject_chk" value="Reasoning" checked class="w-4 h-4 text-blue-600 rounded bg-gray-800 border-gray-700">
                                 <span class="text-sm font-medium">Reasoning</span>
                             </label>
                             <label class="flex items-center space-x-3 bg-gray-900/60 p-3 rounded-xl border border-gray-800 cursor-pointer hover:border-blue-500 transition">
-                                <input type="checkbox" value="Mathematics" checked class="w-4 h-4 text-blue-600 rounded bg-gray-800 border-gray-700">
+                                <input type="checkbox" name="subject_chk" value="Mathematics" checked class="w-4 h-4 text-blue-600 rounded bg-gray-800 border-gray-700">
                                 <span class="text-sm font-medium">Mathematics</span>
                             </label>
                             <label class="flex items-center space-x-3 bg-gray-900/60 p-3 rounded-xl border border-gray-800 cursor-pointer hover:border-blue-500 transition">
-                                <input type="checkbox" value="GK / GS" checked class="w-4 h-4 text-blue-600 rounded bg-gray-800 border-gray-700">
+                                <input type="checkbox" name="subject_chk" value="GK / GS" checked class="w-4 h-4 text-blue-600 rounded bg-gray-800 border-gray-700">
                                 <span class="text-sm font-medium">GK / GS</span>
                             </label>
                         </div>
@@ -101,12 +101,14 @@
 
             <div id="test-container" class="hidden bg-[#111827] border border-gray-800 rounded-2xl p-5 shadow-xl space-y-4">
                 <div class="flex justify-between items-center border-b border-gray-800 pb-3">
-                    <span id="question-tracker" class="text-sm font-semibold text-blue-400">Question 1</span>
+                    <div>
+                        <span id="question-tracker" class="text-sm font-semibold text-blue-400">Question 1</span>
+                        <span id="question-subject-tag" class="ml-2 text-xs bg-gray-800 text-gray-300 px-2 py-0.5 rounded">Subject</span>
+                    </div>
                     <span id="timer-display" class="bg-red-500/10 text-red-400 border border-red-500/20 px-3 py-1 rounded-lg text-sm font-bold">⏱ 15:00</span>
                 </div>
                 <div id="question-box" class="space-y-4"></div>
                 
-                <!-- Extra Option Control Bar -->
                 <div class="flex justify-between items-center pt-2">
                     <button onclick="clearCurrentSelection()" class="text-xs bg-yellow-500/10 text-yellow-400 border border-yellow-500/20 px-3 py-1.5 rounded-lg hover:bg-yellow-500/20 transition">🧹 Clear Answer</button>
                     <span id="save-status-text" class="text-xs text-gray-400"></span>
@@ -210,20 +212,35 @@
     <script>
         let currentQuestionIndex = 0;
         let testQuestionsList = [];
-        let userSelections = {}; // To remember selected options and allow unselecting
+        let userSelections = {};
 
-        const questionBank = [
-            { q: "What is the standard voltage rating for domestic single-phase supply in India?", options: ["A) 110V, 50Hz", "B) 230V, 50Hz", "C) 415V, 50Hz", "D) 440V, 60Hz"] },
-            { q: "Which material is most commonly used for transmission line cables?", options: ["A) Copper", "B) Aluminium (ACSR)", "C) Iron", "D) Silver"] },
-            { q: "What is the SI unit of magnetic flux?", options: ["A) Tesla", "B) Weber", "C) Henry", "D) Gauss"] },
-            { q: "In a hydraulic turbine, draft tube is used for:", options: ["A) Increasing kinetic energy", "B) Recovering pressure head", "C) Regulating water flow", "D) Preventing cavitation completely"] },
-            { q: "The bending moment at a free end of a cantilever beam is always:", options: ["A) Maximum", "B) Zero", "C) Minimum", "D) Equal to fixed end"] },
-            { q: "If South is coded as North-East, then North is coded as:", options: ["A) South-West", "B) North-West", "C) South-East", "D) West"] },
-            { q: "What is the value of acceleration due to gravity (g) approximately on Earth's surface?", options: ["A) 9.8 m/s²", "B) 8.9 m/s²", "C) 11.2 m/s²", "D) 6.67 m/s²"] },
-            { q: "Who is known as the Father of the Indian Constitution?", options: ["A) Mahatma Gandhi", "B) Dr. B. R. Ambedkar", "C) Jawaharlal Nehru", "D) Sardar Vallabhbhai Patel"] },
-            { q: "What is the power factor of a purely resistive AC circuit?", options: ["A) Zero", "B) Unity (1)", "C) Lagging 0.5", "D) Leading 0.5"] },
-            { q: "The unit of kinematic viscosity is:", options: ["A) Poise", "B) Stokes", "C) Pascal-second", "D) Newton-meter"] }
-        ];
+        const subjectQuestionBank = {
+            "Electrical Engg": [
+                { q: "What is the standard voltage rating for domestic single-phase supply in India?", options: ["A) 110V, 50Hz", "B) 230V, 50Hz", "C) 415V, 50Hz", "D) 440V, 60Hz"] },
+                { q: "What is the power factor of a purely resistive AC circuit?", options: ["A) Zero", "B) Unity (1)", "C) Lagging 0.5", "D) Leading 0.5"] },
+                { q: "What is the SI unit of magnetic flux?", options: ["A) Tesla", "B) Weber", "C) Henry", "D) Gauss"] }
+            ],
+            "Civil Engg": [
+                { q: "The bending moment at a free end of a cantilever beam is always:", options: ["A) Maximum", "B) Zero", "C) Minimum", "D) Equal to fixed end"] },
+                { q: "What is the standard fineness test for cement conducted using?", options: ["A) Vicat Apparatus", "B) Le Chatelier Mould", "C) 90-micron IS Sieve", "D) Compression Testing Machine"] }
+            ],
+            "Mechanical Engg": [
+                { q: "In a hydraulic turbine, draft tube is used for:", options: ["A) Increasing kinetic energy", "B) Recovering pressure head", "C) Regulating water flow", "D) Preventing cavitation completely"] },
+                { q: "The unit of kinematic viscosity is:", options: ["A) Poise", "B) Stokes", "C) Pascal-second", "D) Newton-meter"] }
+            ],
+            "Reasoning": [
+                { q: "If South is coded as North-East, then North is coded as:", options: ["A) South-West", "B) North-West", "C) South-East", "D) West"] },
+                { q: "Find the missing number in series: 2, 6, 12, 20, ?", options: ["A) 30", "B) 32", "C) 28", "D) 35"] }
+            ],
+            "Mathematics": [
+                { q: "What is the value of acceleration due to gravity (g) approximately on Earth's surface?", options: ["A) 9.8 m/s²", "B) 8.9 m/s²", "C) 11.2 m/s²", "D) 6.67 m/s²"] },
+                { q: "If the radius of a circle is doubled, its area gets:", options: ["A) Doubled", "B) Tripled", "C) Quadrupled", "D) Unchanged"] }
+            ],
+            "GK / GS": [
+                { q: "Who is known as the Father of the Indian Constitution?", options: ["A) Mahatma Gandhi", "B) Dr. B. R. Ambedkar", "C) Jawaharlal Nehru", "D) Sardar Vallabhbhai Patel"] },
+                { q: "Which is the highest civilian award in India?", options: ["A) Padma Vibhushan", "B) Bharat Ratna", "C) Param Vir Chakra", "D) Ashok Chakra"] }
+            ]
+        };
 
         function checkUserTrial() {
             let trialStart = localStorage.getItem('omega_trial_start');
@@ -270,16 +287,42 @@
         }
 
         function startMockTest() {
-            const count = parseInt(document.getElementById('num-questions-slider').value) || 25;
+            const checkboxes = document.querySelectorAll('input[name="subject_chk"]:checked');
+            let selectedSubjects = Array.from(checkboxes).map(cb => cb.value);
+
+            if(selectedSubjects.length === 0) {
+                alert("Please select at least one subject!");
+                return;
+            }
+
+            const totalCount = parseInt(document.getElementById('num-questions-slider').value) || 25;
             testQuestionsList = [];
             userSelections = {};
-            for(let i = 0; i < count; i++) {
-                let baseQ = questionBank[i % questionBank.length];
+
+            // Gather questions strictly from selected subjects
+            let pool = [];
+            selectedSubjects.forEach(sub => {
+                if(subjectQuestionBank[sub]) {
+                    subjectQuestionBank[sub].forEach(item => {
+                        pool.push({ subject: sub, q: item.q, options: item.options });
+                    });
+                }
+            });
+
+            // Fallback if pool is empty
+            if(pool.length === 0) {
+                pool.push({ subject: "General", q: "Sample question for exam", options: ["A) Option 1", "B) Option 2", "C) Option 3", "D) Option 4"] });
+            }
+
+            for(let i = 0; i < totalCount; i++) {
+                let source = pool[i % pool.length];
                 testQuestionsList.push({
-                    q: `(Q${i+1}) ` + baseQ.q,
-                    options: baseQ.options
+                    subject: source.subject,
+                    q: source.q,
+                    options: source.options
                 });
             }
+
             currentQuestionIndex = 0;
             document.getElementById('test-container').classList.remove('hidden');
             loadQuestion();
@@ -295,6 +338,7 @@
             let savedOpt = userSelections[currentQuestionIndex] !== undefined ? userSelections[currentQuestionIndex] : -1;
 
             document.getElementById('question-tracker').innerText = `Question ${currentQuestionIndex + 1} of ${testQuestionsList.length}`;
+            document.getElementById('question-subject-tag').innerText = item.subject;
             
             let optionsHTML = '';
             item.options.forEach((optText, idx) => {
@@ -313,10 +357,8 @@
             document.getElementById('save-status-text').innerText = savedOpt !== -1 ? "Answer Saved" : "";
         }
 
-        // Allow clicking selected option again to unselect it
         function handleOptionClick(optIdx) {
             if(userSelections[currentQuestionIndex] === optIdx) {
-                // If already selected, clicking it again unselects it
                 let radios = document.getElementsByName('q_ans');
                 for(let r of radios) { r.checked = false; }
                 delete userSelections[currentQuestionIndex];

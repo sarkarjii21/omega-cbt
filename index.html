@@ -20,6 +20,7 @@
             }
         }
     </script>
+    <!-- Custom App Icon -->
     <link rel="icon" type="image/png" href="72015.png">
     <link rel="apple-touch-icon" href="72015.png">
     <meta name="theme-color" content="#2563eb">
@@ -160,7 +161,6 @@
                 <div class="bg-gray-900/80 p-4 rounded-xl border border-gray-800 max-w-sm mx-auto space-y-3">
                     <p class="text-xs text-gray-400">Scan via any UPI App (GPay, PhonePe, Paytm)</p>
                     <div class="bg-white p-3 rounded-xl inline-block">
-                        <!-- Using your actual uploaded QR code asset -->
                         <img src="72386.png" alt="Payment QR" class="w-40 h-40 mx-auto object-contain">
                     </div>
                     <p class="text-xs text-blue-400 font-mono font-bold">UPI ID: soumodeeps53-2@oksbi</p>
@@ -228,7 +228,6 @@
             }
 
             if(!trialStart) {
-                // First time user: grant 7 days free trial
                 trialStart = new Date().getTime();
                 localStorage.setItem('omega_trial_start', trialStart);
             }
@@ -274,4 +273,7 @@
                     <label class="block bg-gray-900/80 p-3 rounded-xl border border-gray-800 cursor-pointer hover:border-blue-500"><input type="radio" name="q1" class="mr-2"> D) 440V, 60Hz</label>
                 </div>
             `;
-      
+        }
+
+        function nextQuestion() { alert("Answer recorded successfully!"); }
+        function prevQue

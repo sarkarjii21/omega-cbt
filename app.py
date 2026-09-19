@@ -34,6 +34,48 @@ if has_logo:
     except Exception:
         pass
 
+# --- Custom Floating Navigation Switches (Up / Down) ---
+st.markdown(
+    """
+    <style>
+        .nav-container {
+            position: fixed;
+            right: 20px;
+            bottom: 100px;
+            z-index: 99999;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .nav-btn {
+            background-color: #2563eb;
+            color: white;
+            border: 2px solid white;
+            border-radius: 50%;
+            width: 48px;
+            height: 48px;
+            font-size: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            cursor: pointer;
+        }
+        .nav-btn:active {
+            background-color: #1d4ed8;
+            transform: scale(0.95);
+        }
+    </style>
+    <div class="nav-container">
+        <a class="nav-btn" href="#top-anchor" title="Go to Top">⬆️</a>
+        <a class="nav-btn" href="#bottom-anchor" title="Go to Bottom">⬇️</a>
+    </div>
+    <div id="top-anchor"></div>
+    """,
+    unsafe_allow_html=True,
+)
+
 DATA_FILE = "questions.json"
 USERS_FILE = "omega_users.json"
 NOTICE_FILE = "omega_notice.json"
@@ -281,7 +323,6 @@ with st.sidebar.expander("🔒 Admin Control"):
                 st.rerun()
 
 # ----------------- SUBJECTS SETUP (Strict Filter) -----------------
-# Only allow actual examination subjects, excluding generic Technical / Non-Technical labels
 CORE_SUBS = [
     "Electrical Engineering",
     "Civil Engineering",
@@ -349,16 +390,27 @@ if app_mode == "Give Mock Test":
             
             show_question_image(q.get("image_path"))
 
-            opts = q.get("options") or [q.get("opt1"), q.get("opt2"), q.get("opt3"), q.get("opt4")]
+            raw_opts = q.get("options") or [q.get("opt1"), q.get("opt2"), q.get("opt3"), q.get("opt4")]
+            
+            clear_label = "-- Clear Selection (Unanswered) --"
+            opts = [clear_label] + raw_opts
+            
             cur_ch = st.session_state.user_answers.get(idx)
+            default_idx = opts.index(cur_ch) if cur_ch in opts else 0
+            
             sel = st.radio(
                 f"Opt_{idx}:",
                 opts,
-                index=opts.index(cur_ch) if cur_ch in opts else None,
+                index=default_idx,
                 key=f"ans_{idx}",
                 label_visibility="collapsed",
             )
-            st.session_state.user_answers[idx] = sel
+            
+            if sel == clear_label:
+                st.session_state.user_answers[idx] = None
+            else:
+                st.session_state.user_answers[idx] = sel
+                
             st.markdown("---")
 
         c1, c2 = st.columns([2, 1])
@@ -455,4 +507,6 @@ elif app_mode == "Subscription (Rs 10/Month)":
                 else:
                     st.error("Please enter a valid Transaction / UTR number.")
 
-
+# Bottom Anchor for Navigation
+st.markdown('<div id="bottom-anchor"></div>', unsafe_allow_html=True)
+        

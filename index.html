@@ -20,7 +20,6 @@
             }
         }
     </script>
-    <!-- Custom App Icon from GitHub uploaded file -->
     <link rel="icon" type="image/png" href="72015.png">
     <link rel="apple-touch-icon" href="72015.png">
     <meta name="theme-color" content="#2563eb">
@@ -33,7 +32,7 @@
             <img src="72015.png" alt="Icon" class="w-10 h-10 rounded-xl object-cover shadow-lg shadow-blue-500/30">
             <div>
                 <h1 class="font-bold text-lg leading-tight tracking-wide">Omega CBT</h1>
-                <p class="text-xs text-gray-400">Competitive Exam Portal</p>
+                <p id="user-top-badge" class="text-xs text-blue-400 font-medium">Checking Trial...</p>
             </div>
         </div>
         <nav class="flex space-x-1 text-xs md:text-sm font-medium">
@@ -123,7 +122,7 @@
         <section id="tab-qna" class="hidden space-y-6">
             <div class="bg-[#111827] border border-gray-800 rounded-2xl p-5 shadow-xl space-y-4">
                 <h2 class="text-xl font-bold flex items-center gap-2">💬 Question Contribution Portal</h2>
-                <p class="text-sm text-gray-400">Aapke bheje gaye sawal direct hamari database/Google Sheet par submit ho jayenge.</p>
+                <p class="text-sm text-gray-400">Aapke bheje gaye sawal direct Google Sheet database par submit honge.</p>
                 
                 <form id="qna-form" onsubmit="submitQuestion(event)" class="space-y-4">
                     <div>
@@ -140,11 +139,11 @@
                     </div>
                     <button type="submit" class="w-full bg-blue-600 hover:bg-blue-500 text-white font-bold py-3 rounded-xl shadow-lg transition">Submit to Google Sheet</button>
                 </form>
-                <div id="qna-success" class="hidden p-3 bg-green-500/10 border border-green-500/20 text-green-400 text-sm rounded-xl text-center">Sawali safaltapoorvak submit ho gaya hai!</div>
+                <div id="qna-success" class="hidden p-3 bg-green-500/10 border border-green-500/20 text-green-400 text-sm rounded-xl text-center">Sawal safaltapoorvak submit ho gaya hai!</div>
             </div>
         </section>
 
-        <!-- TAB 3: PREMIUM & AUTO PAYMENT -->
+        <!-- TAB 3: PREMIUM & DIRECT UPI PAYMENT -->
         <section id="tab-premium" class="hidden space-y-6">
             <div class="bg-[#111827] border border-gray-800 rounded-2xl p-5 shadow-xl space-y-5 text-center">
                 <div class="inline-block p-3 rounded-2xl bg-blue-600/10 text-blue-500 border border-blue-500/20 text-2xl">👑</div>
@@ -154,13 +153,23 @@
                 <div class="bg-gray-900/60 p-4 rounded-xl border border-gray-800 max-w-sm mx-auto text-left space-y-2 text-sm">
                     <div class="flex justify-between"><span>Amount:</span> <span class="font-bold text-green-400">₹10</span></div>
                     <div class="flex justify-between"><span>Validity:</span> <span class="font-bold">1 Month</span></div>
-                    <div class="flex justify-between"><span>Status:</span> <span id="user-status-badge" class="text-yellow-400 font-semibold">Free User</span></div>
+                    <div class="flex justify-between"><span>Status:</span> <span id="user-status-badge" class="text-yellow-400 font-semibold">Checking...</span></div>
+                </div>
+
+                <!-- UPI QR Code & ID Section -->
+                <div class="bg-gray-900/80 p-4 rounded-xl border border-gray-800 max-w-sm mx-auto space-y-3">
+                    <p class="text-xs text-gray-400">Scan via any UPI App (GPay, PhonePe, Paytm)</p>
+                    <div class="bg-white p-3 rounded-xl inline-block">
+                        <!-- Using your actual uploaded QR code asset -->
+                        <img src="72386.png" alt="Payment QR" class="w-40 h-40 mx-auto object-contain">
+                    </div>
+                    <p class="text-xs text-blue-400 font-mono font-bold">UPI ID: soumodeeps53-2@oksbi</p>
                 </div>
 
                 <div class="max-w-sm mx-auto space-y-3">
-                    <input type="email" id="pay-email" placeholder="Enter your email" class="w-full bg-gray-900 border border-gray-800 rounded-xl p-3 text-sm focus:outline-none focus:border-blue-600 text-center">
-                    <button onclick="simulateAutoPayment()" class="w-full bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-500 hover:to-emerald-500 text-white font-bold py-3 rounded-xl shadow-lg transition">
-                        Pay ₹10 & Activate Auto-Validity
+                    <input type="email" id="pay-email" placeholder="Enter your email ID" class="w-full bg-gray-900 border border-gray-800 rounded-xl p-3 text-sm focus:outline-none focus:border-blue-600 text-center">
+                    <button onclick="requestActivation()" class="w-full bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-500 hover:to-emerald-500 text-white font-bold py-3 rounded-xl shadow-lg transition">
+                        I Have Paid ₹10 (Notify Admin)
                     </button>
                 </div>
             </div>
@@ -180,16 +189,15 @@
                     <button onclick="logoutAdmin()" class="text-xs bg-red-500/10 text-red-400 border border-red-500/20 px-3 py-1.5 rounded-lg">Logout</button>
                 </div>
 
-                <!-- Manual Validity Power -->
+                <!-- Manual Validity Power (1 Month to 1 Year) -->
                 <div class="space-y-3 bg-gray-900/40 p-4 rounded-xl border border-gray-800">
-                    <h3 class="font-semibold text-sm text-blue-400">Manual User Approval / Validity Grant</h3>
+                    <h3 class="font-semibold text-sm text-blue-400">Manual User Approval / Validity Grant (1M to 1Yr)</h3>
                     <input type="email" id="grant-email" placeholder="User Email ID" class="w-full bg-gray-900 border border-gray-800 rounded-xl p-3 text-sm focus:outline-none focus:border-blue-600">
                     <div class="grid grid-cols-2 gap-3">
-                        <input type="number" id="grant-duration" value="30" placeholder="Duration" class="bg-gray-900 border border-gray-800 rounded-xl p-3 text-sm focus:outline-none focus:border-blue-600">
+                        <input type="number" id="grant-duration" value="1" min="1" max="12" placeholder="Duration" class="bg-gray-900 border border-gray-800 rounded-xl p-3 text-sm focus:outline-none focus:border-blue-600">
                         <select id="grant-unit" class="bg-gray-900 border border-gray-800 rounded-xl p-3 text-sm focus:outline-none focus:border-blue-600">
-                            <option value="days">Days</option>
-                            <option value="months" selected>Months</option>
-                            <option value="years">Years</option>
+                            <option value="months" selected>Months (1-12)</option>
+                            <option value="years">Years (1)</option>
                         </select>
                     </div>
                     <button onclick="grantManualValidity()" class="w-full bg-indigo-600 hover:bg-indigo-500 text-white font-medium py-2.5 rounded-xl text-sm transition">Grant Access Now</button>
@@ -207,6 +215,39 @@
     </main>
 
     <script>
+        // 7 Days Free Trial Logic on First Load
+        function checkUserTrial() {
+            let trialStart = localStorage.getItem('omega_trial_start');
+            let isPro = localStorage.getItem('omega_pro_active');
+            
+            if(isPro === 'true') {
+                document.getElementById('user-top-badge').innerText = "⭐ Pro Member";
+                document.getElementById('user-status-badge').innerText = "Active Pro Member";
+                document.getElementById('user-status-badge').className = "text-green-400 font-semibold";
+                return;
+            }
+
+            if(!trialStart) {
+                // First time user: grant 7 days free trial
+                trialStart = new Date().getTime();
+                localStorage.setItem('omega_trial_start', trialStart);
+            }
+
+            let now = new Date().getTime();
+            let elapsedDays = (now - trialStart) / (1000 * 60 * 60 * 24);
+            let daysLeft = Math.ceil(7 - elapsedDays);
+
+            if(daysLeft > 0) {
+                document.getElementById('user-top-badge').innerText = `🔥 Free Trial: ${daysLeft} Days Left`;
+                document.getElementById('user-status-badge').innerText = `Free Trial (${daysLeft} Days Remaining)`;
+                document.getElementById('user-status-badge').className = "text-blue-400 font-semibold";
+            } else {
+                document.getElementById('user-top-badge').innerText = "🔒 Trial Expired (Go Pro)";
+                document.getElementById('user-status-badge').innerText = "Free User (Trial Ended)";
+                document.getElementById('user-status-badge').className = "text-red-400 font-semibold";
+            }
+        }
+
         function switchTab(tabName) {
             ['mock-test', 'qna', 'premium', 'admin'].forEach(t => {
                 const el = document.getElementById('tab-' + t);
@@ -233,69 +274,4 @@
                     <label class="block bg-gray-900/80 p-3 rounded-xl border border-gray-800 cursor-pointer hover:border-blue-500"><input type="radio" name="q1" class="mr-2"> D) 440V, 60Hz</label>
                 </div>
             `;
-        }
-
-        function nextQuestion() { alert("Answer recorded successfully!"); }
-        function prevQuestion() { alert("Already at the first question."); }
-
-        function submitQuestion(e) {
-            e.preventDefault();
-            const name = document.getElementById('q-name').value;
-            const subject = document.getElementById('q-subject').value;
-            const text = document.getElementById('q-text').value;
-            console.log("Q&A Submitted:", { name, subject, text });
-            document.getElementById('qna-success').classList.remove('hidden');
-            document.getElementById('qna-form').reset();
-            setTimeout(() => document.getElementById('qna-success').classList.add('hidden'), 4000);
-        }
-
-        function simulateAutoPayment() {
-            const email = document.getElementById('pay-email').value;
-            if(!email) { alert("Please enter your email!"); return; }
-            alert(`Payment verified for ${email}! 1 Month validity activated.`);
-            document.getElementById('user-status-badge').innerText = "Active Pro (1 Month)";
-            document.getElementById('user-status-badge').className = "text-green-400 font-semibold";
-        }
-
-        function verifyAdmin() {
-            const pass = document.getElementById('admin-pass').value;
-            if(pass === "admin123" || pass === "sarkar") {
-                document.getElementById('admin-login-box').classList.add('hidden');
-                document.getElementById('admin-panel').classList.remove('hidden');
-            } else {
-                alert("Incorrect Password!");
-            }
-        }
-        function logoutAdmin() {
-            document.getElementById('admin-login-box').classList.remove('hidden');
-            document.getElementById('admin-panel').classList.add('hidden');
-            document.getElementById('admin-pass').value = "";
-        }
-        function grantManualValidity() {
-            const email = document.getElementById('grant-email').value;
-            const duration = document.getElementById('grant-duration').value;
-            const unit = document.getElementById('grant-unit').value;
-            if(!email) { alert("Enter user email!"); return; }
-            alert(`Successfully granted ${duration} ${unit} access to ${email}!`);
-            document.getElementById('grant-email').value = "";
-        }
-
-        function publishBroadcast() {
-            const msg = document.getElementById('broadcast-input').value;
-            if(!msg) { alert("Enter message!"); return; }
-            localStorage.setItem('omega_broadcast', msg);
-            applyBroadcast();
-            alert("Broadcast published successfully to all users!");
-            document.getElementById('broadcast-input').value = "";
-        }
-        function applyBroadcast() {
-            const savedMsg = localStorage.getItem('omega_broadcast');
-            if(savedMsg) {
-                document.getElementById('broadcast-text').innerText = "📢 " + savedMsg;
-                document.getElementById('broadcast-banner').classList.remove('hidden');
-            }
-        }
-        window.onload = applyBroadcast;
-    </script>
-</body>
-</html>
+      

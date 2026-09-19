@@ -277,4 +277,25 @@
             const unit = document.getElementById('grant-unit').value;
             if(!email) { alert("Enter user email!"); return; }
             alert(`Successfully granted ${duration} ${unit} access to ${email}!`);
-            document.getElem
+            document.getElementById('grant-email').value = "";
+        }
+
+        function publishBroadcast() {
+            const msg = document.getElementById('broadcast-input').value;
+            if(!msg) { alert("Enter message!"); return; }
+            localStorage.setItem('omega_broadcast', msg);
+            applyBroadcast();
+            alert("Broadcast published successfully to all users!");
+            document.getElementById('broadcast-input').value = "";
+        }
+        function applyBroadcast() {
+            const savedMsg = localStorage.getItem('omega_broadcast');
+            if(savedMsg) {
+                document.getElementById('broadcast-text').innerText = "📢 " + savedMsg;
+                document.getElementById('broadcast-banner').classList.remove('hidden');
+            }
+        }
+        window.onload = applyBroadcast;
+    </script>
+</body>
+</html>

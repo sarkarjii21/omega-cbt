@@ -20,8 +20,9 @@
             }
         }
     </script>
-    <link rel="icon" type="image/png" href="https://img.icons8.com/color/96/bullseye.png">
-    <link rel="apple-touch-icon" href="https://img.icons8.com/color/96/bullseye.png">
+    <!-- Custom App Icon from GitHub uploaded file -->
+    <link rel="icon" type="image/png" href="72015.png">
+    <link rel="apple-touch-icon" href="72015.png">
     <meta name="theme-color" content="#2563eb">
 </head>
 <body class="bg-[#0b0f19] text-gray-100 min-h-screen font-sans antialiased">
@@ -29,14 +30,14 @@
     <!-- Navbar -->
     <header class="bg-[#111827] border-b border-gray-800 sticky top-0 z-50 px-4 py-3 shadow-md flex justify-between items-center">
         <div class="flex items-center space-x-3 cursor-pointer" onclick="switchTab('mock-test')">
-            <div class="w-10 h-10 rounded-xl bg-blue-600 flex items-center justify-center font-bold text-xl shadow-lg shadow-blue-500/30">🎯</div>
+            <img src="72015.png" alt="Icon" class="w-10 h-10 rounded-xl object-cover shadow-lg shadow-blue-500/30">
             <div>
                 <h1 class="font-bold text-lg leading-tight tracking-wide">Omega CBT</h1>
                 <p class="text-xs text-gray-400">Competitive Exam Portal</p>
             </div>
         </div>
         <nav class="flex space-x-1 text-xs md:text-sm font-medium">
-            <button onclick="switchTab('mock-test')" id="nav-mock" class="px-2.5 py-1.5 rounded-lg bg-blue-600 text-white transition">Mock</button>
+            <button onclick="switchTab('mock-test')" id="nav-mock-test" class="px-2.5 py-1.5 rounded-lg bg-blue-600 text-white transition">Mock</button>
             <button onclick="switchTab('qna')" id="nav-qna" class="px-2.5 py-1.5 rounded-lg text-gray-400 hover:text-white transition">Q&A</button>
             <button onclick="switchTab('premium')" id="nav-premium" class="px-2.5 py-1.5 rounded-lg text-gray-400 hover:text-white transition">Pro</button>
             <button onclick="switchTab('admin')" id="nav-admin" class="px-2.5 py-1.5 rounded-lg text-gray-400 hover:text-white transition">Admin</button>
@@ -87,13 +88,15 @@
                         </div>
                     </div>
 
+                    <!-- Variable Range Slider for Questions Quantity -->
                     <div>
-                        <label class="block text-sm text-gray-400 mb-2 font-medium">Number of Questions:</label>
-                        <select id="num-questions" class="w-full bg-gray-900 border border-gray-800 rounded-xl p-3 text-sm focus:outline-none focus:border-blue-600">
-                            <option value="10">10 Questions (6 Mins)</option>
-                            <option value="25" selected>25 Questions (15 Mins)</option>
-                            <option value="50">50 Questions (30 Mins)</option>
-                        </select>
+                        <div class="flex justify-between items-center mb-2">
+                            <label class="text-sm text-gray-400 font-medium">Number of Questions:</label>
+                            <span id="q-count-display" class="bg-blue-600/20 text-blue-400 px-2.5 py-0.5 rounded-lg text-sm font-bold border border-blue-500/30">25 Questions</span>
+                        </div>
+                        <input type="range" id="num-questions-slider" min="5" max="100" step="5" value="25" 
+                            oninput="document.getElementById('q-count-display').innerText = this.value + ' Questions'" 
+                            class="w-full accent-blue-600 bg-gray-900 rounded-lg cursor-pointer h-2">
                     </div>
 
                     <button onclick="startMockTest()" class="w-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-bold py-3.5 rounded-xl shadow-lg shadow-blue-600/30 transition">
@@ -105,7 +108,7 @@
             <!-- Active Test Container -->
             <div id="test-container" class="hidden bg-[#111827] border border-gray-800 rounded-2xl p-5 shadow-xl space-y-4">
                 <div class="flex justify-between items-center border-b border-gray-800 pb-3">
-                    <span id="question-tracker" class="text-sm font-semibold text-blue-400">Question 1 of 25</span>
+                    <span id="question-tracker" class="text-sm font-semibold text-blue-400">Question 1</span>
                     <span id="timer-display" class="bg-red-500/10 text-red-400 border border-red-500/20 px-3 py-1 rounded-lg text-sm font-bold">⏱ 15:00</span>
                 </div>
                 <div id="question-box" class="space-y-4"></div>
@@ -207,18 +210,20 @@
         function switchTab(tabName) {
             ['mock-test', 'qna', 'premium', 'admin'].forEach(t => {
                 const el = document.getElementById('tab-' + t);
-                const nav = document.getElementById('nav-' + (t === 'mock-test' ? 'mock' : t));
+                const nav = document.getElementById('nav-' + t);
                 if(el) el.classList.add('hidden');
                 if(nav) nav.className = "px-2.5 py-1.5 rounded-lg text-gray-400 hover:text-white transition";
             });
             const activeTab = document.getElementById('tab-' + tabName);
-            const activeNav = document.getElementById('nav-' + (tabName === 'mock-test' ? 'mock' : tabName));
+            const activeNav = document.getElementById('nav-' + tabName);
             if(activeTab) activeTab.classList.remove('hidden');
             if(activeNav) activeNav.className = "px-2.5 py-1.5 rounded-lg bg-blue-600 text-white transition";
         }
 
         function startMockTest() {
+            const count = document.getElementById('num-questions-slider').value;
             document.getElementById('test-container').classList.remove('hidden');
+            document.getElementById('question-tracker').innerText = `Question 1 of ${count}`;
             document.getElementById('question-box').innerHTML = `
                 <p class="font-medium text-base">Q1. What is the standard voltage rating for domestic single-phase supply in India?</p>
                 <div class="space-y-2 pt-2">
@@ -272,11 +277,4 @@
             const unit = document.getElementById('grant-unit').value;
             if(!email) { alert("Enter user email!"); return; }
             alert(`Successfully granted ${duration} ${unit} access to ${email}!`);
-            document.getElementById('grant-email').value = "";
-        }
-
-        function publishBroadcast() {
-            const msg = document.getElementById('broadcast-input').value;
-            if(!msg) { alert("Enter message!"); return; }
-            localStorage.setItem('omega_broadcast', msg);
-            applyBroadcast()
+            document.getElem

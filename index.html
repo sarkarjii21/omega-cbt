@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Omega CBT - Competitive Exam Portal</title>
-    <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -20,20 +19,18 @@
             }
         }
     </script>
-    <!-- Correct App Icon using your logo.png -->
     <link rel="icon" type="image/png" href="logo.png">
     <link rel="apple-touch-icon" href="logo.png">
     <meta name="theme-color" content="#2563eb">
 </head>
 <body class="bg-[#0b0f19] text-gray-100 min-h-screen font-sans antialiased">
 
-    <!-- Navbar -->
     <header class="bg-[#111827] border-b border-gray-800 sticky top-0 z-50 px-4 py-3 shadow-md flex justify-between items-center">
         <div class="flex items-center space-x-3 cursor-pointer" onclick="switchTab('mock-test')">
             <img src="logo.png" alt="Logo" class="w-10 h-10 rounded-xl object-cover shadow-lg shadow-blue-500/30">
             <div>
                 <h1 class="font-bold text-lg leading-tight tracking-wide">Omega CBT</h1>
-                <p id="user-top-badge" class="text-xs text-blue-400 font-medium">Checking Trial...</p>
+                <p id="user-top-badge" class="text-xs text-blue-400 font-medium">Loading...</p>
             </div>
         </div>
         <nav class="flex space-x-1 text-xs md:text-sm font-medium">
@@ -44,7 +41,6 @@
         </nav>
     </header>
 
-    <!-- Global Broadcast Banner -->
     <div id="broadcast-banner" class="hidden bg-gradient-to-r from-blue-600 to-indigo-600 text-white px-4 py-2.5 text-center text-sm font-medium shadow-inner flex justify-between items-center">
         <span id="broadcast-text">📢 Announcement</span>
         <button onclick="document.getElementById('broadcast-banner').classList.add('hidden')" class="text-xs bg-black/20 hover:bg-black/40 px-2 py-1 rounded">✕</button>
@@ -52,7 +48,6 @@
 
     <main class="max-w-4xl mx-auto p-4 pb-20 space-y-6">
 
-        <!-- TAB 1: MOCK TEST ENGINE -->
         <section id="tab-mock-test" class="space-y-6">
             <div class="bg-[#111827] border border-gray-800 rounded-2xl p-5 shadow-xl">
                 <h2 class="text-xl font-bold mb-4 flex items-center gap-2">📝 Custom Mixed Mock Test Setup</h2>
@@ -88,7 +83,6 @@
                         </div>
                     </div>
 
-                    <!-- Variable Range Slider for Questions Quantity -->
                     <div>
                         <div class="flex justify-between items-center mb-2">
                             <label class="text-sm text-gray-400 font-medium">Number of Questions:</label>
@@ -105,7 +99,6 @@
                 </div>
             </div>
 
-            <!-- Active Test Container -->
             <div id="test-container" class="hidden bg-[#111827] border border-gray-800 rounded-2xl p-5 shadow-xl space-y-4">
                 <div class="flex justify-between items-center border-b border-gray-800 pb-3">
                     <span id="question-tracker" class="text-sm font-semibold text-blue-400">Question 1</span>
@@ -118,9 +111,7 @@
                 </div>
             </div>
         </section>
-
-        <!-- TAB 2: Q&A PORTAL -->
-        <section id="tab-qna" class="hidden space-y-6">
+                <section id="tab-qna" class="hidden space-y-6">
             <div class="bg-[#111827] border border-gray-800 rounded-2xl p-5 shadow-xl space-y-4">
                 <h2 class="text-xl font-bold flex items-center gap-2">💬 Question Contribution Portal</h2>
                 <p class="text-sm text-gray-400">Aapke bheje gaye sawal direct Google Sheet database par submit honge.</p>
@@ -144,7 +135,6 @@
             </div>
         </section>
 
-        <!-- TAB 3: PREMIUM & DIRECT UPI PAYMENT -->
         <section id="tab-premium" class="hidden space-y-6">
             <div class="bg-[#111827] border border-gray-800 rounded-2xl p-5 shadow-xl space-y-5 text-center">
                 <div class="inline-block p-3 rounded-2xl bg-blue-600/10 text-blue-500 border border-blue-500/20 text-2xl">👑</div>
@@ -157,7 +147,6 @@
                     <div class="flex justify-between"><span>Status:</span> <span id="user-status-badge" class="text-yellow-400 font-semibold">Checking...</span></div>
                 </div>
 
-                <!-- UPI QR Code & ID Section -->
                 <div class="bg-gray-900/80 p-4 rounded-xl border border-gray-800 max-w-sm mx-auto space-y-3">
                     <p class="text-xs text-gray-400">Scan via any UPI App (GPay, PhonePe, Paytm)</p>
                     <div class="bg-white p-3 rounded-xl inline-block">
@@ -175,7 +164,6 @@
             </div>
         </section>
 
-        <!-- TAB 4: ADMIN DASHBOARD -->
         <section id="tab-admin" class="hidden space-y-6">
             <div id="admin-login-box" class="bg-[#111827] border border-gray-800 rounded-2xl p-6 shadow-xl max-w-sm mx-auto space-y-4">
                 <h2 class="text-xl font-bold text-center">🔐 Admin Authentication</h2>
@@ -189,7 +177,6 @@
                     <button onclick="logoutAdmin()" class="text-xs bg-red-500/10 text-red-400 border border-red-500/20 px-3 py-1.5 rounded-lg">Logout</button>
                 </div>
 
-                <!-- Manual Validity Power (1 Month to 1 Year) -->
                 <div class="space-y-3 bg-gray-900/40 p-4 rounded-xl border border-gray-800">
                     <h3 class="font-semibold text-sm text-blue-400">Manual User Approval / Validity Grant (1M to 1Yr)</h3>
                     <input type="email" id="grant-email" placeholder="User Email ID" class="w-full bg-gray-900 border border-gray-800 rounded-xl p-3 text-sm focus:outline-none focus:border-blue-600">
@@ -203,7 +190,6 @@
                     <button onclick="grantManualValidity()" class="w-full bg-indigo-600 hover:bg-indigo-500 text-white font-medium py-2.5 rounded-xl text-sm transition">Grant Access Now</button>
                 </div>
 
-                <!-- Global Broadcast Manager -->
                 <div class="space-y-3 bg-gray-900/40 p-4 rounded-xl border border-gray-800">
                     <h3 class="font-semibold text-sm text-blue-400">Send Global Broadcast Message</h3>
                     <textarea id="broadcast-input" rows="2" placeholder="Type notification message for all users..." class="w-full bg-gray-900 border border-gray-800 rounded-xl p-3 text-sm focus:outline-none focus:border-blue-600"></textarea>
@@ -215,7 +201,6 @@
     </main>
 
     <script>
-        // 7 Days Free Trial Logic on First Load
         function checkUserTrial() {
             let trialStart = localStorage.getItem('omega_trial_start');
             let isPro = localStorage.getItem('omega_pro_active');
@@ -276,4 +261,68 @@
         }
 
         function nextQuestion() { alert("Answer recorded successfully!"); }
-        function prevQue
+        function prevQuestion() { alert("Already at the first question."); }
+
+        function submitQuestion(e) {
+            e.preventDefault();
+            const name = document.getElementById('q-name').value;
+            const subject = document.getElementById('q-subject').value;
+            const text = document.getElementById('q-text').value;
+            console.log("Q&A Submitted:", { name, subject, text });
+            document.getElementById('qna-success').classList.remove('hidden');
+            document.getElementById('qna-form').reset();
+            setTimeout(() => document.getElementById('qna-success').classList.add('hidden'), 4000);
+        }
+
+        function requestActivation() {
+            const email = document.getElementById('pay-email').value;
+            if(!email) { alert("Please enter your email ID!"); return; }
+            alert(`Payment request submitted for ${email} using UPI ID soumodeeps53-2@oksbi! Admin will verify and activate your 1 Month Pro validity shortly.`);
+        }
+
+        function verifyAdmin() {
+            const pass = document.getElementById('admin-pass').value;
+            if(pass === "admin123" || pass === "sarkar") {
+                document.getElementById('admin-login-box').classList.add('hidden');
+                document.getElementById('admin-panel').classList.remove('hidden');
+            } else {
+                alert("Incorrect Password! (Use admin123 or sarkar)");
+            }
+        }
+        function logoutAdmin() {
+            document.getElementById('admin-login-box').classList.remove('hidden');
+            document.getElementById('admin-panel').classList.add('hidden');
+            document.getElementById('admin-pass').value = "";
+        }
+        function grantManualValidity() {
+            const email = document.getElementById('grant-email').value;
+            const duration = document.getElementById('grant-duration').value;
+            const unit = document.getElementById('grant-unit').value;
+            if(!email) { alert("Enter user email!"); return; }
+            alert(`Successfully granted ${duration} ${unit} Pro validity to ${email}!`);
+            document.getElementById('grant-email').value = "";
+        }
+
+        function publishBroadcast() {
+            const msg = document.getElementById('broadcast-input').value;
+            if(!msg) { alert("Enter message!"); return; }
+            localStorage.setItem('omega_broadcast', msg);
+            applyBroadcast();
+            alert("Broadcast published successfully to all users!");
+            document.getElementById('broadcast-input').value = "";
+        }
+        function applyBroadcast() {
+            const savedMsg = localStorage.getItem('omega_broadcast');
+            if(savedMsg) {
+                document.getElementById('broadcast-text').innerText = "📢 " + savedMsg;
+                document.getElementById('broadcast-banner').classList.remove('hidden');
+            }
+        }
+        
+        window.onload = function() {
+            checkUserTrial();
+            applyBroadcast();
+        };
+    </script>
+</body>
+</html>

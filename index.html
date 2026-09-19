@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Omega CBT - Competitive Exam Portal</title>
+    <!-- Tailwind CSS CDN for modern design -->
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <style>
+        /* Smooth scrolling and native touch control */
+        html {
+            scroll-behavior: smooth;
+        }
+        body {
+            overscroll-behavior-y: none;
+            background-color: #0f172a;
+            color: #f8fafc;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        /* Floating Navigation Switches */
+        .nav-container {
+            position: fixed;
+            right: 20px;
+            bottom: 80px;
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        .nav-btn {
+            background-color: #2563eb;
+            color: white;
+            border: 2px solid white;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            font-size: 22px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+            cursor: pointer;
+            transition: transform 0.1s;
+        }
+        .nav-btn:active {
+            transform: scale(0.92);
+            background-color: #1d4ed8;
+        }
+    </style>
+</head>
+<body class="min-h-screen pb-20">
+
+    <!-- Top Anchor for Up Switch -->
+    <div id="top-anchor"></div>
+
+    <!-- Header Section -->
+    <header class="bg-slate-900 border-b border-slate-800 sticky top-0 z-50 px-6 py-4 flex justify-between items-center shadow-md">
+        <div class="flex items-center space-x-3">
+            <span class="text-3xl">🎯</span>
+            <div>
+                <h1 class="text-xl font-bold tracking-wide text-white">Omega CBT</h1>
+                <p class="text-xs text-slate-400">Competitive Exam Portal (SSC JE / RRB JE)</p>
+            </div>
+        </div>
+        <div id="timer-box" class="bg-slate-800 px-4 py-2 rounded-lg text-emerald-400 font-bold border border-slate-700 text-sm">
+            ⏱️ Ready
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <main class="max-w-4xl mx-auto px-4 py-6">
+        
+        <!-- Setup Screen -->
+        <div id="setup-screen" class="bg-slate-800 border border-slate-700 rounded-xl p-6 shadow-xl">
+            <h2 class="text-xl font-semibold mb-4 text-sky-400">📝 Custom Mixed Mock Test Setup</h2>
+            
+            <div class="mb-4">
+                <label class="block text-sm font-medium mb-2 text-slate-300">Select Subjects:</label>
+                <div class="grid grid-cols-2 md:grid-cols-3 gap-2" id="subject-checkboxes">
+                    <label class="flex items-center space-x-2 bg-slate-900 p-3 rounded-lg border border-slate-700 cursor-pointer">
+                        <input type="checkbox" value="Electrical Engineering" checked class="sub-cb accent-sky-500 w-4 h-4">
+                        <span class="text-sm">Electrical Engg</span>
+                    </label>
+                    <label class="flex items-center space-x-2 bg-slate-900 p-3 rounded-lg border border-slate-700 cursor-pointer">
+                        <input type="checkbox" value="Civil Engineering" checked class="sub-cb accent-sky-500 w-4 h-4">
+                        <span class="text-sm">Civil Engg</span>
+                    </label>
+                    <label class="flex items-center space-x-2 bg-slate-900 p-3 rounded-lg border border-slate-700 cursor-pointer">
+                        <input type="checkbox" value="Mechanical Engineering" checked class="sub-cb accent-sky-500 w-4 h-4">
+                        <span class="text-sm">Mechanical Engg</span>
+                    </label>
+                    <label class="flex items-center space-x-2 bg-slate-900 p-3 rounded-lg border border-slate-700 cursor-pointer">
+                        <input type="checkbox" value="Reasoning" checked class="sub-cb accent-sky-500 w-4 h-4">
+                        <span class="text-sm">Reasoning</span>
+                    </label>
+                    <label class="flex items-center space-x-2 bg-slate-900 p-3 rounded-lg border border-slate-700 cursor-pointer">
+                        <input type="checkbox" value="Mathematics" checked class="sub-cb accent-sky-500 w-4 h-4">
+                        <span class="text-sm">Mathematics</span>
+                    </label>
+                    <label class="flex items-center space-x-2 bg-slate-900 p-3 rounded-lg border border-slate-700 cursor-pointer">
+                        <input type="checkbox" value="GK / GS" checked class="sub-cb accent-sky-500 w-4 h-4">
+                        <span class="text-sm">GK / GS</span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="mb-6">
+                <label class="block text-sm font-medium mb-2 text-slate-300">Number of Questions:</label>
+                <select id="num-questions" class="w-full bg-slate-900 border border-slate-700 rounded-lg p-3 text-white focus:outline-none focus:border-sky-500">
+                    <option value="10">10 Questions (6 Mins)</option>
+                    <option value="25">25 Questions (15 Mins)</option>
+                    <option value="50">50 Questions (30 Mins)</option>
+                    <option value="100">100 Questions (60 Mins)</option>
+                </select>
+            </div>
+
+            <button onclick="startTest()" class="w-full bg-sky-600 hover:bg-sky-500 text-white font-bold py-3 rounded-lg transition duration-200 shadow-lg cursor-pointer">
+                🚀 Start Mock Test
+            </button>
+        </div>
+
+        <!-- Test Interface Screen (Hidden Initially) -->
+        <div id="test-screen" class="hidden space-y-6">
+            <div id="questions-container" class="space-y-6">
+                <!-- Dynamic Questions will load here -->
+            </div>
+
+            <div class="flex gap-4 pt-4">
+                <button onclick="submitTest()" class="flex-1 bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-3 rounded-lg shadow-lg cursor-pointer transition">
+                    ✅ Final Submit Test
+                </button>
+                <button onclick="quitTest()" class="bg-rose-600 hover:bg-rose-500 text-white font-bold px-6 py-3 rounded-lg shadow-lg cursor-pointer transition">
+                    ❌ Quit
+                </button>
+            </div>
+        </div>
+
+        <!-- Result Screen (Hidden Initially) -->
+        <div id="result-screen" class="hidden bg-slate-800 border border-slate-700 rounded-xl p-6 shadow-xl space-y-6">
+            <h2 class="text-2xl font-bold text-sky-400">📊 Result & Scorecard</h2>
+            <div id="score-summary" class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <!-- Metrics loaded dynamically -->
+            </div>
+            <div id="mistakes-review" class="space-y-4">
+                <!-- Review mistakes -->
+            </div>
+            <button onclick="resetApp()" class="w-full bg-sky-600 hover:bg-sky-500 text-white font-bold py-3 rounded-lg transition cursor-pointer">
+                🔄 Take Another Test
+            </button>
+        </div>
+
+    </main>
+
+    <!-- Floating Up/Down Navigation Switches -->
+    <div class="nav-container">
+        <a class="nav-btn" href="#top-anchor" title="Scroll to Top">⬆️</a>
+        <a class="nav-btn" href="#bottom-anchor" title="Scroll to Bottom">⬇️</a>
+    </div>
+
+    <!-- Bottom Anchor for Down Switch -->
+    <div id="bottom-anchor"></div>
+
+    <!-- JavaScript Logic -->
+    <script>
+        let questionBank = [];
+        let currentTestQuestions = [];
+        let userAnswers = {};
+        let timerInterval = null;
+
+        // Load local or default question bank
+        async function loadQuestions() {
+            try {
+                let response = await fetch('questions.json');
+                questionBank = await response.json();
+            } catch (err) {
+                // Fallback default questions if questions.json not found yet
+                questionBank = [
+                    {
+                        "subject": "Electrical Engineering",
+                        "question": "Which motor is preferred for electric traction due to high starting torque?",
+                        "options": ["DC Series Motor", "DC Shunt Motor", "Synchronous Motor", "Stepper Motor"],
+                        "correct_option": "DC Series Motor"
+                    },
+                    {
+                        "subject": "Electrical Engineering",
+                        "question": "The Buchholz relay is used for the protection of:",
+                        "options": ["Transformers against internal faults", "Transmission lines against lightning", "Generators against overspeed", "Induction motors against overloading"],
+                        "correct_option": "Transformers against internal faults"
+                    }
+                ];
+            }
+        }
+        loadQuestions();
+
+        function startTest() {
+            const selectedSubs = Array.from(document.querySelectorAll('.sub-cb:checked')).map(cb => cb.value);
+            const numQCount = parseInt(document.getElementById('num-questions').value);
+
+            let filtered = questionBank.filter(q => selectedSubs.includes(q.subject));
+            if (filtered.length === 0) {
+                alert("चयनित विषयों में कोई सवाल उपलब्ध नहीं है!");
+                return;
+            }
+
+            // Shuffle and slice
+            currentTestQuestions = filtered.sort(() => 0.5 - Math.random()).slice(0, numQCount);
+            userAnswers = {};
+
+            document.getElementById('setup-screen').classList.add('hidden');
+            document.getElementById('result-screen').classList.add('hidden');
+            document.getElementById('test-screen').classList.remove('hidden');
+
+            renderQuestions();
+            startTimer(currentTestQuestions.length * 36); // ~36 seconds per question
+        }
+
+        function renderQuestions() {
+            const container = document.getElementById('questions-container');
+            container.innerHTML = '';
+
+            currentTestQuestions.forEach((q, idx) => {
+                let optionsHtml = '';
+                const opts = q.options || [q.opt1, q.opt2, q.opt3, q.opt4];
+
+                opts.forEach(opt => {
+                    const isChecked = userAnswers[idx] === opt ? 'checked' : '';
+                    optionsHtml += `
+                        <label class="flex items-center space-x-3 p-3 bg-slate-900 rounded-lg border border-slate-700 hover:border-sky-500 cursor-pointer transition">
+                            <input type="radio" name="q_${idx}" value="${opt}" ${isChecked} onclick="selectAnswer(${idx}, '${opt.replace(/'/g, "\\'")}')" class="accent-sky-500 w-4 h-4">
+                            <span class="text-sm text-slate-200">${opt}</span>
+                        </label>
+                    `;
+                });
+
+                // Clear selection option
+                optionsHtml += `
+                    <button onclick="clearAnswer(${idx})" class="text-xs text-rose-400 hover:underline mt-2 cursor-pointer">
+                        🔄 Clear Selection (Unanswered)
+                    </button>
+                `;
+
+                container.innerHTML += `
+                    <div class="bg-slate-800 border border-slate-700 p-5 rounded-xl shadow-md">
+                        <div class="flex justify-between items-center mb-3">
+                            <span class="bg-sky-900 text-sky-200 text-xs px-2.5 py-1 rounded-md font-semibold">${q.subject}</span>
+                            <span class="text-slate-400 text-xs font-bold">Q.${idx + 1}</span>
+                        </div>
+                        <p class="font-medium text-white mb-4">${q.question}</p>
+                        <div class="space-y-2">
+                            ${optionsHtml}
+                        </div>
+                    </div>
+                `;
+            });
+        }
+
+        function selectAnswer(qIdx, option) {
+            userAnswers[qIdx] = option;
+        }
+
+        function clearAnswer(qIdx) {
+            delete userAnswers[qIdx];
+            renderQuestions();
+        }
+
+        function startTimer(durationSec) {
+            let timer = durationSec;
+            const timerBox = document.getElementById('timer-box');
+            
+            if (timerInterval) clearInterval(timerInterval);
+
+            timerInterval = setInterval(() => {
+                let m = Math.floor(timer / 60);
+                let s = timer % 60;
+                timerBox.innerHTML = `⏱️ ${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
+
+                if (--timer < 0) {
+                    clearInterval(timerInterval);
+                    submitTest();
+                }
+            }, 1000);
+        }
+
+        function submitTest() {
+            if (timerInterval) clearInterval(timerInterval);
+            
+            let correct = 0;
+            let incorrect = 0;
+            let unattempted = 0;
+            let mistakesHtml = '';
+
+            currentTestQuestions.forEach((q, idx) => {
+                let userAns = userAnswers[idx];
+                let correctAns = q.correct_option || q.answer;
+
+                if (!userAns) {
+                    unattempted++;
+                } else if (userAns === correctAns) {
+                    correct++;
+                } else {
+                    incorrect++;
+                    mistakesHtml += `
+                        <div class="bg-slate-900 border-l-4 border-rose-500 p-4 rounded-lg">
+                            <p class="font-semibold text-white">Q: ${q.question}</p>
+                            <p class="text-xs text-rose-400 mt-1">Your Answer: ${userAns}</p>
+                            <p class="text-xs text-emerald-400">Correct Answer: ${correctAns}</p>
+                        </div>
+                    `;
+                }
+            });
+
+            let netScore = (correct * 1.0) - (incorrect * 0.25);
+            let maxScore = currentTestQuestions.length * 1.0;
+
+            document.getElementById('test-screen').classList.add('hidden');
+            document.getElementById('result-screen').classList.remove('hidden');
+
+            document.getElementById('score-summary').innerHTML = `
+                <div class="bg-slate-900 p-4 rounded-lg text-center border border-slate-700">
+                    <p class="text-xs text-slate-400">Net Score</p>
+                    <p class="text-xl font-bold text-sky-400">${netScore.toFixed(2)} / ${maxScore}</p>
+                </div>
+                <div class="bg-slate-900 p-4 rounded-lg text-center border border-slate-700">
+                    <p class="text-xs text-slate-400">Correct (+1)</p>
+                    <p class="text-xl font-bold text-emerald-400">${correct}</p>
+                </div>
+                <div class="bg-slate-900 p-4 rounded-lg text-center border border-slate-700">
+                    <p class="text-xs text-slate-400">Incorrect (-0.25)</p>
+                    <p class="text-xl font-bold text-rose-400">${incorrect}</p>
+                </div>
+                <div class="bg-slate-900 p-4 rounded-lg text-center border border-slate-700">
+                    <p class="text-xs text-slate-400">Skipped</p>
+                    <p class="text-xl font-bold text-slate-300">${unattempted}</p>
+                </div>
+            `;
+
+            document.getElementById('mistakes-review').innerHTML = mistakesHtml ? `<h3 class="text-lg font-semibold text-slate-200 mt-4">🔍 Review Mistakes</h3>` + mistakesHtml : `<p class="text-emerald-400 text-center font-medium">🎉 शानदार! आपके सभी उत्तर सही हैं!</p>`;
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function quitTest() {
+            if (confirm("क्या आप वाकई टेस्ट छोड़ना चाहते हैं?")) {
+                if (timerInterval) clearInterval(timerInterval);
+                document.getElementById('test-screen').classList.add('hidden');
+                document.getElementById('setup-screen').classList.remove('hidden');
+            }
+        }
+
+        function resetApp() {
+            document.getElementById('result-screen').classList.add('hidden');
+            document.getElementById('setup-screen').classList.remove('hidden');
+        }
+    </script>
+</body>
+  </html>
+

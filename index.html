@@ -150,7 +150,7 @@
                 <div class="bg-gray-900/80 p-4 rounded-xl border border-gray-800 max-w-sm mx-auto space-y-3">
                     <p class="text-xs text-gray-400">Scan via any UPI App (GPay, PhonePe, Paytm)</p>
                     <div class="bg-white p-3 rounded-xl inline-block">
-                        <img src="72905.png" alt="Payment QR" class="w-40 h-40 mx-auto object-contain" onerror="this.src='72386.png'">
+                        <p class="text-xs text-black font-bold p-2">UPI Payment Active</p>
                     </div>
                     <p class="text-xs text-blue-400 font-mono font-bold">UPI ID: soumodeeps53-2@oksbi</p>
                 </div>
@@ -202,7 +202,20 @@
 
     <script>
         let currentQuestionIndex = 0;
-        let totalTestQuestions = 25;
+        let testQuestionsList = [];
+
+        const questionBank = [
+            { q: "What is the standard voltage rating for domestic single-phase supply in India?", options: ["A) 110V, 50Hz", "B) 230V, 50Hz", "C) 415V, 50Hz", "D) 440V, 60Hz"] },
+            { q: "Which material is most commonly used for transmission line cables?", options: ["A) Copper", "B) Aluminium (ACSR)", "C) Iron", "D) Silver"] },
+            { q: "What is the SI unit of magnetic flux?", options: ["A) Tesla", "B) Weber", "C) Henry", "D) Gauss"] },
+            { q: "In a hydraulic turbine, draft tube is used for:", options: ["A) Increasing kinetic energy", "B) Recovering pressure head", "C) Regulating water flow", "D) Preventing cavitation completely"] },
+            { q: "The bending moment at a free end of a cantilever beam is always:", options: ["A) Maximum", "B) Zero", "C) Minimum", "D) Equal to fixed end"] },
+            { q: "If South is coded as North-East, then North is coded as:", options: ["A) South-West", "B) North-West", "C) South-East", "D) West"] },
+            { q: "What is the value of acceleration due to gravity (g) approximately on Earth's surface?", options: ["A) 9.8 m/s²", "B) 8.9 m/s²", "C) 11.2 m/s²", "D) 6.67 m/s²"] },
+            { q: "Who is known as the Father of the Indian Constitution?", options: ["A) Mahatma Gandhi", "B) Dr. B. R. Ambedkar", "C) Jawaharlal Nehru", "D) Sardar Vallabhbhai Patel"] },
+            { q: "What is the power factor of a purely resistive AC circuit?", options: ["A) Zero", "B) Unity (1)", "C) Lagging 0.5", "D) Leading 0.5"] },
+            { q: "The unit of kinematic viscosity is:", options: ["A) Poise", "B) Stokes", "C) Pascal-second", "D) Newton-meter"] }
+        ];
 
         function checkUserTrial() {
             let trialStart = localStorage.getItem('omega_trial_start');
@@ -249,38 +262,47 @@
         }
 
         function startMockTest() {
-            totalTestQuestions = parseInt(document.getElementById('num-questions-slider').value) || 25;
+            const count = parseInt(document.getElementById('num-questions-slider').value) || 25;
+            testQuestionsList = [];
+            for(let i = 0; i < count; i++) {
+                let baseQ = questionBank[i % questionBank.length];
+                testQuestionsList.push({
+                    q: `(Q${i+1}) ` + baseQ.q,
+                    options: baseQ.options
+                });
+            }
             currentQuestionIndex = 0;
             document.getElementById('test-container').classList.remove('hidden');
             loadQuestion();
         }
 
         function loadQuestion() {
-            currentQuestionIndex++;
-            if(currentQuestionIndex > totalTestQuestions) {
+            if(currentQuestionIndex >= testQuestionsList.length) {
                 alert("Mock Test Completed Successfully!");
                 document.getElementById('test-container').classList.add('hidden');
                 return;
             }
-            document.getElementById('question-tracker').innerText = `Question ${currentQuestionIndex} of ${totalTestQuestions}`;
+            let item = testQuestionsList[currentQuestionIndex];
+            document.getElementById('question-tracker').innerText = `Question ${currentQuestionIndex + 1} of ${testQuestionsList.length}`;
             document.getElementById('question-box').innerHTML = `
-                <p class="font-medium text-base">Q${currentQuestionIndex}. What is the standard technical parameter or value for mixed competitive exam question #${currentQuestionIndex}?</p>
+                <p class="font-medium text-base">${item.q}</p>
                 <div class="space-y-2 pt-2">
-                    <label class="block bg-gray-900/80 p-3 rounded-xl border border-gray-800 cursor-pointer hover:border-blue-500"><input type="radio" name="q_ans" class="mr-2"> A) Option Alpha for Q${currentQuestionIndex}</label>
-                    <label class="block bg-gray-900/80 p-3 rounded-xl border border-gray-800 cursor-pointer hover:border-blue-500"><input type="radio" name="q_ans" class="mr-2"> B) Option Beta for Q${currentQuestionIndex}</label>
-                    <label class="block bg-gray-900/80 p-3 rounded-xl border border-gray-800 cursor-pointer hover:border-blue-500"><input type="radio" name="q_ans" class="mr-2"> C) Option Gamma for Q${currentQuestionIndex}</label>
-                    <label class="block bg-gray-900/80 p-3 rounded-xl border border-gray-800 cursor-pointer hover:border-blue-500"><input type="radio" name="q_ans" class="mr-2"> D) Option Delta for Q${currentQuestionIndex}</label>
+                    <label class="block bg-gray-900/80 p-3 rounded-xl border border-gray-800 cursor-pointer hover:border-blue-500"><input type="radio" name="q_ans" class="mr-2"> ${item.options[0]}</label>
+                    <label class="block bg-gray-900/80 p-3 rounded-xl border border-gray-800 cursor-pointer hover:border-blue-500"><input type="radio" name="q_ans" class="mr-2"> ${item.options[1]}</label>
+                    <label class="block bg-gray-900/80 p-3 rounded-xl border border-gray-800 cursor-pointer hover:border-blue-500"><input type="radio" name="q_ans" class="mr-2"> ${item.options[2]}</label>
+                    <label class="block bg-gray-900/80 p-3 rounded-xl border border-gray-800 cursor-pointer hover:border-blue-500"><input type="radio" name="q_ans" class="mr-2"> ${item.options[3]}</label>
                 </div>
             `;
         }
 
         function nextQuestion() {
+            currentQuestionIndex++;
             loadQuestion();
         }
 
         function prevQuestion() {
-            if(currentQuestionIndex > 1) {
-                currentQuestionIndex -= 2;
+            if(currentQuestionIndex > 0) {
+                currentQuestionIndex--;
                 loadQuestion();
             } else {
                 alert("Already at the first question.");

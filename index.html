@@ -20,9 +20,9 @@
             }
         }
     </script>
-    <!-- Custom App Icon -->
-    <link rel="icon" type="image/png" href="72015.png">
-    <link rel="apple-touch-icon" href="72015.png">
+    <!-- Correct App Icon using your logo.png -->
+    <link rel="icon" type="image/png" href="logo.png">
+    <link rel="apple-touch-icon" href="logo.png">
     <meta name="theme-color" content="#2563eb">
 </head>
 <body class="bg-[#0b0f19] text-gray-100 min-h-screen font-sans antialiased">
@@ -30,7 +30,7 @@
     <!-- Navbar -->
     <header class="bg-[#111827] border-b border-gray-800 sticky top-0 z-50 px-4 py-3 shadow-md flex justify-between items-center">
         <div class="flex items-center space-x-3 cursor-pointer" onclick="switchTab('mock-test')">
-            <img src="72015.png" alt="Icon" class="w-10 h-10 rounded-xl object-cover shadow-lg shadow-blue-500/30">
+            <img src="logo.png" alt="Logo" class="w-10 h-10 rounded-xl object-cover shadow-lg shadow-blue-500/30">
             <div>
                 <h1 class="font-bold text-lg leading-tight tracking-wide">Omega CBT</h1>
                 <p id="user-top-badge" class="text-xs text-blue-400 font-medium">Checking Trial...</p>
@@ -237,11 +237,11 @@
             let daysLeft = Math.ceil(7 - elapsedDays);
 
             if(daysLeft > 0) {
-                document.getElementById('user-top-badge').innerText = `🔥 Free Trial: ${daysLeft} Days Left`;
+                document.getElementById('user-top-badge').innerText = `🔥 Trial: ${daysLeft}d Left`;
                 document.getElementById('user-status-badge').innerText = `Free Trial (${daysLeft} Days Remaining)`;
                 document.getElementById('user-status-badge').className = "text-blue-400 font-semibold";
             } else {
-                document.getElementById('user-top-badge').innerText = "🔒 Trial Expired (Go Pro)";
+                document.getElementById('user-top-badge').innerText = "🔒 Trial Expired";
                 document.getElementById('user-status-badge').innerText = "Free User (Trial Ended)";
                 document.getElementById('user-status-badge').className = "text-red-400 font-semibold";
             }

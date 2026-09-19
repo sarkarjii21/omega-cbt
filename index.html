@@ -150,7 +150,7 @@
                 <div class="bg-gray-900/80 p-4 rounded-xl border border-gray-800 max-w-sm mx-auto space-y-3">
                     <p class="text-xs text-gray-400">Scan via any UPI App (GPay, PhonePe, Paytm)</p>
                     <div class="bg-white p-3 rounded-xl inline-block">
-                        <img src="72386.png" alt="Payment QR" class="w-40 h-40 mx-auto object-contain">
+                        <img src="72905.png" alt="Payment QR" class="w-40 h-40 mx-auto object-contain" onerror="this.src='72386.png'">
                     </div>
                     <p class="text-xs text-blue-400 font-mono font-bold">UPI ID: soumodeeps53-2@oksbi</p>
                 </div>
@@ -292,7 +292,7 @@
         function logoutAdmin() {
             document.getElementById('admin-login-box').classList.remove('hidden');
             document.getElementById('admin-panel').classList.add('hidden');
-            document.getElementById('admin-pass').value = "";
+            document.getElementById('admin-pass-input').value = "";
         }
         function grantManualValidity() {
             const email = document.getElementById('grant-email').value;
@@ -325,4 +325,5 @@
         };
     </script>
 </body>
-</html>
+    </html>
+    

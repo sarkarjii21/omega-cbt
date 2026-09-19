@@ -30,7 +30,7 @@
             <img src="logo.png" alt="Logo" class="w-10 h-10 rounded-xl object-cover shadow-lg shadow-blue-500/30">
             <div>
                 <h1 class="font-bold text-lg leading-tight tracking-wide">Omega CBT</h1>
-                <p id="user-top-badge" class="text-xs text-blue-400 font-medium">Loading...</p>
+                <p id="user-top-badge" class="text-xs text-blue-400 font-medium">Checking Trial...</p>
             </div>
         </div>
         <nav class="flex space-x-1 text-xs md:text-sm font-medium">
@@ -201,6 +201,9 @@
     </main>
 
     <script>
+        let currentQuestionIndex = 0;
+        let totalTestQuestions = 25;
+
         function checkUserTrial() {
             let trialStart = localStorage.getItem('omega_trial_start');
             let isPro = localStorage.getItem('omega_pro_active');
@@ -246,22 +249,43 @@
         }
 
         function startMockTest() {
-            const count = document.getElementById('num-questions-slider').value;
+            totalTestQuestions = parseInt(document.getElementById('num-questions-slider').value) || 25;
+            currentQuestionIndex = 0;
             document.getElementById('test-container').classList.remove('hidden');
-            document.getElementById('question-tracker').innerText = `Question 1 of ${count}`;
+            loadQuestion();
+        }
+
+        function loadQuestion() {
+            currentQuestionIndex++;
+            if(currentQuestionIndex > totalTestQuestions) {
+                alert("Mock Test Completed Successfully!");
+                document.getElementById('test-container').classList.add('hidden');
+                return;
+            }
+            document.getElementById('question-tracker').innerText = `Question ${currentQuestionIndex} of ${totalTestQuestions}`;
             document.getElementById('question-box').innerHTML = `
-                <p class="font-medium text-base">Q1. What is the standard voltage rating for domestic single-phase supply in India?</p>
+                <p class="font-medium text-base">Q${currentQuestionIndex}. What is the standard technical parameter or value for mixed competitive exam question #${currentQuestionIndex}?</p>
                 <div class="space-y-2 pt-2">
-                    <label class="block bg-gray-900/80 p-3 rounded-xl border border-gray-800 cursor-pointer hover:border-blue-500"><input type="radio" name="q1" class="mr-2"> A) 110V, 50Hz</label>
-                    <label class="block bg-gray-900/80 p-3 rounded-xl border border-gray-800 cursor-pointer hover:border-blue-500"><input type="radio" name="q1" class="mr-2"> B) 230V, 50Hz</label>
-                    <label class="block bg-gray-900/80 p-3 rounded-xl border border-gray-800 cursor-pointer hover:border-blue-500"><input type="radio" name="q1" class="mr-2"> C) 415V, 50Hz</label>
-                    <label class="block bg-gray-900/80 p-3 rounded-xl border border-gray-800 cursor-pointer hover:border-blue-500"><input type="radio" name="q1" class="mr-2"> D) 440V, 60Hz</label>
+                    <label class="block bg-gray-900/80 p-3 rounded-xl border border-gray-800 cursor-pointer hover:border-blue-500"><input type="radio" name="q_ans" class="mr-2"> A) Option Alpha for Q${currentQuestionIndex}</label>
+                    <label class="block bg-gray-900/80 p-3 rounded-xl border border-gray-800 cursor-pointer hover:border-blue-500"><input type="radio" name="q_ans" class="mr-2"> B) Option Beta for Q${currentQuestionIndex}</label>
+                    <label class="block bg-gray-900/80 p-3 rounded-xl border border-gray-800 cursor-pointer hover:border-blue-500"><input type="radio" name="q_ans" class="mr-2"> C) Option Gamma for Q${currentQuestionIndex}</label>
+                    <label class="block bg-gray-900/80 p-3 rounded-xl border border-gray-800 cursor-pointer hover:border-blue-500"><input type="radio" name="q_ans" class="mr-2"> D) Option Delta for Q${currentQuestionIndex}</label>
                 </div>
             `;
         }
 
-        function nextQuestion() { alert("Answer recorded successfully!"); }
-        function prevQuestion() { alert("Already at the first question."); }
+        function nextQuestion() {
+            loadQuestion();
+        }
+
+        function prevQuestion() {
+            if(currentQuestionIndex > 1) {
+                currentQuestionIndex -= 2;
+                loadQuestion();
+            } else {
+                alert("Already at the first question.");
+            }
+        }
 
         function submitQuestion(e) {
             e.preventDefault();
@@ -292,7 +316,7 @@
         function logoutAdmin() {
             document.getElementById('admin-login-box').classList.remove('hidden');
             document.getElementById('admin-panel').classList.add('hidden');
-            document.getElementById('admin-pass-input').value = "";
+            document.getElementById('admin-pass').value = "";
         }
         function grantManualValidity() {
             const email = document.getElementById('grant-email').value;
@@ -325,5 +349,4 @@
         };
     </script>
 </body>
-    </html>
-    
+</html>

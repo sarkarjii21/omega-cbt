@@ -48,7 +48,7 @@
     </div>
 
     <!-- Login Modal Gate -->
-    <div id="login-modal" class="fixed inset-0 bg-black/80 z-50 flex items-center justify-center p-4">
+    <div id="login-modal" class="fixed inset-0 bg-black/90 z-50 flex items-center justify-center p-4">
         <div class="bg-[#111827] border border-gray-800 rounded-2xl p-6 max-w-sm w-full space-y-4 shadow-2xl text-center">
             <div class="inline-block p-3 rounded-2xl bg-blue-600/10 text-blue-500 border border-blue-500/20 text-2xl">🔐</div>
             <h2 class="text-xl font-bold">App Login Required</h2>
@@ -182,8 +182,8 @@
                 </div>
 
                 <div class="space-y-3">
-                    <input type="email" id="chat-email" placeholder="Your Registered Email ID" class="w-full bg-gray-900 border border-gray-800 rounded-xl p-3 text-sm focus:outline-none focus:border-blue-600 text-center">
-                    <textarea id="chat-msg" rows="3" placeholder="Write your request message to admin..." class="w-full bg-gray-900 border border-gray-800 rounded-xl p-3 text-sm focus:outline-none focus:border-blue-600"></textarea>
+                    <input type="email" id="chat-email" placeholder="Your Registered Email ID" class="w-full bg-gray-900 border border-gray-800 rounded-xl p-3 text-sm focus:outline-none focus:border-blue-600 text-center text-white">
+                    <textarea id="chat-msg" rows="3" placeholder="Write your request message to admin..." class="w-full bg-gray-900 border border-gray-800 rounded-xl p-3 text-sm focus:outline-none focus:border-blue-600 text-white"></textarea>
                     <button onclick="sendLiveRequest()" class="w-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-bold py-3 rounded-xl shadow-lg transition cursor-pointer">
                         Send Request to Admin (24h Auto-Expiry)
                     </button>
@@ -196,7 +196,7 @@
         <section id="tab-admin" class="hidden space-y-6">
             <div id="admin-login-box" class="bg-[#111827] border border-gray-800 rounded-2xl p-6 shadow-xl max-w-sm mx-auto space-y-4">
                 <h2 class="text-xl font-bold text-center">🔐 Admin Authentication</h2>
-                <input type="password" id="admin-pass" placeholder="Enter Admin Password" class="w-full bg-gray-900 border border-gray-800 rounded-xl p-3 text-sm focus:outline-none focus:border-blue-600 text-center">
+                <input type="password" id="admin-pass" placeholder="Enter Admin Password" class="w-full bg-gray-900 border border-gray-800 rounded-xl p-3 text-sm focus:outline-none focus:border-blue-600 text-center text-white">
                 <button onclick="verifyAdmin()" class="w-full bg-blue-600 hover:bg-blue-500 text-white font-bold py-3 rounded-xl transition cursor-pointer">Login Dashboard</button>
             </div>
 
@@ -217,10 +217,10 @@
                 <!-- Manual Validity Power -->
                 <div class="space-y-3 bg-gray-900/40 p-4 rounded-xl border border-gray-800">
                     <h3 class="font-semibold text-sm text-blue-400">Manual User Approval / Validity Grant (1M to 1Yr)</h3>
-                    <input type="email" id="grant-email" placeholder="User Email ID" class="w-full bg-gray-900 border border-gray-800 rounded-xl p-3 text-sm focus:outline-none focus:border-blue-600">
+                    <input type="email" id="grant-email" placeholder="User Email ID" class="w-full bg-gray-900 border border-gray-800 rounded-xl p-3 text-sm focus:outline-none focus:border-blue-600 text-white">
                     <div class="grid grid-cols-2 gap-3">
-                        <input type="number" id="grant-duration" value="1" min="1" max="12" placeholder="Duration" class="bg-gray-900 border border-gray-800 rounded-xl p-3 text-sm focus:outline-none focus:border-blue-600">
-                        <select id="grant-unit" class="bg-gray-900 border border-gray-800 rounded-xl p-3 text-sm focus:outline-none focus:border-blue-600">
+                        <input type="number" id="grant-duration" value="1" min="1" max="12" placeholder="Duration" class="bg-gray-900 border border-gray-800 rounded-xl p-3 text-sm focus:outline-none focus:border-blue-600 text-white">
+                        <select id="grant-unit" class="bg-gray-900 border border-gray-800 rounded-xl p-3 text-sm focus:outline-none focus:border-blue-600 text-white">
                             <option value="months" selected>Months (1-12)</option>
                             <option value="years">Years (1)</option>
                         </select>
@@ -231,7 +231,7 @@
                 <!-- Global Broadcast Manager -->
                 <div class="space-y-3 bg-gray-900/40 p-4 rounded-xl border border-gray-800">
                     <h3 class="font-semibold text-sm text-blue-400">Send Global Broadcast Message</h3>
-                    <textarea id="broadcast-input" rows="2" placeholder="Type notification message for all users..." class="w-full bg-gray-900 border border-gray-800 rounded-xl p-3 text-sm focus:outline-none focus:border-blue-600"></textarea>
+                    <textarea id="broadcast-input" rows="2" placeholder="Type notification message for all users..." class="w-full bg-gray-900 border border-gray-800 rounded-xl p-3 text-sm focus:outline-none focus:border-blue-600 text-white"></textarea>
                     <button onclick="publishBroadcast()" class="w-full bg-green-600 hover:bg-green-500 text-white font-medium py-2.5 rounded-xl text-sm transition cursor-pointer">Publish to All Users</button>
                 </div>
             </div>
@@ -277,10 +277,12 @@
             let isPro = localStorage.getItem('omega_pro_active');
 
             if(!savedEmail) {
-                document.getElementById('login-modal').classList.remove('hidden');
+                const modal = document.getElementById('login-modal');
+                if(modal) modal.classList.remove('hidden');
                 return;
             } else {
-                document.getElementById('login-modal').classList.add('hidden');
+                const modal = document.getElementById('login-modal');
+                if(modal) modal.classList.add('hidden');
             }
 
             if(isPro === 'true') {
@@ -471,9 +473,4 @@
             });
 
             document.getElementById('score-summary').innerText = `You scored ${score} out of ${testQuestionsList.length}`;
-            document.getElementById('mistakes-review-box').innerHTML = reviewHTML;
-        }
-
-        function submitQuestion(e) {
-            e.preventDefault();
-            const name = document.getElem
+            document.getElementBy

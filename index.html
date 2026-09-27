@@ -53,8 +53,8 @@
             <div class="inline-block p-3 rounded-2xl bg-blue-600/10 text-blue-500 border border-blue-500/20 text-2xl">🔐</div>
             <h2 class="text-xl font-bold">App Login Required</h2>
             <p class="text-xs text-gray-400">Please enter your email ID to start. You will automatically receive a 7-day free trial.</p>
-            <input type="email" id="user-login-email" placeholder="Enter your email ID" class="w-full bg-gray-900 border border-gray-800 rounded-xl p-3 text-sm focus:outline-none focus:border-blue-600 text-center">
-            <button onclick="performLogin()" class="w-full bg-blue-600 hover:bg-blue-500 text-white font-bold py-3 rounded-xl shadow-lg transition">Login & Start Free Trial</button>
+            <input type="email" id="user-login-email" placeholder="Enter your email ID" class="w-full bg-gray-900 border border-gray-800 rounded-xl p-3 text-sm focus:outline-none focus:border-blue-600 text-center text-white">
+            <button type="button" onclick="performLogin()" class="w-full bg-blue-600 hover:bg-blue-500 text-white font-bold py-3 rounded-xl shadow-lg transition cursor-pointer">Login & Start Free Trial</button>
         </div>
     </div>
 
@@ -105,7 +105,7 @@
                             class="w-full accent-blue-600 bg-gray-900 rounded-lg cursor-pointer h-2">
                     </div>
 
-                    <button onclick="startMockTest()" class="w-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-bold py-3.5 rounded-xl shadow-lg shadow-blue-600/30 transition">
+                    <button onclick="startMockTest()" class="w-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-bold py-3.5 rounded-xl shadow-lg shadow-blue-600/30 transition cursor-pointer">
                         🚀 Start Mock Test
                     </button>
                 </div>
@@ -123,13 +123,13 @@
                 <div id="question-box" class="space-y-4"></div>
                 
                 <div class="flex justify-between items-center pt-2">
-                    <button onclick="clearCurrentSelection()" class="text-xs bg-yellow-500/10 text-yellow-400 border border-yellow-500/20 px-3 py-1.5 rounded-lg hover:bg-yellow-500/20 transition">🧹 Clear Answer</button>
+                    <button onclick="clearCurrentSelection()" class="text-xs bg-yellow-500/10 text-yellow-400 border border-yellow-500/20 px-3 py-1.5 rounded-lg hover:bg-yellow-500/20 transition cursor-pointer">🧹 Clear Answer</button>
                     <span id="save-status-text" class="text-xs text-gray-400"></span>
                 </div>
 
                 <div class="flex justify-between pt-4 border-t border-gray-800">
-                    <button onclick="prevQuestion()" class="bg-gray-800 hover:bg-gray-700 px-4 py-2 rounded-xl text-sm font-medium transition">Previous</button>
-                    <button onclick="nextQuestion()" class="bg-blue-600 hover:bg-blue-500 px-6 py-2 rounded-xl text-sm font-medium transition">Next & Save</button>
+                    <button onclick="prevQuestion()" class="bg-gray-800 hover:bg-gray-700 px-4 py-2 rounded-xl text-sm font-medium transition cursor-pointer">Previous</button>
+                    <button onclick="nextQuestion()" class="bg-blue-600 hover:bg-blue-500 px-6 py-2 rounded-xl text-sm font-medium transition cursor-pointer">Next & Save</button>
                 </div>
             </div>
 
@@ -143,7 +143,7 @@
                     <h3 class="font-bold text-blue-400">📋 Detailed Review & Mistakes Analysis:</h3>
                     <div id="mistakes-review-box" class="space-y-4 max-h-96 overflow-y-auto pr-2"></div>
                 </div>
-                <button onclick="location.reload()" class="w-full bg-blue-600 hover:bg-blue-500 text-white font-bold py-3 rounded-xl transition">Take Another Test</button>
+                <button onclick="location.reload()" class="w-full bg-blue-600 hover:bg-blue-500 text-white font-bold py-3 rounded-xl transition cursor-pointer">Take Another Test</button>
             </div>
         </section>
                 <section id="tab-qna" class="hidden space-y-6">
@@ -184,7 +184,7 @@
                 <div class="space-y-3">
                     <input type="email" id="chat-email" placeholder="Your Registered Email ID" class="w-full bg-gray-900 border border-gray-800 rounded-xl p-3 text-sm focus:outline-none focus:border-blue-600 text-center">
                     <textarea id="chat-msg" rows="3" placeholder="Write your request message to admin..." class="w-full bg-gray-900 border border-gray-800 rounded-xl p-3 text-sm focus:outline-none focus:border-blue-600"></textarea>
-                    <button onclick="sendLiveRequest()" class="w-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-bold py-3 rounded-xl shadow-lg transition">
+                    <button onclick="sendLiveRequest()" class="w-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-bold py-3 rounded-xl shadow-lg transition cursor-pointer">
                         Send Request to Admin (24h Auto-Expiry)
                     </button>
                 </div>
@@ -197,13 +197,13 @@
             <div id="admin-login-box" class="bg-[#111827] border border-gray-800 rounded-2xl p-6 shadow-xl max-w-sm mx-auto space-y-4">
                 <h2 class="text-xl font-bold text-center">🔐 Admin Authentication</h2>
                 <input type="password" id="admin-pass" placeholder="Enter Admin Password" class="w-full bg-gray-900 border border-gray-800 rounded-xl p-3 text-sm focus:outline-none focus:border-blue-600 text-center">
-                <button onclick="verifyAdmin()" class="w-full bg-blue-600 hover:bg-blue-500 text-white font-bold py-3 rounded-xl transition">Login Dashboard</button>
+                <button onclick="verifyAdmin()" class="w-full bg-blue-600 hover:bg-blue-500 text-white font-bold py-3 rounded-xl transition cursor-pointer">Login Dashboard</button>
             </div>
 
             <div id="admin-panel" class="hidden bg-[#111827] border border-gray-800 rounded-2xl p-6 shadow-xl space-y-6">
                 <div class="flex justify-between items-center border-b border-gray-800 pb-4">
                     <h2 class="text-xl font-bold">⚡ Admin Control Center</h2>
-                    <button onclick="logoutAdmin()" class="text-xs bg-red-500/10 text-red-400 border border-red-500/20 px-3 py-1.5 rounded-lg">Logout</button>
+                    <button onclick="logoutAdmin()" class="text-xs bg-red-500/10 text-red-400 border border-red-500/20 px-3 py-1.5 rounded-lg cursor-pointer">Logout</button>
                 </div>
 
                 <!-- Live Requests Inbox (Auto 24h cleanup) -->
@@ -225,14 +225,14 @@
                             <option value="years">Years (1)</option>
                         </select>
                     </div>
-                    <button onclick="grantManualValidity()" class="w-full bg-indigo-600 hover:bg-indigo-500 text-white font-medium py-2.5 rounded-xl text-sm transition">Grant Access Now</button>
+                    <button onclick="grantManualValidity()" class="w-full bg-indigo-600 hover:bg-indigo-500 text-white font-medium py-2.5 rounded-xl text-sm transition cursor-pointer">Grant Access Now</button>
                 </div>
 
                 <!-- Global Broadcast Manager -->
                 <div class="space-y-3 bg-gray-900/40 p-4 rounded-xl border border-gray-800">
                     <h3 class="font-semibold text-sm text-blue-400">Send Global Broadcast Message</h3>
                     <textarea id="broadcast-input" rows="2" placeholder="Type notification message for all users..." class="w-full bg-gray-900 border border-gray-800 rounded-xl p-3 text-sm focus:outline-none focus:border-blue-600"></textarea>
-                    <button onclick="publishBroadcast()" class="w-full bg-green-600 hover:bg-green-500 text-white font-medium py-2.5 rounded-xl text-sm transition">Publish to All Users</button>
+                    <button onclick="publishBroadcast()" class="w-full bg-green-600 hover:bg-green-500 text-white font-medium py-2.5 rounded-xl text-sm transition cursor-pointer">Publish to All Users</button>
                 </div>
             </div>
         </section>
@@ -312,11 +312,19 @@
         }
 
         function performLogin() {
-            const email = document.getElementById('user-login-email').value;
-            if(!email) { alert("Please enter your email ID!"); return; }
+            const emailInput = document.getElementById('user-login-email');
+            const email = emailInput ? emailInput.value.trim() : '';
+            if(!email) { 
+                alert("Please enter your email ID!"); 
+                return; 
+            }
             localStorage.setItem('omega_user_email', email);
             localStorage.setItem('omega_trial_start', new Date().getTime());
-            document.getElementById('login-modal').classList.add('hidden');
+            
+            const modal = document.getElementById('login-modal');
+            if(modal) {
+                modal.classList.add('hidden');
+            }
             checkUserLoginAndTrial();
             alert("Login successful! 7-day free trial activated.");
         }
@@ -468,8 +476,4 @@
 
         function submitQuestion(e) {
             e.preventDefault();
-            const name = document.getElementById('q-name').value;
-            const subject = document.getElementById('q-subject').value;
-            const text = document.getElementById('q-text').value;
-            console.log("Q&A Submitted:", { name, subject, text });
-            document.getElementById('qna-succes
+            const name = document.getElem
